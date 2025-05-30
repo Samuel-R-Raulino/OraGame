@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+
+    <link href="{{ url_for('static', filename='css/estilo.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <script src="{{ url_for('static', filename='js/animacaoindex.js') }}" defer></script>
+</head>
+
+<body>
+
+    <canvas id="bolhasCanvas"></canvas>
+
+    <div class="pai">
+
+        <div class="usuario">
+            <a href="/user">{{usuario}}</a>
+
+            <div class="userFrame">
+                <img src="{{ url_for('static', filename='img/user.jpg') }}">
+            </div>
+        </div>
+
+        <div class="vidro"> 
+
+            <div class="barra">
+                <img class="logo" src="{{ url_for('static', filename='img/oragame.png') }}">
+                <a href="{{ url_for('static', filename='index/index.html') }}">OraGame</a>
+
+                <div class="botoes">
+                    <button class="minimizar"><b>-</b></button>
+                    <button class="maximizar"><b>+</b></button>
+                    <button class="fechar"><b>x</b></button>
+                </div>
+            </div>
+
+            <div class="centralizar">
+                <div class="caixa">
+                    <img class="logo2" src="{{ url_for('static', filename='img/oragame.png') }}">
+                    Bem Vindo!
+                </div>
+            </div>
+
+            <div class="botoes2">
+                <a class="botao" href="/games">Games</a>
+                <a class="botao" href="/sobre">Sobre</a>
+            </div>
+
+            <br>
+
+            <center>
+                <div class="bannerFrame">
+                    <div class="banner"></div>
+                </div>
+            </center>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

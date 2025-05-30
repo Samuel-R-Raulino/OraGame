@@ -1,0 +1,176 @@
+body{
+    
+    background-image: url("../img/fruti.png");
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-attachment:fixed ;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius:20px;
+    margin: 35px;
+    justify-content: center;
+    display: flex;
+    cursor: url("../img/cursor.cur"), auto;
+
+}
+
+a{
+    cursor: url("../img/pointer.cur"), auto;
+    text-decoration: none;
+    text-shadow:    
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px;
+    color: black;
+}
+ 
+ .divbraba{
+    background-color: white;
+    opacity: 75%;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    padding: 80px;
+ }
+
+ .vidro {
+    margin-top: 10%;
+    position-area: center;
+    width: 750px;
+    object-position: center;
+    height: 500px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    border: 2px solid #b0faff6c;
+    border-radius: 10px;
+    background: #002fff1a;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 40px #00000085;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button{
+    background-color: rgb(50, 177, 0);
+    border-radius: 25%;
+    color: white;    
+    padding: 15px;
+    width: 13%;
+    text-shadow: 100%;
+}
+
+input{
+
+    border: 2px solid #b0faff6c;
+    border-radius: 5px;
+    background: none;
+    color: black;
+    text-shadow: 
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px;
+    padding: 5px;
+
+}
+
+.caixa{
+    font-size: 85px;
+    background: linear-gradient(#d1ffeaa6 0%, #22be3cb4 50%, #00d1aea8 50%, #bbfff7a9 100%);
+    width: 30vw;
+    height: 50%;
+    display: flex;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    color: #ecd897;
+    text-shadow: black 0 0 10px;
+}
+
+.pai{
+    display: flex;
+    justify-content: center;
+}
+
+.botao{
+
+    position: relative;
+    cursor: url("../img/pointer.cur"), auto;
+    min-width: 4vw;
+    justify-content: center;
+    display: flex;
+    padding: 15px;
+    background: linear-gradient(#92fff0dc 0%, #92fff0dc 50%, #07c576c9 50%, #07c576c9 100%);
+    font-size: 18px;
+    box-shadow:inset 0px 1px 4px 1px #ffffff;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-shadow: 
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px  1px 0 black,
+    1px  1px 0 black;
+    text-decoration: none;
+    color: white;
+
+}
+
+.botao::before {
+
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow:0px 0px 20px 5px #00ffb3;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    pointer-events: none;
+
+}
+
+.botao:hover::before{
+
+    opacity: 1;
+
+}
+
+.botao:active{
+
+    background: linear-gradient(#98dbd2dc 0%, #98dbd2dc 50%, #00ad65d8 50%, #00ad65d8 100%);
+
+}
+
+#bolhasCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.logo{
+
+    width: 175px;
+    height: auto;
+    padding-right: 2px;
+
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+
+    <!-- Arquivo CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo3.css') }}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <!-- Script JS -->
+    <script src="{{ url_for('static', filename='js/animacaoindex.js') }}" defer></script>
+</head>
+
+<body>
+
+    <canvas id="bolhasCanvas"></canvas>
+
+    <div class="pai">
+
+        <div class="usuario">
+            <a href="/user">"UserName"</a>
+
+            <div class="userFrame">
+                <img src="{{ url_for('static', filename='img/user.jpg') }}">
+            </div>
+        </div>
+
+        <div class="vidro">
+
+            <div class="barra">
+                <img class="logo" src="{{ url_for('static', filename='img/oragame.png') }}">
+                <a href="/home">OraGame</a>
+
+                <div class="botoes">
+                    <button class="minimizar"><b>-</b></button>
+                    <button class="maximizar"><b>+</b></button>
+                    <button class="fechar"><b>x</b></button>
+                </div>
+            </div>
+
+            <div class="centralizar">
+                <div class="caixa">
+                    <img class="logo2" src="{{ url_for('static', filename='img/oragame.png') }}">
+                    Games
+                </div>
+            </div>
+
+            <div class="games">
+
+                <div class="gameFrame">
+                    <a class="botaoGame"><img src="{{ url_for('static', filename='img/doom.png') }}"></a>
+                    Doom Classic
+                </div>
+
+                <div class="gameFrame">
+                    <a class="botaoGame"><img src="{{ url_for('static', filename='img/halflife.png') }}"></a>
+                    Half - Life
+                </div>
+
+                <div class="gameFrame">
+                    <a class="botaoGame"><img src="{{ url_for('static', filename='img/ultrakill.jpg') }}"></a>
+                    Ultrakill
+                </div>
+
+                <div class="gameFrame">
+                    <a class="botaoGame"><img src="{{ url_for('static', filename='img/hotline.jpg') }}"></a>
+                    Hotline Miami
+                </div>
+
+                <div class="gameFrame">
+                    <a class="botaoGame"><img src="{{ url_for('static', filename='img/prince.jpg') }}"></a>
+                    Prince of Persia
+                </div>
+
+                <div class="gameFrame">
+                    <a class="botaoGame"><img src="{{ url_for('static', filename='img/isaac.jpg') }}"></a>
+                    The Binding Of Isaac
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

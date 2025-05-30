@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- Ícones do Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <!-- CSS Local via Flask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastro.css') }}"/>
+
+    <title>Signup</title>
+  </head>
+
+  <body>
+
+    <div class="bolhas">
+      <div class="bolha"></div>
+      <div class="bolha"></div>
+      <div class="bolha"></div>
+      <div class="bolha"></div>
+      <div class="bolha"></div>
+      <div class="bolha"></div>
+      <div class="bolha"></div>
+      <div class="bolha"></div>
+      <div class="bolha"></div>
+      <div class="bolha"></div>
+      <div class="bolha"></div>
+      <div class="bolha"></div>
+    </div>
+
+    <div class="vidro"> 
+      <div class="card">
+
+        <div class="caixa">
+          <!-- Corrigido -->
+          <img class="logo" src="{{ url_for('static', filename='img/favicon.png') }}" alt="Logo">
+          Cadastrar
+        </div><br>
+
+        <div id="msgError"></div>
+        <div id="msgSuccess"></div>       
+
+        <div class="organizar">
+          <div class="organizar2">
+
+            <div>
+              <input type="text" id="usuario" placeholder="Usuário" required />
+            </div>
+
+            <div>
+              <input type="text" id="email" placeholder="Email" required />
+            </div>
+
+            <div>
+              <input type="password" id="senha" placeholder="Senha" required />
+              <i id="verSenha" class="fa fa-eye" aria-hidden="true"></i>
+            </div>
+
+            <div>
+              <input type="password" id="confirmSenha" placeholder="Confirmar Senha" required />
+              <i id="verConfirmSenha" class="fa fa-eye" aria-hidden="true"></i>
+            </div>
+
+          </div>
+          <div class="organizar3">
+            <br>
+            <button class="botao" onclick="cadastrar()">Cadastrar</button>
+            <!-- Corrigido -->
+            <a href="{{ url_for('login') }}"><br>Já tenho uma conta</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- JS Local via Flask -->
+    <script src="{{ url_for('static', filename='js/cadastro.js') }}"></script>
+
+  </body>
+</html>

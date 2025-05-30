@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <title>Login</title>
+
+    <!-- JS -->
+    <script src="{{ url_for('static', filename='js/animacaoindex2.js') }}" defer></script>
+</head>
+
+<body>
+    
+    <canvas id="bolhasCanvas"></canvas>
+
+    <center>
+    <div class="pai">
+    <div class="vidro">
+
+        <div>
+
+        <div class="caixa">
+            <!-- Corrigido para Flask -->
+            <img src="{{ url_for('static', filename='img/favicon.png') }}" alt="Ícone">
+            Login
+        </div><br>
+        <form method="POST" action="{{ url_for('login') }}">
+            <input type="text" name="usuario" placeholder="Nome"> <br><br>
+            <input type="password" name="senha" placeholder="Senha"> <br><br>
+            <button type="submit" class="botao">Entrar</button>
+        </form>
+        <br>
+
+        <!-- Ajustar link de recuperação de senha -->
+        <a href="#">Esqueci a senha</a> <br><br>
+
+        <!-- Corrigido para Flask, supondo que você terá uma rota chamada /cadastro -->
+        <a href="{{ url_for('cadastro') }}">Não tenho uma conta</a>
+
+        </div>
+
+    </div>
+    </div>
+    </center>
+
+</body>
+</html>

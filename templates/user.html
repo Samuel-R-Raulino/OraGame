@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Página Principal</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo2.css') }}">
+        <link rel="icon" type="image/png" href="favicon.png">
+        <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+
+    </head>
+    
+     <body>
+
+        <canvas id="bolhasCanvas"></canvas>
+
+        <div class="pai">
+
+            <div class="vidro">
+
+            <div class="barra">
+                
+                <img class="logo" src= "{{ url_for('static', filename='img/oragame.png') }}">
+                <a href="/home">OraGame</a>
+
+                <div class="botoes">
+                    <button class="minimizar"><b>-</b></button>
+                    <button class="maximizar"><b>+</b></button>
+                    <button class="fechar"><b>x</b></button>
+                </div>
+
+            </div>
+
+            <div class="centralizar">
+
+            <a href="/home">Menu Principal</a><br>
+
+            <div class="banner">
+                <div class="usuario">
+                    "UserName"  
+                    <div class="userFrame">
+                        <img class="pfp" src="{{ url_for('static', filename='img/user.jpg') }}"> 
+                        <a class="editar">
+                            <img src="{{ url_for('static', filename='img/editicon.png') }}" alt="Editar perfil">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+
+        </div>
+
+    </body>
+
+</html>
