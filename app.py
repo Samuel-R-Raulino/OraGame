@@ -44,6 +44,17 @@ def login():
 def sobre():
     return render_template("sobre.html")
 
+@app.route("/game")
+def game():
+    nome = "Half"
+    preço = 1.5
+    descrição = "Jogo bom"
+    img = "img/halflife.png"
+    requisitos = "8gb ram"
+    classificação = "18+"
+    return render_template("game.html",nome=nome,preço=preço,descrição=descrição,img=img,requisitos=requisitos,classificação=classificação)
+
+
 @app.route("/user")
 def user():
     return render_template("user.html")

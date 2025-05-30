@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/ico" href="favicon.ico">
+    <title>DOOM</title>
+    <link href="../static/estilo4.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="bolhas">
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+    </div>
+
+    <div class="pai">
+
+        <div class="usuario">
+
+            <a href="../user/user.php">"UserName"</a>
+
+            <div class="userFrame">
+                <img src="../img/.gif">
+            </div>
+            <!--                
+                Essa área do banco para registrar o nome do usuario ao site
+                e imagem também
+                                                                        -->
+        </div>
+
+        <div class="vidro">
+
+            <div class="barra">
+
+                <img class="logo" src="../img/oragame.png">
+                <a href="../index/index.php">OraGames</a>
+
+                <div class="botoes">
+                    <button class="minimizar"><b>-</b></button>
+                    <button class="maximizar"><b>+</b></button>
+                    <button class="fechar"><b>x</b></button>
+                </div>
+
+            </div>
+
+            <div class="centralizar">
+                <div class="caixa">
+
+                    <img class="logo">
+                    The Binding of Isaac
+                </div>
+
+                <div class="container">
+                    <div class="esquerda">
+                        <div class="slider-holder">
+                            <div class="slideshow-container">
+
+                                <div class="mySlides fade">
+                                    <div class="numbertext">1 / 3</div>
+                                    <img src="../img/isaac.png" style="width:100%" height="500">
+                                    <div class="text"> </div>
+                                </div>
+                            <br>
+
+                            
+                            <a href="../sobre/sobre.html" class="comprar-button"> Comprar</a>
+
+                        </div>
+                        <br>
+                            <script>
+                                let slideIndex = 1;
+                                showSlides(slideIndex);
+
+                                function plusSlides(n) {
+                                    showSlides(slideIndex += n);
+                                }
+
+                                function currentSlide(n) {
+                                    showSlides(slideIndex = n);
+                                }
+
+                                function showSlides(n) {
+                                    let i;
+                                    let slides = document.getElementsByClassName("mySlides");
+                                    let dots = document.getElementsByClassName("dot");
+                                    if (n > slides.length) { slideIndex = 1 }
+                                    if (n < 1) { slideIndex = slides.length }
+                                    for (i = 0; i < slides.length; i++) {
+                                        slides[i].style.display = "none";
+                                    }
+                                    for (i = 0; i < dots.length; i++) {
+                                        dots[i].className = dots[i].className.replace(" active", "");
+                                    }
+                                    slides[slideIndex - 1].style.display = "block";
+                                    dots[slideIndex - 1].className += " active";
+                                }
+                            </script>
+
+                        </div>
+                    </div>
+                    <div class="direita">
+
+                        <img class="group_img" src="../img/isaac.jpg" width="460" height="215">
+                        <p class="desc">The Binding of Isaac é um roguelike de ação e tiro com elementos de masmorra e uma estética de 
+                            desenho animado sombria. O jogo segue Isaac, um garoto que foge para o porão de sua casa 
+                            depois que sua mãe ouve uma voz divina exigindo um sacrifício.
+                        </p>
+
+                        <p class="desc">
+                            Data de lançamento: 28 de setembro de 2011 (original) / 4 de novembro de 2014 (Rebirth) <br>
+                            Desenvolvedor: Edmund McMillen e Florian Himsl (original); Nicalis, Inc. (Rebirth e expansões) <br>
+                            Distribuidora: Headup Games (original); Nicalis, Inc. (Rebirth e expansões) <br>
+                        </p>
+
+                        <p class="desc">
+                            <h2> Requisitos mínimos: </h2>
+                            Sistema Operacional: Windows XP/Vista/7/8/10<br>
+                            Processador: Core 2 Duo 2.4 GHz ou equivalente<br>
+                            Memória RAM: 2 GB<br>
+                            Placa de Vídeo: DirectX 9.0c compatível<br>
+                            Espaço em Disco: 450 MB (Original) / 500 MB (Rebirth) <br>
+                        </p>  
+                    </div>
+                </div>
+            </div>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/ico" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>Persia</title>
+    <link href="{{ url_for('static', filename='css/estilo4.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="bolhas">
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+    </div>
+
+    <div class="pai">
+
+        <div class="usuario">
+
+            <a href="user.html">"UserName"</a>
+
+            <div class="userFrame">
+                <img src="{{ url_for('static', filename='img/.gif') }}">
+            </div>
+        </div>
+
+        <div class="vidro">
+
+            <div class="barra">
+
+                <img class="logo" src="{{ url_for('static', filename='img/oragame.png') }}">
+                <a href="/home">OraGame</a>
+
+                <div class="botoes">
+                    <button class="minimizar"><b>-</b></button>
+                    <button class="maximizar"><b>+</b></button>
+                    <button class="fechar"><b>x</b></button>
+                </div>
+
+            </div>
+
+            <div class="centralizar">
+                <div class="caixa">
+                    <img class="logo">
+                    Prince of Persia
+                </div>
+
+                <div class="container">
+                    <div class="esquerda">
+                        <div class="slider-holder">
+                            <div class="slideshow-container">
+
+                                <div class="mySlides fade">
+                                    <div class="numbertext">1 / 3</div>
+                                    <img src="{{ url_for('static', filename=img) }}" style="width:100%" height="500">
+                                    <div class="text"> </div>
+                                </div>
+                                <br>
+
+                                <a href="/sobre" class="comprar-button">Comprar</a>
+
+                            </div>
+                            <br>
+                            <script>
+                                let slideIndex = 1;
+                                showSlides(slideIndex);
+
+                                function plusSlides(n) {
+                                    showSlides(slideIndex += n);
+                                }
+
+                                function currentSlide(n) {
+                                    showSlides(slideIndex = n);
+                                }
+
+                                function showSlides(n) {
+                                    let i;
+                                    let slides = document.getElementsByClassName("mySlides");
+                                    let dots = document.getElementsByClassName("dot");
+                                    if (n > slides.length) { slideIndex = 1 }
+                                    if (n < 1) { slideIndex = slides.length }
+                                    for (i = 0; i < slides.length; i++) {
+                                        slides[i].style.display = "none";
+                                    }
+                                    for (i = 0; i < dots.length; i++) {
+                                        dots[i].className = dots[i].className.replace(" active", "");
+                                    }
+                                    slides[slideIndex - 1].style.display = "block";
+                                    dots[slideIndex - 1].className += " active";
+                                }
+                            </script>
+
+                        </div>
+                    </div>
+                    <div class="direita">
+                        <img class="group_img" src="{{ url_for('static', filename='img') }}" width="460" height="215">
+                        <p class="desc">
+                            O Prince of Persia original é um jogo de plataforma e quebra-cabeça aclamado por sua animação fluida e realista (rotoscopia), algo revolucionário para a época. O jogador controla um príncipe anônimo que deve escapar de masmorras e torres, superar armadilhas mortais e enfrentar guardas para resgatar a princesa antes que o Vizir Jaffar a force a se casar com ele.
+                        </p>
+
+                        <p class="desc">
+                            Data de lançamento: 3 de outubro de 1989 <br>
+                            Desenvolvedor: Broderbund <br>
+                            Distribuidora: Broderbund <br>
+                        </p>
+
+                        <p class="desc">
+                        <h2> Requisitos mínimos: </h2>
+                        Processador: IBM PC/XT/AT ou compatível <br>
+                        Memória RAM: 256 KB<br>
+                        Espaço em Disco: Aproximadamente 1 MB<br>
+                        Placa de Vídeo: EGA ou VGA<br>
+                        Sistema Operacional: MS-DOS 2.0 ou superior<br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

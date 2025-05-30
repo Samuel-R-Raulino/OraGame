@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/ico" href="favicon.ico">
+    <title>DOOM</title>
+    <link href="../static/estilo4.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="bolhas">
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+    </div>
+
+    <div class="pai">
+
+        <div class="usuario">
+
+            <a href="../user/user.php">"UserName"</a>
+
+            <div class="userFrame">
+                <img src="../img/.gif">
+            </div>
+            <!--                
+                Essa área do banco para registrar o nome do usuario ao site
+                e imagem também
+                                                                        -->
+        </div>
+
+        <div class="vidro">
+
+            <div class="barra">
+
+                <img class="logo" src="../img/oragame.png">
+                <a href="../index/index.php">OraGames</a>
+
+                <div class="botoes">
+                    <button class="minimizar"><b>-</b></button>
+                    <button class="maximizar"><b>+</b></button>
+                    <button class="fechar"><b>x</b></button>
+                </div>
+
+            </div>
+
+            <div class="centralizar">
+                <div class="caixa">
+
+                    <img class="logo">
+                    DOOM
+                </div>
+
+                <div class="container">
+                    <div class="esquerda">
+                        <div class="slider-holder">
+                            <div class="slideshow-container">
+
+                                <div class="mySlides fade">
+                                    <div class="numbertext">1 / 3</div>
+                                    <img src="../img/img_doom.png" style="width:100%" height="500">
+                                    <div class="text"> </div>
+                                </div>
+                            <br>
+
+                            
+                            <a href="../sobre/sobre.html" class="comprar-button"> Comprar</a>
+
+                        </div>
+                        <br>
+                            <script>
+                                let slideIndex = 1;
+                                showSlides(slideIndex);
+
+                                function plusSlides(n) {
+                                    showSlides(slideIndex += n);
+                                }
+
+                                function currentSlide(n) {
+                                    showSlides(slideIndex = n);
+                                }
+
+                                function showSlides(n) {
+                                    let i;
+                                    let slides = document.getElementsByClassName("mySlides");
+                                    let dots = document.getElementsByClassName("dot");
+                                    if (n > slides.length) { slideIndex = 1 }
+                                    if (n < 1) { slideIndex = slides.length }
+                                    for (i = 0; i < slides.length; i++) {
+                                        slides[i].style.display = "none";
+                                    }
+                                    for (i = 0; i < dots.length; i++) {
+                                        dots[i].className = dots[i].className.replace(" active", "");
+                                    }
+                                    slides[slideIndex - 1].style.display = "block";
+                                    dots[slideIndex - 1].className += " active";
+                                }
+                            </script>
+
+                        </div>
+                    </div>
+                    <div class="direita">
+
+                        <img class="group_img" src="../img/doom-header.webp" width="460" height="215">
+                        <p class="desc">Considerado um dos jogos mais influentes e inovadores da história dos videogames, 
+                            DOOM é um FPS (First-Person Shooter) que colocou o jogador no papel de um fuzileiro espacial 
+                            solitário em Marte, que deve combater hordas de demônios vindos do Inferno.
+                            
+                        </p>
+                        <br>
+
+                        <p class="desc">
+                            Desenvolvedor: id Software <br>
+                            Publicadora: id Software<br>
+                            Data de lançamento: 10 de dezembro de 1993<br>
+                        </p>
+                        <br>
+
+                        <p class="desc">
+                            <h2> Requisitos mínimos: </h2>
+                            Processador: IBM PC compatível com 386 ou superior <br>
+                            Memória RAM: 4 MB<br>
+                            Espaço em Disco: Aproximadamente 10 MB<br>
+                            Placa de Vídeo: VGA<br>
+                            Sistema Operacional: MS-DOS 5.0 ou superior<br>
+                            Placa de Som: Compatível com Sound Blaster<br>
+                        </p>  
+                    </div>
+                </div>
+            </div>
+
+</body>
+</html>

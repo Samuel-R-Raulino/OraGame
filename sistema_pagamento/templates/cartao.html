@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Pagamento Frutiger Aero</title>
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+  <div class="frutiger-container">
+    <!-- Efeitos de brilho -->
+    <div class="glow-effect top-right"></div>
+    <div class="glow-effect bottom-left"></div>
+
+    <!-- Título personalizado -->
+    <h1 class="frutiger-title">💳 PAGAMENTO FRUTIGER AERO</h1>
+
+    <label for="id_pagamento">ID do Jogo:</label>
+    <input type="number" id="id_pagamento" placeholder="Ex: 1">
+
+    <!-- Container do Brick (não altere o ID!) -->
+    <div id="cardPaymentBrick_container"></div>
+  </div>
+
+  <script src="static/js/cartao.js"></script>
+</body>
+</html>

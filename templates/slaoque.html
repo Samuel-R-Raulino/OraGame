@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/ico" href="favicon.ico">
+    <title>Jogo :3</title>
+    <link href="../static/estilo4.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="bolhas">
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+        <div class="bolha"></div>
+    </div>
+
+    <div class="pai">
+
+        <div class="usuario">
+
+            <a href="../user/user.php">"UserName"</a>
+
+            <div class="userFrame">
+                <img src="../img/.gif">
+            </div>
+            <!--                
+                Essa área do banco para registrar o nome do usuario ao site
+                e imagem também
+                                                                        -->
+        </div>
+
+        <div class="vidro">
+
+            <div class="barra">
+
+                <img class="logo" src="../img/oragame.png">
+                <a href="../index/index.php">OraGames</a>
+
+                <div class="botoes">
+                    <button class="minimizar"><b>-</b></button>
+                    <button class="maximizar"><b>+</b></button>
+                    <button class="fechar"><b>x</b></button>
+                </div>
+
+            </div>
+
+            <div class="centralizar">
+                <div class="caixa">
+
+                    <img class="logo">
+                    Half-life
+                </div>
+
+                <div class="container">
+                    <div class="esquerda">
+                        <div class="slider-holder">
+                            <div class="slideshow-container">
+
+                                <div class="mySlides fade">
+                                    <div class="numbertext">1 / 3</div>
+                                    <img src="../img/hl_img1.jpg" style="width:100%">
+                                    <div class="text"> </div>
+                                </div>
+
+                                <div class="mySlides fade">
+                                    <div class="numbertext">2 / 3</div>
+                                    <img src="../img/hl_img2.jpg" style="width:100%">
+                                    <div class="text"> </div>
+                                </div>
+
+                                <div class="mySlides fade">
+                                    <div class="numbertext">3 / 3</div>
+                                    <img src="../img/hl_img3.jpg" style="width:100%">
+                                    <div class="text"> </div>
+                                </div>
+
+                                <a class="prev" onclick="plusSlides(-1)">❮</a>
+                                <a class="next" onclick="plusSlides(1)">❯</a>
+
+                                <a href="../sobre/sobre.html" class="comprar-button"> Comprar</a>
+
+                            </div>
+                            <br>
+
+                            <script>
+                                let slideIndex = 1;
+                                showSlides(slideIndex);
+
+                                function plusSlides(n) {
+                                    showSlides(slideIndex += n);
+                                }
+
+                                function currentSlide(n) {
+                                    showSlides(slideIndex = n);
+                                }
+
+                                function showSlides(n) {
+                                    let i;
+                                    let slides = document.getElementsByClassName("mySlides");
+                                    let dots = document.getElementsByClassName("dot");
+                                    if (n > slides.length) { slideIndex = 1 }
+                                    if (n < 1) { slideIndex = slides.length }
+                                    for (i = 0; i < slides.length; i++) {
+                                        slides[i].style.display = "none";
+                                    }
+                                    for (i = 0; i < dots.length; i++) {
+                                        dots[i].className = dots[i].className.replace(" active", "");
+                                    }
+                                    slides[slideIndex - 1].style.display = "block";
+                                    dots[slideIndex - 1].className += " active";
+                                }
+                            </script>
+
+                        </div>
+                    </div>
+                    <div class="direita">
+
+                        <img class="group_img" src="../img/hl_front_img.jpg">
+                        <p class="desc">Premiado como "Jogo do Ano" por cerca de 50 publicações, o título de estreia da
+                            Valve combina ação e aventura com uma tecnologia premiada para criar um mundo
+                            assustadoramente realístico onde os jogadores devem pensar para sobreviver.
+                        </p>
+
+                        <p class="desc">
+                            Data de lançamento: 19/nov./1998 <br>
+                            Desenvolvedor: Valve <br>
+                            Distribuidora: Valve <br>
+                            Marcadores populares para este produto: Tiro em Primeira Pessoa(FPS) - Clássico - Anos 90
+                            <br>
+                        </p>
+
+                        <p class="desc">
+                            <h2> Requisitos mínimos: </h2>
+                            Sistema Operacional: Windows XP ou superior<br>
+                            Processador: 500 MHz<br>
+                            Memória RAM: 96 MB<br>
+                            Placa de vídeo: Compatível com DirectX<br>
+                            Armazenamento: 500 MB de espaço disponível<br>
+                        </p>  
+
+                        <div class="desc">
+                            <h2> Classificação Indicativa </h2>
+                            <img src="../img/14.png"> <p> Violência </p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+</body>
+</html>
