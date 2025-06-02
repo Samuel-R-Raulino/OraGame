@@ -1,0 +1,815 @@
+/* --- Variáveis CSS --- */
+/* Centralizar as variáveis para facilitar a gestão de cores e outros valores recorrentes */
+:root {
+    /* Cores */
+    --cor1: #98e874; /* Verde principal */
+    --cor-clara: #cafff2c9; /* Fundo da barra de rolagem */
+    --cor-media: #51e49a; /* Meio do gradiente da barra de rolagem/botões */
+    --cor-escura: #c4ffc7; /* Outro tom do gradiente da barra de rolagem/botões */
+    --cor-gradiente-botoes-normal-inicio: #92fff0dc; /* Início do gradiente dos botões (normal) */
+    --cor-gradiente-botoes-normal-fim: #07c576c9; /* Fim do gradiente dos botões (normal) */
+    --cor-gradiente-botoes-ativo-inicio: #98dbd2dc; /* Início do gradiente dos botões (ativo) */
+    --cor-gradiente-botoes-ativo-fim: #00ad65d8; /* Fim do gradiente dos botões (ativo) */
+    --cor-fechar-normal-inicio: #ffa2a2c0; /* Início do gradiente do botão fechar */
+    --cor-fechar-normal-fim: #ff1414cc; /* Fim do gradiente do botão fechar */
+    --cor-fechar-ativo-inicio: #db7e7ec0; /* Início do gradiente do botão fechar (ativo) */
+    --cor-fechar-ativo-fim: #c00000cc; /* Fim do gradiente do botão fechar (ativo) */
+
+    /* Sombras */
+    --sombra-botoes-interna: inset 0 1px 4px 1px #ffffff; /* Sombra interna dos botões */
+    --sombra-botoes-fechar-interna: inset 0 1px 6px 1px #ffffff; /* Sombra interna do botão fechar */
+    --sombra-texto-preta: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black; /* Sombra de texto preta */
+    --sombra-texto-branca: #ffffff 0 0 12px; /* Sombra de texto branca */
+    --sombra-brilho-verde: 0px 0px 20px 5px #00ffb3; /* Brilho verde para botões */
+    --sombra-brilho-vermelho: 0px 0px 20px 5px #ff000081; /* Brilho vermelho para botão fechar */
+
+    /* Efeitos de vidro (Glassmorphism) */
+    --borda-vidro: 2px solid #b0faff6c;
+    --fundo-vidro: #002fff1a;
+    --sombra-vidro: 0 2px 40px #00000085;
+    --blur-vidro: 5px;
+
+    /* Bordas e Raio de Borda */
+    --borda-padrao-preta: 1px solid black;
+    --borda-usuario-img: 1px solid #000000c2;
+    --radius-pequeno: 10px;
+    --radius-medio: 15px;
+    --radius-grande: 20px;
+    --radius-oval: 15%/60%;
+
+    /* Transições */
+    --transition-standard: 0.4s ease;
+    --transition-button: 0.2s ease-in-out;
+}
+
+/* --- Reset Básico e Estilos Globais --- */
+/* O box-sizing é essencial para controlar o layout de forma previsível */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("../img/fruti.png");
+    font-family: 'Verdana', 'Geneva', 'Tahoma', sans-serif; /* Fallback para fontes */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* Garante que a imagem de fundo não se repita */
+    background-attachment: fixed; /* Fixa a imagem de fundo durante a rolagem */
+    border-radius: var(--radius-grande); /* Mantido, embora o efeito visual seja limitado no body */
+    margin: 35px; /* Margem externa do body */
+    display: flex;
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente (se body tiver min-height) */
+    min-height: calc(100vh - 70px); /* Garante altura mínima para centralização, considerando a margem */
+    cursor: url("../img/cursor.cur"), auto;
+    overflow-x: hidden; /* Evita scroll horizontal indesejado */
+}
+
+/* Cursores personalizados */
+a {
+    cursor: url("../img/pointer.cur"), auto;
+    text-decoration: none;
+    color: black; /* Considere usar uma variável para cores de texto */
+}
+
+button {
+    cursor: url("../img/pointer.cur"), auto;
+    /* Estilos base para botões serão definidos abaixo */
+}
+
+/* --- Estilos da Barra de Rolagem (Webkit) --- */
+/* Mantido por ser específico de webkit e não ter uma alternativa universal ainda */
+::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--cor-clara);
+    border: 1px solid #4d4d4d;
+    box-shadow: inset 1px 1px 2px #ccc;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--cor-escura), var(--cor-media));
+    border: 1px solid #888;
+    border-radius: 8px;
+    box-shadow: inset 1px 1px 0 #fff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, var(--cor-media), var(--cor-escura));
+    border-color: #666;
+}
+
+::-webkit-scrollbar-corner {
+    background: #dcdcdc;
+}
+
+/* --- Layout Principal --- */
+.pai {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaçamento entre os filhos diretos do .pai */
+    position: relative; /* Para posicionar elementos filhos com position: absolute */
+    z-index: 1; /* Garante que o conteúdo esteja acima das bolhas */
+}
+
+/* --- Elementos de Centralização e Contêineres --- */
+.centralizar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Empilha o conteúdo verticalmente */
+}
+
+/* Se .container, .container2, .container3 têm a mesma função, combine-as. */
+/* Mantive apenas .container conforme o HTML, e adicionei flex-wrap para responsividade */
+.container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap; /* Permite que os itens quebrem a linha em telas menores */
+    justify-content: space-between; /* Distribui o espaço entre os itens */
+}
+
+/* Combine .bordaS e .bordas se o estilo for o mesmo */
+.bordaS, .bordas {
+    border: 2px solid black;
+}
+
+/* --- Vidro (Glassmorphism) --- */
+.vidro {
+    position: relative;
+    width: 75vw;
+    padding: 30px; /* Padding em todas as direções */
+    border: var(--borda-vidro);
+    border-radius: var(--radius-pequeno);
+    background: var(--fundo-vidro);
+    backdrop-filter: blur(var(--blur-vidro));
+    -webkit-backdrop-filter: blur(var(--blur-vidro)); /* Compatibilidade */
+    box-shadow: var(--sombra-vidro);
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaçamento entre os elementos dentro do vidro */
+    min-height: 80vh; /* Altura mínima para o vidro */
+}
+
+/* --- Caixa de Título --- */
+.caixa {
+    /* clamp(min, ideal, max) para um font-size responsivo */
+    font-size: clamp(3rem, 5vw + 1rem, 5.3125rem);
+    background: linear-gradient(#d1ffeaa6 0%, #22be3cb4 50%, #00d1aea8 50%, #bbfff7a9 100%);
+    width: 75%;
+    padding: 10px 20px; /* Padding para o texto não colar nas bordas */
+    display: flex;
+    border: var(--borda-padrao-preta);
+    justify-content: center;
+    align-items: center;
+    color: #ecd897;
+    text-shadow: black 0 0 10px;
+    border-radius: var(--radius-pequeno);
+    align-self: center; /* Centraliza a caixa no eixo cruzado (horizontalmente, pois flex-direction é column) */
+    text-align: center; /* Garante que o texto dentro da caixa seja centralizado */
+}
+
+/* --- Barra de Navegação/Título --- */
+.barra{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 0;
+    padding-top: 5px;
+    padding-bottom: 10vh;
+    text-shadow: 
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px;
+
+}
+
+.maximizar{
+
+    position: relative;
+    cursor: url("../img/pointer.cur"), auto;
+    min-width: 30px;
+    justify-content: center;
+    display: flex;
+    background: linear-gradient(#92fff0dc 0%, #92fff0dc 50%, #07c576c9 50%, #07c576c9 100%);
+    font-size: 18px;
+    box-shadow:inset 0px 1px 4px 1px #ffffff;
+    border-top: none;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right:1px solid black;
+    text-shadow:     
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px  1px 0 black,
+    1px  1px 0 black;
+    color: white;
+
+}
+
+.maximizar::before {
+
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow:0px 0px 20px 5px #00ffb3;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    pointer-events: none;
+
+}
+
+.maximizar:hover::before{
+
+    opacity: 1;
+
+}
+
+.maximizar:active{
+
+    background: linear-gradient(#98dbd2dc 0%, #98dbd2dc 50%, #00ad65d8 50%, #00ad65d8 100%);
+
+}
+
+
+.minimizar{
+
+    position: relative;
+    cursor: url("../img/pointer.cur"), auto;
+    min-width: 30px;
+    justify-content: center;
+    display: flex;
+    background: linear-gradient(#92fff0dc 0%, #92fff0dc 50%, #07c576c9 50%, #07c576c9 100%);
+    font-size: 18px;
+    box-shadow:inset 0px 1px 4px 1px #ffffff;
+    border-top: none;
+    border-right: none;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    text-shadow:     
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px  1px 0 black,
+    1px  1px 0 black;
+    border-bottom-left-radius: 10px;
+    color: white;
+}
+
+.minimizar::before{
+
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow:0px 0px 20px 5px #00ffb3;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-bottom-left-radius: 10px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    pointer-events: none;
+}
+
+.minimizar:hover::before{
+
+    opacity: 1;
+
+}
+
+.minimizar:active{
+
+    background: linear-gradient(#98dbd2dc 0%, #98dbd2dc 50%, #00ad65d8 50%, #00ad65d8 100%);
+
+}
+
+.fechar{
+
+    position: relative;
+    cursor: url("../img/pointer.cur"), auto;
+    display: flex;
+    justify-content: center;
+    min-width: 50px;
+    background: linear-gradient(#ffa2a2c0 0%,#ffa2a2c0 50%, #ff1414cc 50%, #ff1414cc 100%);
+    font-size: 18px;
+    box-shadow:inset 0px 1px 6px 1px #ffffff;
+    border-top: none;
+    border-left: none;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    text-shadow:     
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px  1px 0 black,
+    1px  1px 0 black;
+    border-bottom-right-radius: 10px;
+    color: white;
+
+}
+
+.fechar::before{
+
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 0px 20px 5px #ff000081;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-bottom-right-radius: 10px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    pointer-events: none;
+
+}
+
+.fechar:hover::before{
+
+    opacity: 1;
+
+}
+
+.fechar:active{
+
+    background: linear-gradient(#db7e7ec0 0%,#db7e7ec0 50%, #c00000cc 50%, #c00000cc 100%);
+
+}
+
+
+.botoes{
+
+    text-shadow: none;
+    right: 1vw;
+    position: absolute;
+    display: flex;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    outline: 1px solid #b0faff6c;
+    margin-bottom: 0.6%;
+    margin-left: 90.5%;
+    
+}
+
+.logo{
+
+    width: 25px;
+    height: auto;
+    padding-right: 2px;
+
+}.fechar {
+    min-width: 50px; /* Mais largo que os outros */
+    background: linear-gradient(to bottom, var(--cor-fechar-normal-inicio) 0%, var(--cor-fechar-normal-inicio) 50%, var(--cor-fechar-normal-fim) 50%, var(--cor-fechar-normal-fim) 100%);
+    box-shadow: var(--sombra-botoes-fechar-interna);
+}
+
+.fechar::before {
+    box-shadow: var(--sombra-brilho-vermelho);
+}
+
+.minimizar:active,
+.maximizar:active {
+    background: linear-gradient(to bottom, var(--cor-gradiente-botoes-ativo-inicio) 0%, var(--cor-gradiente-botoes-ativo-inicio) 50%, var(--cor-gradiente-botoes-ativo-fim) 50%, var(--cor-gradiente-botoes-ativo-fim) 100%);
+}
+
+.fechar:active {
+    background: linear-gradient(to bottom, var(--cor-fechar-ativo-inicio) 0%, var(--cor-fechar-ativo-inicio) 50%, var(--cor-fechar-ativo-fim) 50%, var(--cor-fechar-ativo-fim) 100%);
+}
+
+/* Bordas específicas para cada botão */
+.minimizar {
+    border-bottom-left-radius: var(--radius-pequeno);
+    border-left: var(--borda-padrao-preta);
+    border-bottom: var(--borda-padrao-preta);
+}
+
+.maximizar {
+    border-bottom: var(--borda-padrao-preta);
+    border-left: var(--borda-padrao-preta);
+    border-right: var(--borda-padrao-preta);
+}
+
+.fechar {
+    border-bottom-right-radius: var(--radius-pequeno);
+    border-right: var(--borda-padrao-preta);
+    border-bottom: var(--borda-padrao-preta);
+}
+
+.botoes {
+    text-shadow: none;
+    position: absolute; /* Posiciona os botões em relação à .barra */
+    right: 0; /* Alinha à direita */
+    top: 0; /* Alinha ao topo */
+    display: flex;
+    border-bottom-right-radius: var(--radius-pequeno);
+    border-bottom-left-radius: var(--radius-pequeno);
+    outline: 1px solid #b0faff6c; /* Outline no grupo de botões */
+}
+
+/* --- Logos --- */
+.logo {
+    width: 25px;
+    height: auto;
+    padding-right: 2px;
+}
+
+.logo2 {
+    width: 175px;
+    max-width: 100%; /* Garante responsividade */
+    height: auto;
+    padding-right: 2px;
+}
+
+.logo3 {
+    width: 175px;
+    max-width: 100%; /* Garante responsividade */
+    height: auto;
+}
+
+/* --- Botão Genérico (.botao) --- */
+.botao {
+    min-width: 4vw;
+    padding: 15px; /* Padding maior para este tipo de botão */
+    background: linear-gradient(var(--cor-gradiente-botoes-normal-inicio) 0%, var(--cor-gradiente-botoes-normal-inicio) 50%, var(--cor-gradiente-botoes-normal-fim) 50%, var(--cor-gradiente-botoes-normal-fim) 100%);
+    box-shadow: var(--sombra-botoes-interna);
+    border: var(--borda-padrao-preta);
+    border-radius: var(--radius-pequeno);
+    text-decoration: none;
+}
+
+.botao:active {
+    background: linear-gradient(var(--cor-gradiente-botoes-ativo-inicio) 0%, var(--cor-gradiente-botoes-ativo-inicio) 50%, var(--cor-gradiente-botoes-ativo-fim) 50%, var(--cor-gradiente-botoes-ativo-fim) 100%);
+}
+
+.botao::before {
+    box-shadow: var(--sombra-brilho-verde);
+}
+
+.botoes2 {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+/* --- Seções de Usuário --- */
+/* Combinando estilos de .usuario e .usuario2 para evitar duplicação */
+.usuario, .usuario2 {
+    position: relative;
+    margin-bottom: 20px;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+    color: black; /* Considere usar uma variável */
+    text-shadow: var(--sombra-texto-branca);
+}
+
+.usuario {
+    flex-direction: column-reverse; /* Texto acima da imagem */
+}
+
+.usuario2 {
+    flex-direction: row; /* Texto ao lado da imagem */
+}
+
+.usuario img, .usuario2 img {
+    border-radius: var(--radius-pequeno);
+    width: 60px;
+    height: 60px;
+    border: var(--borda-usuario-img);
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorção */
+}
+
+.userFrame {
+    width: 75px;
+    height: 75px;
+    border: var(--borda-vidro);
+    border-radius: var(--radius-oval); /* Proporção oval */
+    background: var(--fundo-vidro);
+    backdrop-filter: blur(var(--blur-vidro));
+    -webkit-backdrop-filter: blur(var(--blur-vidro));
+    box-shadow: var(--sombra-vidro);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Garante que a imagem não vaze */
+}
+
+.userFrame2 {
+    width: auto; /* Ajuste para auto se o tamanho for definido pelo conteúdo */
+    height: auto; /* Ajuste para auto se o tamanho for definido pelo conteúdo */
+    border: var(--borda-vidro);
+    border-radius: var(--radius-oval);
+    background: var(--fundo-vidro);
+    backdrop-filter: blur(var(--blur-vidro));
+    -webkit-backdrop-filter: blur(var(--blur-vidro));
+    box-shadow: var(--sombra-vidro);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 5px; /* Adicione padding se o conteúdo interno precisar de espaço */
+}
+
+/* --- Imagens de Grupo e Títulos --- */
+.group_img img {
+    border-radius: var(--radius-pequeno);
+    border: var(--borda-usuario-img);
+}
+
+h2 {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.52); /* Usando rgba para clareza */
+    margin-bottom: 10px; /* Adiciona espaçamento abaixo dos títulos */
+}
+
+/* --- Layout de Colunas (Esquerda/Direita) --- */
+.esquerda,
+.direita {
+    flex: 1; /* Permite que ambos ocupem o espaço disponível */
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-pequeno);
+    color: white; /* Considere usar uma variável */
+    text-align: left; /* Alinhamento explícito */
+}
+
+/* --- Flex Container para Múltiplos Usuários (5x5) --- */
+.flex-container-5x5 {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%; /* Ocupa a largura do pai */
+    max-width: 500px; /* Ajuste conforme necessário para o layout desejado */
+    margin: 0 auto; /* Centraliza o container */
+    gap: 10px;
+    justify-content: center; /* Centraliza os itens horizontalmente */
+}
+
+.flex-item { /* Esta classe não estava no HTML fornecido, mas é um bom exemplo para itens em um grid flexível */
+    width: calc(20% - 8px); /* 5 itens por linha (100%/5) - subtrair o gap */
+    margin: 0; /* Margem já está no gap */
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1; /* Mantém proporção quadrada, mais moderno que height: width */
+}
+
+/* --- Caixa de Atualizações --- */
+.updates-box {
+    background-image: url(images/waves.gif); /* Verifique o caminho da imagem */
+    background-size: cover;
+    background-color: #ffffff10;
+    border: 2px inset #d1d1d1;
+    max-height: 170px;
+    overflow-y: auto; /* 'auto' mostra a barra apenas quando necessário */
+    border-radius: var(--radius-pequeno);
+}
+
+.update-table {
+    color: #101d70; /* Considere usar uma variável */
+    padding: 2px;
+    background-color: #c0d1e0b0;
+}
+
+table.bordered {
+    border-collapse: collapse;
+    width: 100%; /* Garante que a tabela ocupe 100% do contêiner */
+}
+
+table.bordered td,
+table.bordered th {
+    border: 1px solid rgb(255, 255, 255); /* Considere usar rgba para clareza */
+    padding: 8px;
+    text-align: left; /* Alinhamento explícito */
+}
+
+/* --- Slideshow (se estiver sendo usado) --- */
+/* As classes de slideshow parecem ser de um código comum (como o do W3Schools).
+   Se você não as está usando, pode removê-las.
+   Caso contrário, elas estão relativamente bem estruturadas.
+   A única melhoria aqui seria usar variáveis para cores, transições, etc.
+*/
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+.mySlides {
+    display: none;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: var(--transition-standard);
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color var(--transition-standard);
+}
+
+.active, .dot:hover {
+    background-color: #717171;
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from { opacity: .4 }
+    to { opacity: 1 }
+}
+
+.desc {
+    box-shadow: var(--sombra-vidro); /* Usando variável */
+}
+
+/* --- Botão Comprar --- */
+.comprar-button {
+    display: inline-block;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 30px; /* Para formato oval */
+    background: linear-gradient(180deg, var(--cor1) 0%, #68cf40 100%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all var(--transition-button);
+    text-decoration: none;
+    -webkit-appearance: none; /* Mantido para consistência */
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.comprar-button:hover {
+    background: linear-gradient(180deg, #68cf40 0%, var(--cor1) 100%);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    transform: translateY(-2px);
+}
+
+.comprar-button:active {
+    background: linear-gradient(180deg, #5aa133 0%, #4c8a2b 100%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 0 5px rgba(0, 0, 0, 0.4);
+    transform: translateY(0);
+}
+
+/* --- Media Queries (Responsividade) --- */
+@media (max-width: 1024px) {
+    body {
+        margin: 20px; /* Reduz a margem do body em telas menores */
+        min-height: calc(100vh - 40px);
+    }
+    .vidro {
+        width: 90vw;
+        height: auto; /* Ajuste a altura para se adaptar ao conteúdo */
+        padding: 20px;
+    }
+    .caixa {
+        font-size: clamp(2rem, 4vw + 1rem, 4rem); /* Ajuste de fonte para telas menores */
+    }
+    .barra {
+        flex-direction: column; /* Empilha a barra em telas menores */
+        align-items: flex-start; /* Alinha itens ao início */
+        padding-bottom: 20px;
+    }
+    .botoes {
+        position: static; /* Remove o posicionamento absoluto para que o flexbox funcione */
+        margin: 10px 0 0 0; /* Adiciona margem após o empilhamento */
+        width: 100%; /* Ocupa a largura total */
+        justify-content: space-around; /* Distribui os botões uniformemente */
+        outline: none; /* Remove outline se não for necessário aqui */
+    }
+    .minimizar, .maximizar, .fechar {
+        min-width: unset; /* Remove min-width fixo */
+        flex: 1; /* Permite que os botões se expandam */
+        border-radius: var(--radius-pequeno); /* Arredonda todos os cantos */
+        border: var(--borda-padrao-preta); /* Aplica borda em todos os lados */
+    }
+    /* Remove bordas específicas que foram generalizadas acima */
+    .minimizar { border-bottom-left-radius: var(--radius-pequeno); }
+    .fechar { border-bottom-right-radius: var(--radius-pequeno); }
+
+    .container {
+        flex-direction: column; /* Coloca as seções lado a lado em telas menores */
+        padding: 10px;
+    }
+    .flex-container-5x5 {
+        width: 100%;
+        max-width: unset;
+    }
+    .flex-item {
+        width: calc(33.333% - 7px); /* 3 itens por linha */
+    }
+    .bolha {
+        animation-duration: 15s !important; /* Torna a animação mais rápida em telas menores */
+    }
+}
+
+@media (max-width: 768px) {
+    .flex-item {
+        width: calc(50% - 5px); /* 2 itens por linha */
+    }
+    .caixa {
+        font-size: clamp(1.5rem, 3vw + 1rem, 3rem); /* Mais ajustes para telas ainda menores */
+        flex-direction: column; /* Empilha logo e texto em telas muito pequenas */
+    }
+    .caixa .logo2 {
+        width: 100px;
+    }
+    .comprar-button {
+        padding: 10px 20px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .flex-item {
+        width: calc(100% - 10px); /* 1 item por linha */
+    }
+}
+
+#bolhasCanvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 135vh;
+    pointer-events: none;
+    z-index: -1;
+}

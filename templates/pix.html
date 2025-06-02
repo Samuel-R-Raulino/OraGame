@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Pagamento com PIX</title>
+  <script src="static/js/pix.js" defer></script>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+  <h1>Pagamento via PIX</h1>
+
+  <div class="frutiger-container">
+    <h2 class="frutiger-title">Pagamento via PIX</h2>
+
+    <label for="id_pagamento">ID do Jogo:</label>
+    <input type="number" id="id_pagamento" placeholder="Ex: 1">
+
+    <button onclick="gerarPix()">Gerar QR Code PIX</button>
+
+    <div id="pix-qr" style="display:none;">
+      <img id="qrCodeImg" src="" alt="QR Code PIX" width="200">
+    </div>
+
+    <div id="pix-code" style="display:none;"></div>
+    <div id="pix_container"></div>
+  </div>
+</body>
+</html>

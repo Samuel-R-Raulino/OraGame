@@ -34,7 +34,7 @@ try:
     ''', (nome, preço, descrição, img, requisitos, classificação))
 
     conn.commit()
-    print("Usuário inserido com sucesso!")
+    print("Game inserido com sucesso!")
 
 except sqlite3.IntegrityError as e:
     print(f"Erro ao inserir usuário: {e}")

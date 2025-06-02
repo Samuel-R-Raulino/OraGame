@@ -13,6 +13,25 @@ def return_names():
     nomes = [u[1] for u in usuarios]  
 
     return nomes
+def return_names_imgs():
+    vals = {}
+    import sqlite3
+
+    conn = sqlite3.connect('banco_games.db')
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT nome FROM games")
+    nomes = cursor.fetchall()  
+
+    cursor.execute("SELECT img FROM games")
+    imgs = cursor.fetchall()  
+
+    for x, y in enumerate(nomes):
+        vals[y[0]] = imgs[x][0]  # pega o valor dentro da tupla
+
+    conn.close()
+    return vals
+
 def return_senhas():
     import sqlite3
 
@@ -28,3 +47,29 @@ def return_senhas():
     senha = [u[0] for u in senhas]  
     print(senha)
     return senha
+def return_dates(nome):
+    dates = []
+    import sqlite3
+
+    conn = sqlite3.connect('banco_games.db')
+    cursor = conn.cursor()
+
+    queries = [
+        "SELECT preço FROM games WHERE nome=?",
+        "SELECT descrição FROM games WHERE nome=?",
+        "SELECT img FROM games WHERE nome=?",
+        "SELECT requisitos FROM games WHERE nome=?",
+        "SELECT classificação FROM games WHERE nome=?"
+    ]
+
+    for query in queries:
+        cursor.execute(query, (nome,))
+        val = cursor.fetchall()
+        if val:
+            dates.append(val[0][0])
+        else:
+            dates.append(None)  # Or "" or any default value
+
+    conn.close()
+    print(dates)
+    return dates

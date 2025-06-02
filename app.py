@@ -1,8 +1,11 @@
 from flask import Flask, render_template,request,jsonify,redirect,url_for,session
 from get_dados import *
-
+import os 
+import mercadopago
+import sqlite3
 app = Flask(__name__)
 app.secret_key = 'uma_chave_secreta_supersegura'
+
 @app.route("/cadastro",methods = ["GET","POST"])
 def cadastro():
     if request.method == "POST":
@@ -15,14 +18,12 @@ def cadastro():
         add_user(usuario,email,senha,"")
     return render_template("cadastro.html")
 
-@app.route("/games")
-def games():
-    return render_template("games.html")
-
 @app.route("/home")
 def home():
+    session["img_user"] = "img/"+"user.jpg"
+    img_user = session["img_user"] 
     usuario = session.get('username', 'Visitante') 
-    return render_template("home.html",usuario=usuario)
+    return render_template("home.html",usuario=usuario,img_user =img_user)
 
 @app.route("/login",methods = ["GET","POST"])
 def login():
@@ -42,22 +43,154 @@ def login():
 
 @app.route("/sobre")
 def sobre():
-    return render_template("sobre.html")
+    img_user = session["img_user"] 
+    usuario = session.get('username', 'Visitante') 
+    return render_template("sobre.html",usuario=usuario,img_user=img_user)
+
+@app.route("/games",methods=["GET","POST"])
+def games():
+    img_user = session["img_user"] 
+    usuario = session.get('username', 'Visitante') 
+    from get_dados import return_names_imgs
+    vals = return_names_imgs()
+    print(vals)
+    if request.method=="POST":
+        session["game"] = request.form.get("game")
+        return redirect(url_for("game"))  # IMPORTANTE: return aqui!
+    return render_template("games.html",jogos=vals,usuario=usuario,img_user=img_user)
 
 @app.route("/game")
 def game():
-    nome = "Half"
-    preço = 1.5
-    descrição = "Jogo bom"
-    img = "img/halflife.png"
-    requisitos = "8gb ram"
-    classificação = "18+"
-    return render_template("game.html",nome=nome,preço=preço,descrição=descrição,img=img,requisitos=requisitos,classificação=classificação)
+    img_user = session["img_user"] 
+    usuario = session.get('username', 'Visitante') 
+    nome = session.get('game', 'Visitante') 
+    take = return_dates(nome)
+    preço = take[0]
+    descrição = take[1]
+
+    img = "img/"+take[2]
+    img1 = "img/halflife1.png"
+    classificação = take[4]
+    return render_template("game.html",nome=nome,preço=preço,img1=img1,descrição=descrição,img=img,requisitos="8gb",classificação=classificação,usuario=usuario,img_user=img_user)
 
 
 @app.route("/user")
 def user():
-    return render_template("user.html")
+    img_user = session["img_user"] 
+    usuario = session.get('username', 'Visitante') 
+    return render_template("user.html",usuario=usuario,img_user=img_user)
+caminho_db = os.path.join(os.path.dirname(__file__), 'banco.db')
 
+
+# Access tokens
+ACCESS_TOKEN = "APP_USR-5515393234086824-051409-a798dc3e1af15b38426c01b84b761393-1952959008"
+PUBLIC_KEY = "APP_USR-1b3c0147-9080-4743-b327-109084494912"
+
+# Instâncias dos serviços
+mp = mercadopago.SDK(ACCESS_TOKEN)  # Use o ACCESS_TOKEN aqui para poder consultar pagamentos
+#boleto_service = BoletoService(ACCESS_TOKEN)
+#pix_service = PixService(ACCESS_TOKEN)
+
+# Função para buscar valor do pagamento pelo id
+def buscar_valor_pagamento(id_pagamento):
+    try:
+        conn = sqlite3.connect(caminho_db)
+        cursor = conn.cursor()
+        cursor.execute("SELECT preço FROM games WHERE id = ?", (id_pagamento,))
+        resultado = cursor.fetchone()
+        conn.close()
+
+        if resultado:
+            return 0.01  # Altere se quiser usar o valor real: resultado[0]
+        else:
+            return None
+    except Exception as e:
+        print(f"Erro ao buscar valor: {e}")
+        return None
+
+# Rotas de páginas
+@app.route("/cartão")
+def index():
+    return render_template("cartao.html")
+
+@app.route("/boleto")
+def boleto():
+    return render_template("boleto.html")
+
+@app.route("/pix")
+def pix():
+    return render_template("pix.html")
+
+# Rota API para processar boleto
+@app.route("/process_boleto", methods=["POST"])
+def process_boleto():
+    data = request.json
+    id_pagamento = data.get("id_pagamento")
+    amount = buscar_valor_pagamento(id_pagamento)
+
+    if amount is None:
+        return jsonify({"status": "error", "message": "ID de pagamento inválido"}), 400
+
+    try:
+        boleto = boleto_service.criar_boleto(
+            amount=amount,
+            payer_info={
+                "email": data["payer"]["email"],
+                "first_name": data["payer"]["first_name"],
+                "last_name": data["payer"]["last_name"],
+                "cpf": data["payer"]["identification"]["number"],
+            }
+        )
+
+        if boleto["status"] == "pending":
+            return jsonify({
+                "status": "success",
+                "boleto_url": boleto["transaction_details"]["external_resource_url"],
+                "barcode": boleto["transaction_details"]["barcode"],
+            })
+        else:
+            return jsonify({"status": "error"}), 400
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+from pix import *
+# Rota API para gerar o pagamento PIX
+@app.route("/pix", methods=["POST"])
+def gerar_pix():
+    pix_service = PixService(app.secret_key)
+    data = request.json
+    id_pagamento = data.get("id_pagamento")
+    amount = buscar_valor_pagamento(id_pagamento)
+
+    if amount is None:
+        return jsonify({"status": "error", "message": "ID de pagamento inválido"}), 400
+
+    try:
+        pagamento = pix_service.criar_pagamento_pix("Produto Exemplo", amount)
+
+        if pagamento["status"] == "pending":
+            return jsonify({
+                "status": "success",
+                "qr_code": pagamento["point_of_interaction"]["transaction_data"]["qr_code"],
+                "qr_code_base64": pagamento["point_of_interaction"]["transaction_data"]["qr_code_base64"],
+                "pagamento_id": pagamento["id"]
+            })
+        else:
+            return jsonify({"status": "error", "message": "Pagamento não gerado"}), 400
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+# 🔍 Nova rota para verificar status de pagamento PIX
+@app.route("/verificar_status/<int:pagamento_id>")
+def verificar_status(pagamento_id):
+    try:
+        pagamento = mp.payment().get(pagamento_id)
+        status = pagamento["response"]["status"]
+        return jsonify({"status": status})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+print("inicializando...")
 if __name__ == "__main__":
     app.run(debug=True)

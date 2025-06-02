@@ -22,7 +22,7 @@
             <a href="/user">{{usuario}}</a>
 
             <div class="userFrame">
-                <img src="{{ url_for('static', filename='img/user.jpg') }}">
+                <img src="{{ url_for('static', filename=img_user) }}">
             </div>
         </div>
 
@@ -30,7 +30,7 @@
 
             <div class="barra">
                 <img class="logo" src="{{ url_for('static', filename='img/oragame.png') }}">
-                <a href="{{ url_for('static', filename='index/index.html') }}">OraGame</a>
+                <a href="/home">OraGame</a>
 
                 <div class="botoes">
                     <button class="minimizar"><b>-</b></button>

@@ -37,7 +37,7 @@ def buscar_valor_pagamento(id_pagamento):
         return None
 
 # Rotas de páginas
-@app.route("/")
+@app.route("/cartão")
 def index():
     return render_template("cartao.html")
 

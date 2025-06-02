@@ -3,40 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/ico" href="favicon.ico">
+    <link rel="icon" type="image/ico" href="{{ url_for('static', filename='img/favicon.ico') }}">
     <title>Sobre</title>
-    <link href="../static/estilo4.css" rel="stylesheet">
-    <script src="../static/animacaoindex.js" defer></script>
+    <link href="{{ url_for('static', filename='css/estilo4.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/animacaoindex.js') }}" defer></script>
 </head>
 <body>
     <canvas id="bolhasCanvas"></canvas>
     <div class="pai">
         <div class="usuario">
-            <a href="../user/user.php">"UserName"</a>
+            <a href="/user">{{usuario}}</a>
             <div class="userFrame">
-                <img src="../img/.gif">
+                <img src="{{ url_for('static', filename=img_user) }}">
             </div>
         </div>
 
         <div class="vidro">
 
             <div class="barra">
-
-                <img class="logo" src="../img/oragame.png">
-                <a href="../index/index.php">OraGames</a>
+                <img class="logo" src="{{ url_for('static', filename='img/oragame.png') }}">
+                <a href="/home">OraGame</a>
 
                 <div class="botoes">
                     <button class="minimizar"><b>-</b></button>
                     <button class="maximizar"><b>+</b></button>
                     <button class="fechar"><b>x</b></button>
                 </div>
-
             </div>
 
             <div class="centralizar">
                 <div class="caixa">
-
-                    <img class="logo2" src="../img/oragame.png">
+                    <img class="logo2" src="{{ url_for('static', filename='img/oragame.png') }}">
                     Sobre
                 </div>
 
@@ -74,74 +71,74 @@
                         </div>
                         <br> <br>
                         <div class="group_img">
-                         <img src="../img/fundo.gif" height="200" width="667"> </img>
+                            <img src="{{ url_for('static', filename='img/fundo.gif') }}" height="200" width="667">
                         </div>
                     </div>
                     <div class="direita">
                         <div class="centralizar">
-                          <h2>Grupo</h2>
+                            <h2>Grupo</h2>
                         </div>
                         <div class="group_img">
-                            <center><img src="../img/group_img.png" width="375" height="250">
+                            <center><img src="{{ url_for('static', filename='img/group_img.png') }}" width="375" height="250">
                                 <br>
                                 <div class="flex-container-5x5">
                                     <div class="usuario">
-                                        <a href="../user/user.php">Daniel</a>
+                                        <a href="{{ url_for('static', filename='user/user.php') }}">Daniel</a>
                                         <div class="userFrame">
-                                            <img src="../img/gordon.png">
+                                            <img src="{{ url_for('static', filename='img/gordon.png') }}">
                                         </div>
                                     </div>
 
                                     <div class="usuario">
-                                        <a href="../user/user.php">Nicolas</a>
+                                        <a href="{{ url_for('static', filename='user/user.php') }}">Nicolas</a>
                                         <div class="userFrame">
-                                            <img src="../img/jogodobixo.jpg">
+                                            <img src="{{ url_for('static', filename='img/jogodobixo.jpg') }}">
                                         </div>
                                     </div>
                                     <div class="usuario">
-                                        <a href="../user/user.php">Antonio</a>
+                                        <a href="{{ url_for('static', filename='user/user.php') }}">Antonio</a>
                                         <div class="userFrame">
-                                            <img src="../img/godzilla.jpg">
+                                            <img src="{{ url_for('static', filename='img/godzilla.jpg') }}">
                                         </div>
                                     </div>
                                     <div class="usuario">
-                                        <a href="../user/user.php">Felipe</a>
+                                        <a href="{{ url_for('static', filename='user/user.php') }}">Felipe</a>
                                         <div class="userFrame">
-                                            <img src="../img/brabo.webp">
+                                            <img src="{{ url_for('static', filename='img/brabo.webp') }}">
                                         </div>
                                     </div>
 
                                     <div class="flex-container-5x5">
                                         <div class="usuario">
-                                            <a href="../user/user.php">Samuel</a>
+                                            <a href="{{ url_for('static', filename='user/user.php') }}">Samuel</a>
                                             <div class="userFrame">
-                                                <img src="../img/samuel.png">
+                                                <img src="{{ url_for('static', filename='img/samuel.png') }}">
                                             </div>
                                         </div>
 
                                         <div class="usuario">
-                                            <a href="../user/user.php">Hendrill</a>
+                                            <a href="{{ url_for('static', filename='user/user.php') }}">Hendrill</a>
                                             <div class="userFrame">
-                                                <img src="../img/jailson.jpg">
+                                                <img src="{{ url_for('static', filename='img/jailson.jpg') }}">
                                             </div>
                                         </div>
                                         <div class="usuario">
-                                            <a href="../user/user.php">Maria</a>
+                                            <a href="{{ url_for('static', filename='user/user.php') }}">Maria</a>
                                             <div class="userFrame">
-                                                <img src="../img/">
+                                                <img src="{{ url_for('static', filename='img/') }}">
                                             </div>
                                         </div>
                                         <div class="usuario">
-                                            <a href="../user/user.php">Vinicius</a>
+                                            <a href="{{ url_for('static', filename='user/user.php') }}">Vinicius</a>
                                             <div class="userFrame">
-                                                <img src="../img/vinicius.jpg">
+                                                <img src="{{ url_for('static', filename='img/vinicius.jpg') }}">
                                             </div>
                                         </div>
 
                                         <div class="usuario">
-                                            <a href="../user/user.php">Luiz</a>
+                                            <a href="{{ url_for('static', filename='user/user.php') }}">Luiz</a>
                                             <div class="userFrame">
-                                                <img src="../img/a.jpg">
+                                                <img src="{{ url_for('static', filename='img/a.jpg') }}">
                                             </div>
                                         </div>
                                     </div>

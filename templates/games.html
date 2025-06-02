@@ -24,7 +24,7 @@
     <div class="pai">
 
         <div class="usuario">
-            <a href="/user">"UserName"</a>
+            <a href="/user">{{usuario}}</a>
 
             <div class="userFrame">
                 <img src="{{ url_for('static', filename='img/user.jpg') }}">
@@ -52,39 +52,20 @@
             </div>
 
             <div class="games">
-
+                {% for nome, imagem in jogos.items() %}
                 <div class="gameFrame">
-                    <a class="botaoGame"><img src="{{ url_for('static', filename='img/doom.png') }}"></a>
-                    Doom Classic
+                    <form action="" method="POST">
+                        <input type="hidden" name="game" value="{{ nome }}">
+                        <button type="submit" class="botaoGame">
+                            <img src="{{ url_for('static', filename='img/' ~ imagem) }}">
+                        </button>
+                    </form>
+                    {{ nome }}
                 </div>
-
-                <div class="gameFrame">
-                    <a class="botaoGame"><img src="{{ url_for('static', filename='img/halflife.png') }}"></a>
-                    Half - Life
-                </div>
-
-                <div class="gameFrame">
-                    <a class="botaoGame"><img src="{{ url_for('static', filename='img/ultrakill.jpg') }}"></a>
-                    Ultrakill
-                </div>
-
-                <div class="gameFrame">
-                    <a class="botaoGame"><img src="{{ url_for('static', filename='img/hotline.jpg') }}"></a>
-                    Hotline Miami
-                </div>
-
-                <div class="gameFrame">
-                    <a class="botaoGame"><img src="{{ url_for('static', filename='img/prince.jpg') }}"></a>
-                    Prince of Persia
-                </div>
-
-                <div class="gameFrame">
-                    <a class="botaoGame"><img src="{{ url_for('static', filename='img/isaac.jpg') }}"></a>
-                    The Binding Of Isaac
-                </div>
-
+                {% endfor %}
             </div>
-
+            
+            
         </div>
 
     </div>

@@ -30,10 +30,10 @@
 
         <div class="usuario">
 
-            <a href="user.html">"UserName"</a>
+            <a href="user.html">{{usuario}}</a>
 
             <div class="userFrame">
-                <img src="{{ url_for('static', filename='img/.gif') }}">
+                <img src="{{ url_for('static', filename='img/user.jpg') }}">
             </div>
         </div>
 
@@ -55,7 +55,7 @@
             <div class="centralizar">
                 <div class="caixa">
                     <img class="logo">
-                    Prince of Persia
+                    {{nome}}
                 </div>
 
                 <div class="container">
@@ -70,7 +70,7 @@
                                 </div>
                                 <br>
 
-                                <a href="/sobre" class="comprar-button">Comprar</a>
+                                <a href="/pix" class="comprar-button">Comprar</a>
 
                             </div>
                             <br>
@@ -108,7 +108,7 @@
                     <div class="direita">
                         <img class="group_img" src="{{ url_for('static', filename='img') }}" width="460" height="215">
                         <p class="desc">
-                            O Prince of Persia original é um jogo de plataforma e quebra-cabeça aclamado por sua animação fluida e realista (rotoscopia), algo revolucionário para a época. O jogador controla um príncipe anônimo que deve escapar de masmorras e torres, superar armadilhas mortais e enfrentar guardas para resgatar a princesa antes que o Vizir Jaffar a force a se casar com ele.
+                            {{descrição}}
                         </p>
 
                         <p class="desc">
@@ -119,11 +119,7 @@
 
                         <p class="desc">
                         <h2> Requisitos mínimos: </h2>
-                        Processador: IBM PC/XT/AT ou compatível <br>
-                        Memória RAM: 256 KB<br>
-                        Espaço em Disco: Aproximadamente 1 MB<br>
-                        Placa de Vídeo: EGA ou VGA<br>
-                        Sistema Operacional: MS-DOS 2.0 ou superior<br>
+                        {{requisitos}}<br>
                         </p>
                     </div>
                 </div>

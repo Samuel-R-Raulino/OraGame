@@ -1,143 +1,176 @@
-/* === FRUTIGER AERO THEME === */
-body {
-  background: linear-gradient(135deg, #b2ebf2, #e0f7fa) fixed;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  margin: 0;
-  padding: 20px;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+body{
+    
+    background-image: url("../img/fruti.png");
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-attachment:fixed ;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius:20px;
+    margin: 35px;
+    justify-content: center;
+    display: flex;
+    cursor: url("../img/cursor.cur"), auto;
+
 }
 
-/* Container principal (vidro fosco) */
-.frutiger-container {
-  width: 100%;
-  max-width: 500px;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 
-    0 0 10px rgba(0, 178, 255, 0.3),
-    inset 0 0 20px rgba(255, 255, 255, 0.5);
-  padding: 30px;
-  position: relative;
-  overflow: hidden;
+a{
+    cursor: url("../img/pointer.cur"), auto;
+    text-decoration: none;
+    text-shadow:    
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px;
+    color: black;
+}
+ 
+ .divbraba{
+    background-color: white;
+    opacity: 75%;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    padding: 80px;
+ }
+
+ .vidro {
+    margin-top: 10%;
+    position-area: center;
+    width: 750px;
+    object-position: center;
+    height: 500px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    border: 2px solid #b0faff6c;
+    border-radius: 10px;
+    background: #002fff1a;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 40px #00000085;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Título estilo anos 2000 */
-.frutiger-title {
-  color: #0066cc;
-  text-align: center;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  font-weight: lighter;
-  letter-spacing: 1px;
+.button{
+    background-color: rgb(50, 177, 0);
+    border-radius: 25%;
+    color: white;    
+    padding: 15px;
+    width: 13%;
+    text-shadow: 100%;
 }
 
-/* Efeitos de brilho */
-.glow-effect {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
-  pointer-events: none;
-}
-.glow-effect.top-right {
-  top: -50px;
-  right: -50px;
-}
-.glow-effect.bottom-left {
-  bottom: -30px;
-  left: -30px;
-  opacity: 0.6;
+input{
+
+    border: 2px solid #b0faff6c;
+    border-radius: 5px;
+    background: none;
+    color: black;
+    text-shadow: 
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px;
+    padding: 5px;
+
 }
 
-/* === AJUSTES NO BRICK (CSS "HACKEADO") === */
-/* Campos de cartão - Efeito aqua */
-#cardPaymentBrick_container .mercadopago-input {
-  background: rgba(200, 240, 255, 0.5) !important;
-  border: 1px solid rgba(0, 150, 255, 0.3) !important;
-  border-radius: 12px !important;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+.caixa{
+    font-size: 85px;
+    background: linear-gradient(#d1ffeaa6 0%, #22be3cb4 50%, #00d1aea8 50%, #bbfff7a9 100%);
+    width: 30vw;
+    height: 50%;
+    display: flex;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    color: #ecd897;
+    text-shadow: black 0 0 10px;
 }
 
-/* Botão - Gradiente brilhante */
-#cardPaymentBrick_container .mercadopago-button {
-  background: linear-gradient(135deg, #00ccff, #0066ff) !important;
-  border: none !important;
-  border-radius: 12px !important;
-  box-shadow: 0 2px 10px rgba(0, 150, 255, 0.5) !important;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) !important;
+.pai{
+    display: flex;
+    justify-content: center;
 }
 
-/* Bandeiras de cartão - Cores saturadas */
-#cardPaymentBrick_container .mercadopago-payment-method-list img {
-  filter: brightness(1.1) saturate(1.2) !important;
+.botao{
+
+    position: relative;
+    cursor: url("../img/pointer.cur"), auto;
+    min-width: 4vw;
+    justify-content: center;
+    display: flex;
+    padding: 15px;
+    background: linear-gradient(#92fff0dc 0%, #92fff0dc 50%, #07c576c9 50%, #07c576c9 100%);
+    font-size: 18px;
+    box-shadow:inset 0px 1px 4px 1px #ffffff;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-shadow: 
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px  1px 0 black,
+    1px  1px 0 black;
+    text-decoration: none;
+    color: white;
+
 }
 
-#boletoBrick_container {
-  border: 2px solid red !important; /* Debug visual */
-  min-height: 300px; /* Garante espaço mínimo */
-}
-/* === PIX STYLE - FRUTIGER AERO === */
-#pix-container {
-  text-align: center;
-  margin-top: 30px;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 
-    inset 0 0 15px rgba(0, 255, 255, 0.2),
-    0 0 20px rgba(0, 128, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(8px);
+.botao::before {
+
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow:0px 0px 20px 5px #00ffb3;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    pointer-events: none;
+
 }
 
-/* Texto e botão */
-#pix-container h2 {
-  color: #0099cc;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  font-weight: 300;
+.botao:hover::before{
+
+    opacity: 1;
+
 }
 
-#pix-container button {
-  margin-top: 15px;
-  background: linear-gradient(135deg, #00e5ff, #0091ea);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 14px;
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 3px 10px rgba(0, 128, 255, 0.3);
-  transition: background 0.3s ease;
-}
-#pix-container button:hover {
-  background: linear-gradient(135deg, #00bcd4, #2962ff);
+.botao:active{
+
+    background: linear-gradient(#98dbd2dc 0%, #98dbd2dc 50%, #00ad65d8 50%, #00ad65d8 100%);
+
 }
 
-/* QR Code estilo papel celofane */
-#pix-qr {
-  margin-top: 20px;
-  background: white;
-  padding: 15px;
-  border-radius: 16px;
-  box-shadow: 
-    0 0 15px rgba(0, 255, 255, 0.3),
-    inset 0 0 5px rgba(0, 100, 255, 0.1);
+#bolhasCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    z-index: -1;
 }
 
-/* Código Copia e Cola */
-#pix-code {
-  margin-top: 15px;
-  background: rgba(240, 248, 255, 0.8);
-  padding: 10px;
-  border-radius: 12px;
-  font-family: monospace;
-  font-size: 14px;
-  color: #004d80;
-  word-break: break-all;
-  box-shadow: inset 0 0 5px rgba(0, 150, 255, 0.2);
+.logo{
+
+    width: 175px;
+    height: auto;
+    padding-right: 2px;
+
 }
