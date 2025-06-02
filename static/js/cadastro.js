@@ -48,7 +48,7 @@ function cadastrar() {
         })
         .then(response => {
             if (response.ok) {
-                window.location.href = '/home'; // Redireciona se sucesso
+                window.location.href = '/login'; // Redireciona se sucesso
             } else {
                 alert('Erro ao cadastrar. Tente novamente.');
             }
