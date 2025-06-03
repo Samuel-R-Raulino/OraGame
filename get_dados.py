@@ -23,7 +23,7 @@ def return_names_imgs():
     cursor.execute("SELECT nome FROM games")
     nomes = cursor.fetchall()  
 
-    cursor.execute("SELECT img FROM games")
+    cursor.execute("SELECT img1 FROM games")
     imgs = cursor.fetchall()  
 
     for x, y in enumerate(nomes):
@@ -39,7 +39,7 @@ def return_senhas():
 
     cursor = conn.cursor()
 
-    cursor.execute("SELECT senha FROM games")
+    cursor.execute("SELECT senha FROM games WHERE")
 
     senhas = cursor.fetchall()  
 
@@ -47,6 +47,24 @@ def return_senhas():
     senha = [u[0] for u in senhas]  
     print(senha)
     return senha
+def return_id(nome):
+    dates = []
+    
+    print(nome)
+    import sqlite3
+
+    conn = sqlite3.connect('banco_games.db')
+    cursor = conn.cursor()
+
+    query = "SELECT download_id FROM games WHERE nome=?"
+    
+
+    cursor.execute(query, (nome,))
+    id = cursor.fetchall()
+    conn.close()
+    print(id)
+    return id[0][0]
+
 def return_dates(nome):
     dates = []
     import sqlite3
@@ -57,7 +75,8 @@ def return_dates(nome):
     queries = [
         "SELECT preço FROM games WHERE nome=?",
         "SELECT descrição FROM games WHERE nome=?",
-        "SELECT img FROM games WHERE nome=?",
+        "SELECT img1 FROM games WHERE nome=?",
+        "SELECT img2 FROM games WHERE nome=?",
         "SELECT requisitos FROM games WHERE nome=?",
         "SELECT classificação FROM games WHERE nome=?"
     ]

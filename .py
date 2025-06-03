@@ -1,2 +1,2 @@
 import os
-os.remove("banco_games")
+os.remove("banco_games.db")

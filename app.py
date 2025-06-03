@@ -7,14 +7,11 @@ app = Flask(__name__)
 app.secret_key = 'uma_chave_secreta_supersegura'
 ACCESS_TOKEN = "APP_USR-5515393234086824-051409-a798dc3e1af15b38426c01b84b761393-1952959008"
 PUBLIC_KEY = "APP_USR-1b3c0147-9080-4743-b327-109084494912"
+@app.route("/")
+def red():
+    return redirect(url_for("home"))
 @app.route("/cadastro",methods = ["GET","POST"])
-@app.before_request
-def limpar_game_buy_exceto_em_certas_rotas():
-    # Rotas onde NÃO queremos limpar o game_buy
-    rotas_permitidas = ['game', 'games', 'pix'] 
-    
-    if request.endpoint not in rotas_permitidas:
-        session["game_buy"] = ""
+
 
 def cadastro():
     if request.method == "POST":
@@ -59,6 +56,7 @@ def login():
         elif senha not in return_senhas():
             print("senha errada")
     return render_template("login.html")
+
 
 @app.route("/sobre")
 def sobre():
@@ -116,10 +114,10 @@ def game():
     preço = take[0]
     descrição = take[1]
 
-    img = "img/"+take[2]
-    img1 = "img/halflife1.png"
+    img1 = "img/"+take[2]
+    img2 = "img/"+take[3]
     classificação = take[4]
-    return render_template("game.html",nome=nome,preço=preço,img1=img1,descrição=descrição,img=img,requisitos="8gb",classificação=classificação,usuario=usuario,img_user=img_user)
+    return render_template("game.html",nome=nome,preço=preço,descrição=descrição,img1=img1,img2=img2,requisitos="8gb",classificação=classificação,usuario=usuario,img_user=img_user)
 
 
 @app.route("/user")
@@ -168,7 +166,16 @@ def boleto():
 @app.route("/pix")
 def pix():
     return render_template("pix.html")
-
+@app.route('/Download')
+def Download():
+    from get_dados import return_id 
+    
+    a = session["game_buy"]
+    print(a)
+    download_id = return_id(a)
+    link = f"https://drive.google.com/uc?export=download&id={download_id}"
+    print(link)
+    return redirect(link)
 # Rota API para processar boleto
 @app.route("/process_boleto", methods=["POST"])
 def process_boleto():

@@ -65,12 +65,13 @@
 
                                 <div class="mySlides fade">
                                     <div class="numbertext">1 / 3</div>
-                                    <img src="{{ url_for('static', filename=img) }}" style="width:100%" height="500">
+                                    <img src="{{ url_for('static', filename=img1) }}" style="width:100%" height="500">
                                     <div class="text"> </div>
                                 </div>
                                 <br>
 
                                 <a href="/pix" class="comprar-button">Comprar</a>
+                                <a href="/Download" class="comprar-button">Download</a>
 
                             </div>
                             <br>
@@ -106,7 +107,7 @@
                         </div>
                     </div>
                     <div class="direita">
-                        <img class="group_img" src="{{ url_for('static', filename='img') }}" width="460" height="215">
+                        <img class="group_img" src="{{ url_for('static', filename=img2) }}" width="460" height="215">
                         <p class="desc">
                             {{descrição}}
                         </p>
