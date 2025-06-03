@@ -5,8 +5,17 @@ import mercadopago
 import sqlite3
 app = Flask(__name__)
 app.secret_key = 'uma_chave_secreta_supersegura'
-
+ACCESS_TOKEN = "APP_USR-5515393234086824-051409-a798dc3e1af15b38426c01b84b761393-1952959008"
+PUBLIC_KEY = "APP_USR-1b3c0147-9080-4743-b327-109084494912"
 @app.route("/cadastro",methods = ["GET","POST"])
+@app.before_request
+def limpar_game_buy_exceto_em_certas_rotas():
+    # Rotas onde NÃO queremos limpar o game_buy
+    rotas_permitidas = ['game', 'games', 'pix'] 
+    
+    if request.endpoint not in rotas_permitidas:
+        session["game_buy"] = ""
+
 def cadastro():
     if request.method == "POST":
         dados = request.get_json()
@@ -20,10 +29,20 @@ def cadastro():
 
 @app.route("/home")
 def home():
-    session["img_user"] = "img/"+"user.jpg"
+    session["img_user"] = "img/user.jpg"
+
+    valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
+    print(f"Valor atual de game_buy na sessão: '{valor_game_buy}'")
+
+    if valor_game_buy == "":
+        print("O valor de game_buy está vazio")
+    else:
+        print("O valor de game_buy NÃO está vazio:", valor_game_buy)
+
     img_user = session["img_user"] 
     usuario = session.get('username', 'Visitante') 
-    return render_template("home.html",usuario=usuario,img_user =img_user)
+    return render_template("home.html", usuario=usuario, img_user=img_user)
+
 
 @app.route("/login",methods = ["GET","POST"])
 def login():
@@ -43,12 +62,30 @@ def login():
 
 @app.route("/sobre")
 def sobre():
+    
+    valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
+    print(f"Valor atual de game_buy na sessão: '{valor_game_buy}'")
+
+    if valor_game_buy == "":
+        print("O valor de game_buy está vazio")
+    else:
+        print("O valor de game_buy NÃO está vazio:", valor_game_buy)
+
     img_user = session["img_user"] 
     usuario = session.get('username', 'Visitante') 
     return render_template("sobre.html",usuario=usuario,img_user=img_user)
 
 @app.route("/games",methods=["GET","POST"])
 def games():
+    
+    valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
+    print(f"Valor atual de game_buy na sessão: '{valor_game_buy}'")
+
+    if valor_game_buy == "":
+        print("O valor de game_buy está vazio")
+    else:
+        print("O valor de game_buy NÃO está vazio:", valor_game_buy)
+
     img_user = session["img_user"] 
     usuario = session.get('username', 'Visitante') 
     from get_dados import return_names_imgs
@@ -56,11 +93,22 @@ def games():
     print(vals)
     if request.method=="POST":
         session["game"] = request.form.get("game")
+        session["game_buy"] = request.form.get("game")
+        
         return redirect(url_for("game"))  # IMPORTANTE: return aqui!
     return render_template("games.html",jogos=vals,usuario=usuario,img_user=img_user)
 
 @app.route("/game")
 def game():
+    
+    valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
+    print(f"Valor atual de game_buy na sessão: '{valor_game_buy}'")
+
+    if valor_game_buy == "":
+        print("O valor de game_buy está vazio")
+    else:
+        print("O valor de game_buy NÃO está vazio:", valor_game_buy)
+
     img_user = session["img_user"] 
     usuario = session.get('username', 'Visitante') 
     nome = session.get('game', 'Visitante') 
@@ -79,12 +127,11 @@ def user():
     img_user = session["img_user"] 
     usuario = session.get('username', 'Visitante') 
     return render_template("user.html",usuario=usuario,img_user=img_user)
-caminho_db = os.path.join(os.path.dirname(__file__), 'banco.db')
+caminho_db = os.path.join(os.path.dirname(__file__), 'banco_games.db')
 
 
 # Access tokens
-ACCESS_TOKEN = "APP_USR-5515393234086824-051409-a798dc3e1af15b38426c01b84b761393-1952959008"
-PUBLIC_KEY = "APP_USR-1b3c0147-9080-4743-b327-109084494912"
+
 
 # Instâncias dos serviços
 mp = mercadopago.SDK(ACCESS_TOKEN)  # Use o ACCESS_TOKEN aqui para poder consultar pagamentos
@@ -96,12 +143,13 @@ def buscar_valor_pagamento(id_pagamento):
     try:
         conn = sqlite3.connect(caminho_db)
         cursor = conn.cursor()
-        cursor.execute("SELECT preço FROM games WHERE id = ?", (id_pagamento,))
+        cursor.execute("SELECT preço FROM games WHERE nome = ?", (session["game_buy"],))
+        print(session["game_buy"])
         resultado = cursor.fetchone()
         conn.close()
 
         if resultado:
-            return 0.01  # Altere se quiser usar o valor real: resultado[0]
+            return 0.1  # Altere se quiser usar o valor real: resultado[0]
         else:
             return None
     except Exception as e:

@@ -6,7 +6,7 @@ import os
 import sqlite3
 
 # Caminho e conexão com o banco
-caminho_db = os.path.join(os.path.dirname(__file__), 'banco.db')
+caminho_db = os.path.join(os.path.dirname(__file__), 'banco_games.db')
 
 app = Flask(__name__)
 
@@ -29,7 +29,7 @@ def buscar_valor_pagamento(id_pagamento):
         conn.close()
 
         if resultado:
-            return 0.01  # Altere se quiser usar o valor real: resultado[0]
+            return 0.1  # Altere se quiser usar o valor real: resultado[0]
         else:
             return None
     except Exception as e:
