@@ -48,7 +48,6 @@ def login():
         senha = request.form.get("senha")
         if usuario in return_names() and senha in return_senhas():
             from ADD_USER import add_user 
-            add_user(usuario,senha,"")
             session['username'] = usuario
             return redirect(url_for('home'))
         elif usuario not in return_names():

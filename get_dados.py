@@ -39,7 +39,7 @@ def return_senhas():
 
     cursor = conn.cursor()
 
-    cursor.execute("SELECT senha FROM games WHERE")
+    cursor.execute("SELECT senha FROM games")
 
     senhas = cursor.fetchall()  
 
