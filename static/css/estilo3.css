@@ -27,7 +27,8 @@ a{
 }
 
 button{
-
+  background: none;
+  border: none;
   cursor: url("../img/pointer.cur"), auto;
 
 }
