@@ -2,24 +2,32 @@ const banner = document.querySelector('.banner');
 const gifExplosao = 'static/img/explosao.gif';
 
 const imagensPeixe = [
-   
     { src: 'static/img/peixe1.gif', width: 190, height: 158 },
     { src: 'static/img/peixe2.gif', width: 135, height: 118 },
     { src: 'static/img/peixe3.gif', width: 130, height: 103 },
 ];
 
-const numPeixes = 12;
+const imagensNaves = [
+    { src: 'static/img/nave1.gif', width: 150, height: 130 },
+    { src: 'static/img/nave2.gif', width: 140, height: 120 },
+    { src: 'static/img/nave3.gif', width: 160, height: 140 },
+];
+
+const numPeixes = 15;
+const peixesCriados = [];
 
 for (let i = 0; i < numPeixes; i++) {
     const peixe = document.createElement('div');
     peixe.classList.add('peixe');
 
     const peixeConfig = imagensPeixe[i % imagensPeixe.length];
+    peixe.dataset.index = i % imagensPeixe.length;
     peixe.style.backgroundImage = `url("${peixeConfig.src}")`;
     peixe.style.width = `${peixeConfig.width}px`;
     peixe.style.height = `${peixeConfig.height}px`;
 
     banner.appendChild(peixe);
+    peixesCriados.push(peixe);
 
     let cliques = 0;
 
@@ -35,7 +43,7 @@ for (let i = 0; i < numPeixes; i++) {
 }
 
 function moverPeixe(peixe) {
-    const margem = 30;
+    const margem = 25;
     const bannerWidth = banner.clientWidth;
     const bannerHeight = banner.clientHeight;
     const peixeWidth = peixe.offsetWidth;
@@ -84,8 +92,22 @@ function explodirPeixe(peixe) {
         explosao.remove();
     }, 750);
 }
-//bolhas abaixo
-//bolhas abaixo
+
+
+function atualizarPeixesParaTema() {
+    const body = document.body;
+    const usandoDark = body.classList.contains('dark-theme');
+
+    peixesCriados.forEach(peixe => {
+        const index = peixe.dataset.index;
+        const novaConfig = usandoDark ? imagensNaves[index] : imagensPeixe[index];
+        peixe.style.backgroundImage = `url("${novaConfig.src}")`;
+        peixe.style.width = `${novaConfig.width}px`;
+        peixe.style.height = `${novaConfig.height}px`;
+    });
+}
+
+
 
 const canvas = document.getElementById('bolhasCanvas');
 const ctx = canvas.getContext('2d');
@@ -93,16 +115,16 @@ const ctx = canvas.getContext('2d');
 let bolhas = [];
 const numBolhas = 15;
 
-// Ajusta o tamanho do canvas
+
 function resizeCanvas() {
     canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight; // ou só window.innerHeight
+    canvas.height = window.innerHeight;
 }
 
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-// Criação inicial das bolhas
+
 for (let i = 0; i < numBolhas; i++) {
     bolhas.push(criarBolha());
 }
@@ -110,14 +132,13 @@ for (let i = 0; i < numBolhas; i++) {
 function criarBolha() {
     return {
         x: Math.random() * canvas.width,
-        y: window.innerHeight + Math.random() * 200,  // Respawn sempre abaixo da tela
+        y: window.innerHeight + Math.random() * 200, 
         size: Math.random() * 100 + 50,
         speed: Math.random() * 1 + 0.5,
         drift: Math.random() * 2 - 1,
         opacity: Math.random() * 0.5 + 0.5
     };
 }
-
 
 function desenharBolhas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -151,3 +172,78 @@ function animar() {
 }
 
 animar();
+
+const botaoTema = document.getElementById('botaoTema');
+const bolhasCanvas = document.getElementById('bolhasCanvas');
+const transitionOverlay = document.getElementById('transitionOverlay');
+const iconeSwitch = document.getElementById('iconeSwitch');
+
+let transitionDuration = 800; 
+let switchCooldown = 2000; 
+
+const imgSol = "/static/img/sol.png";
+const imgLua = "/static/img/lua.png";
+
+function atualizarIcone() {
+    if (botaoTema.checked) {
+        iconeSwitch.style.backgroundImage = `url('${imgLua}')`;
+    } else {
+        iconeSwitch.style.backgroundImage = `url('${imgSol}')`;
+    }
+}
+
+atualizarIcone();
+
+const logoOragame = document.getElementById('logoOragame');
+const logoOragameGrande = document.getElementById('logoOragameGrande');
+
+const logoClaro = "static/img/oragame.png";
+const logoEscuro = "static/img/oradark.png";
+
+function atualizarLogo() {
+    const isDark = document.body.classList.contains('dark-theme');
+    const novaSrc = isDark ? logoEscuro : logoClaro;
+
+    logoOragame.src = novaSrc;
+    logoOragameGrande.src = novaSrc;
+}
+
+botaoTema.addEventListener('change', () => {
+    const body = document.body;
+    const isDark = body.classList.contains('dark-theme');
+
+    botaoTema.disabled = true;
+
+    atualizarIcone();
+
+    if (isDark) {
+        transitionOverlay.style.background = 'white'; 
+    } else {
+        transitionOverlay.style.background = 'black';
+    }
+
+    transitionOverlay.style.transition = `opacity ${transitionDuration}ms ease-in-out`;
+    transitionOverlay.style.opacity = '1';
+
+    setTimeout(() => {
+        body.classList.toggle('dark-theme');
+
+
+        atualizarPeixesParaTema();
+        atualizarLogo();
+
+        if (body.classList.contains('dark-theme')) {
+            bolhasCanvas.style.display = 'none';
+        } else {
+            bolhasCanvas.style.display = 'block';
+        }
+
+        setTimeout(() => {
+            transitionOverlay.style.opacity = '0';
+        }, 50);
+    }, transitionDuration);
+
+    setTimeout(() => {
+        botaoTema.disabled = false;
+    }, switchCooldown);
+});

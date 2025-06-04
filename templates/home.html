@@ -13,35 +13,35 @@
 </head>
 
 <body>
+    <div id="transitionOverlay"></div>
 
     <canvas id="bolhasCanvas"></canvas>
 
     <div class="pai">
 
         <div class="usuario">
+            <input type="checkbox" id="botaoTema" hidden>
+            <label for="botaoTema" id="switchTema">
+                <span id="iconeSwitch"></span>
+            </label>
             <a href="/user">{{usuario}}</a>
 
             <div class="userFrame">
-                <img src="{{ url_for('static', filename=img_user) }}">
+                <img src="{{ url_for('static', filename='img/user.jpg') }}">
             </div>
         </div>
 
         <div class="vidro"> 
 
             <div class="barra">
-                <img class="logo" src="{{ url_for('static', filename='img/oragame.png') }}">
+                <img id="logoOragame" style="width: 25px; height: auto;" src="{{ url_for('static', filename='img/oragame.png') }}">
                 <a href="/home">OraGame</a>
 
-                <div class="botoes">
-                    <button class="minimizar"><b>-</b></button>
-                    <button class="maximizar"><b>+</b></button>
-                    <button class="fechar"><b>x</b></button>
-                </div>
             </div>
 
             <div class="centralizar">
                 <div class="caixa">
-                    <img class="logo2" src="{{ url_for('static', filename='img/oragame.png') }}">
+                    <img id="logoOragameGrande" style="width: 175px; height: auto;" src="{{ url_for('static', filename='img/oragame.png') }}">
                     Bem Vindo!
                 </div>
             </div>

@@ -8,7 +8,7 @@ app.secret_key = 'uma_chave_secreta_supersegura'
 ACCESS_TOKEN = "APP_USR-5515393234086824-051409-a798dc3e1af15b38426c01b84b761393-1952959008"
 PUBLIC_KEY = "APP_USR-1b3c0147-9080-4743-b327-109084494912"
 @app.route("/")
-def red():
+def redirect():
     return redirect(url_for("home"))
 @app.route("/cadastro",methods = ["GET","POST"])
 
@@ -48,6 +48,7 @@ def login():
         senha = request.form.get("senha")
         if usuario in return_names() and senha in return_senhas():
             from ADD_USER import add_user 
+            add_user(usuario,senha,"")
             session['username'] = usuario
             return redirect(url_for('home'))
         elif usuario not in return_names():
