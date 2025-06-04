@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ nome }} - IA Retro</title>
+  <link rel="stylesheet" href="/static/ia_style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/ia_style.css') }}" rel="stylesheet">
+</head>
+<body>
+  <div class="screen">
+    <div class="scanlines"></div>
+    <h1 class="glow">🎮 {{ nome }} v2.0</h1>
+    <div class="terminal-header">
+      <span class="terminal-btn red"></span>
+      <span class="terminal-btn yellow"></span>
+      <span class="terminal-btn green"></span>
+      <span class="terminal-title">TERMINAL DE JOGO</span>
+    </div>
+    
+    <div class="ascii-box" id="chat-box">
+      <p><strong>{{ nome }}:</strong> <span class="typewriter">Saudações, jogador lendário! Eu sou o {{ nome }}, teu guia entre os cartuchos perdidos do tempo! Insira uma ficha e vambora!</span></p>
+    </div>
+
+    <form id="chat-form">
+      <input type="text" id="mensagem" placeholder=">> Digite sua pergunta..." autocomplete="off" required>
+      <button type="submit">[ ENVIAR ]</button>
+    </form>
+    
+    <div class="retro-footer">
+      <p>STATUS: ONLINE | MEMÓRIA: 64KB | CARREGANDO LORE...</p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('chat-form');
+    const box = document.getElementById('chat-box');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = document.getElementById('mensagem').value;
+      box.innerHTML += `<p><strong>Você:</strong> ${msg}</p>`;
+      document.getElementById('mensagem').value = "";
+
+      // Adiciona efeito de "digitando..."
+      const typingIndicator = document.createElement('p');
+      typingIndicator.innerHTML = '<strong>{{ nome }}:</strong> <span class="typing">█</span>';
+      box.appendChild(typingIndicator);
+      box.scrollTop = box.scrollHeight;
+      
+      const dots = setInterval(() => {
+        const typing = typingIndicator.querySelector('.typing');
+        typing.textContent = typing.textContent.length > 3 ? '█' : typing.textContent + '█';
+      }, 500);
+
+      const resposta = await fetch('/perguntar', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ mensagem: msg })
+      });
+      
+      clearInterval(dots);
+      typingIndicator.remove();
+      
+      const data = await resposta.json();
+      box.innerHTML += `<p><strong>{{ nome }}:</strong> ${data.resposta}</p>`;
+      box.scrollTop = box.scrollHeight;
+    });
+    
+    // Foca no input ao carregar
+    document.getElementById('mensagem').focus();
+  </script>
+</body>
+</html>

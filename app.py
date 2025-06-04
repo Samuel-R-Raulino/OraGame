@@ -8,7 +8,7 @@ app.secret_key = 'uma_chave_secreta_supersegura'
 ACCESS_TOKEN = "APP_USR-5515393234086824-051409-a798dc3e1af15b38426c01b84b761393-1952959008"
 PUBLIC_KEY = "APP_USR-1b3c0147-9080-4743-b327-109084494912"
 @app.route("/")
-def redirect():
+def redirec():
     return redirect(url_for("home"))
 @app.route("/cadastro",methods = ["GET","POST"])
 
@@ -249,6 +249,34 @@ def verificar_status(pagamento_id):
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
+
+# Configura API do Gemini
+import google.generativeai as genai
+genai.configure(api_key="AIzaSyBjsyOiiFE00gTq1sjhqv_vBoJaetRUCEg")
+model = genai.GenerativeModel("models/gemini-1.5-flash")
+chat = model.start_chat()
+
+
+
+
+@app.route('/ia')
+def ia():
+    nome = "personagem principal do "+session["game_buy"]
+    intro = f"""Oi, você é {nome}, o especialista retro do universo gamer!
+    Fale sobre a lore dos jogos, história do projeto, universo, personagens e desenvolvimento.
+    Sua fala inicial deve ser carismática, estilo anos 80/90, agressivo no estilo, mas nunca ofensivo."""
+    chat.send_message(intro)
+    return render_template('atendente.html', nome=nome)
+
+@app.route('/perguntar', methods=['POST'])
+def perguntar():
+    pergunta = request.json['mensagem']
+    try:
+        resposta = chat.send_message(pergunta)
+        return jsonify({'resposta': resposta.text})
+    except Exception as e:
+        return jsonify({'resposta': f"Erro: {e}"}), 500
+    
 print("inicializando...")
 if __name__ == "__main__":
     app.run(debug=True)

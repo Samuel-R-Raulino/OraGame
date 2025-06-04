@@ -24,7 +24,8 @@ nome = "Half"
 preço = 1.5
 descrição = "Jogo bom"
 img = "main.png"
-requisitos = "8gb ram"
+requisitos = """8gb ram
+"""
 classificação = "18+"
 print("Banco de dados criado com sucesso!")
 try:
