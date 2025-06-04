@@ -77,6 +77,7 @@ def return_dates(nome):
         "SELECT descrição FROM games WHERE nome=?",
         "SELECT img1 FROM games WHERE nome=?",
         "SELECT img2 FROM games WHERE nome=?",
+        "SELECT img3 FROM games WHERE nome=?",
         "SELECT requisitos FROM games WHERE nome=?",
         "SELECT classificação FROM games WHERE nome=?"
     ]

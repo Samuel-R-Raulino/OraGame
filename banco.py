@@ -24,26 +24,17 @@ CREATE TABLE IF NOT EXISTS games (
 conn.commit()
 
 
-nome = "The Legend of Zelda: Ocarina of Time"
+nome = "Arcrow"
 preço = 0.1
-descrição = """The Legend of Zelda: Ocarina of Time é um jogo de ação e aventura
-lançado em 1998 para o Nintendo 64.
-Você joga como Link, um jovem herói destinado a salvar
-o reino de Hyrule das forças do mal lideradas por Ganondorf.
-Com exploração em mundo aberto, puzzles inteligentes
-e viagens no tempo, Ocarina of Time é considerado
-um dos melhores e mais influentes jogos de todos os tempos."""
-img1 = "Zelda1.png"
-img2 = "Zelda2.jpg"
-img3 = "Zelda3.jpg"
+descrição = " game do prof"
+img1 = "Arcrow1.png"
+img2 = "Arcrow2.jpg"
+img3 = "Arcrow3.jpg"
 requisitos = """
-Console: Nintendo 64 ou emulador compatível
-Armazenamento: Cartucho original ou ROM (~32 MB)
-Controles: Controle do N64 ou gamepad configurado no emulador
-Sistema: PC com requisitos básicos para emulação (mínimo 1 GHz, 512 MB RAM)
+1gb de ram
 """
-classificação = "Livre"
-download_id = "SEU_ID_DO_DRIVE_AQUI"
+classificação = "12+"
+download_id = "1abzesPs7qyi3IevB9UFjbMxZHF6ky0B1"
 
 cursor.execute(
     "INSERT INTO games (nome,preço,descrição,img1,img2,img3,requisitos,classificação,download_id) VALUES (?,?,?,?,?,?,?,?,?)",

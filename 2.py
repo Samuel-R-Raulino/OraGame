@@ -5,14 +5,14 @@ conn = sqlite3.connect('banco_games.db')
 cursor = conn.cursor()
 
 # Novo download_id que você quer colocar
-novo_download_id = "13XIXO7wTpiHWfELbuxkmDNqRGHpnsAdr"
+novo_download_id = "Arcrow3.jpg"
 
 # Nome do jogo que você quer atualizar
-nome_jogo = "The Legend of Zelda: Ocarina of Time"
+nome_jogo = "Arcrow"
 
 # Comando para atualizar o download_id do jogo
 cursor.execute(
-    "UPDATE games SET download_id = ? WHERE nome = ?",
+    "UPDATE games SET img3 = ? WHERE nome = ?",
     (novo_download_id, nome_jogo)
 )
 

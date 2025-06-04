@@ -116,8 +116,11 @@ def game():
 
     img1 = "img/"+take[2]
     img2 = "img/"+take[3]
-    classificação = take[4]
-    return render_template("game.html",nome=nome,preço=preço,descrição=descrição,img1=img1,img2=img2,requisitos="8gb",classificação=classificação,usuario=usuario,img_user=img_user)
+    img3 = "img/"+take[4]
+    print(img3)
+    requisitos = take[5]
+    classificação = take[6]
+    return render_template("game.html",requisitos=requisitos,img3=img3,nome=nome,preço=preço,descrição=descrição,img1=img1,img2=img2,classificação=classificação,usuario=usuario,img_user=img_user)
 
 
 @app.route("/user")
