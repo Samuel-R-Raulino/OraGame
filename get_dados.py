@@ -64,7 +64,22 @@ def return_id(nome):
     conn.close()
     print(id)
     return id[0][0]
+def return_person(nome):
+    
+    print(nome)
+    import sqlite3
 
+    conn = sqlite3.connect('banco_games.db')
+    cursor = conn.cursor()
+
+    query = "SELECT personagem_principal FROM games WHERE nome=?"
+    
+
+    cursor.execute(query, (nome,))
+    id = cursor.fetchall()
+    conn.close()
+    print(id)
+    return id[0][0]
 def return_dates(nome):
     dates = []
     import sqlite3

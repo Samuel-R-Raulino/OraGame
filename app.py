@@ -261,7 +261,8 @@ chat = model.start_chat()
 
 @app.route('/ia')
 def ia():
-    nome = "personagem principal do "+session["game_buy"]
+    nome = return_person(session["game_buy"])
+    
     intro = f"""Oi, você é {nome}, o especialista retro do universo gamer!
     Fale sobre a lore dos jogos, história do projeto, universo, personagens e desenvolvimento.
     Sua fala inicial deve ser carismática, estilo anos 80/90, agressivo no estilo, mas nunca ofensivo."""
