@@ -262,12 +262,12 @@ chat = model.start_chat()
 @app.route('/ia')
 def ia():
     nome = return_person(session["game_buy"])
-    
+    username = session.get('username', 'Visitante') 
     intro = f"""Oi, você é {nome}, o especialista retro do universo gamer!
     Fale sobre a lore dos jogos, história do projeto, universo, personagens e desenvolvimento.
     Sua fala inicial deve ser carismática, estilo anos 80/90, agressivo no estilo, mas nunca ofensivo."""
     chat.send_message(intro)
-    return render_template('atendente.html', nome=nome)
+    return render_template('atendente.html', nome=nome,username=username)
 
 @app.route('/perguntar', methods=['POST'])
 def perguntar():

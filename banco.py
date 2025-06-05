@@ -24,9 +24,9 @@ CREATE TABLE IF NOT EXISTS games (
 conn.commit()
 
 
-nome = "Arcrow"
+nome = "Doom II"
 preço = 0.1
-descrição = " game do prof"
+descrição = " É a sequencia do Doom de 1993, dessa vez, Doom Guy deve enfrentar os demônios em seu planeta natal, a Terra, onde chega de viagem de Marte após os acontecimentos do Doom(1993), e vê o seu coelho de estimação morto pelo demônios, e por isso, ele resolve destruir o exército infernal que agora tentam atormentar sua terra natal. Foi lançado pela ID Software, em 1994, e foi um sucesso superando até mesmo seu antecessor."
 img1 = "Arcrow1.png"
 img2 = "Arcrow2.jpg"
 img3 = "Arcrow3.jpg"
@@ -34,11 +34,11 @@ requisitos = """
 1gb de ram
 """
 classificação = "12+"
-download_id = "1abzesPs7qyi3IevB9UFjbMxZHF6ky0B1"
-
+download_id = "1ShYoBWisbRqTa5h29BlCOLBvnW3v-6v0"
+personagem_principal = ""
 cursor.execute(
-    "INSERT INTO games (nome,preço,descrição,img1,img2,img3,requisitos,classificação,download_id) VALUES (?,?,?,?,?,?,?,?,?)",
-    (nome,preço,descrição,img1,img2,img3,requisitos,classificação,download_id)
+    "INSERT INTO games (nome,preço,descrição,img1,img2,img3,requisitos,classificação,download_id,personagem_principal) VALUES (?,?,?,?,?,?,?,?,?)",
+    (nome,preço,descrição,img1,img2,img3,requisitos,classificação,download_id,personagem_principal)
 )
 
 conn.commit()
