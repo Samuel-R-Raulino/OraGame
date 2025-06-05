@@ -40,7 +40,9 @@ def home():
     usuario = session.get('username', 'Visitante') 
     return render_template("home.html", usuario=usuario, img_user=img_user)
 
-
+@app.route("/fliperama")
+def fliper():
+    return render_template("fliperama.html")
 @app.route("/login",methods = ["GET","POST"])
 def login():
     if request.method == "POST":
