@@ -6,12 +6,19 @@
     <link rel="icon" type="image/ico" href="{{ url_for('static', filename='img/favicon.ico') }}">
     <title>Sobre</title>
     <link href="{{ url_for('static', filename='css/estilo4.css') }}" rel="stylesheet">
-    <script src="{{ url_for('static', filename='js/animacaoindex.js') }}" defer></script>
+    <link href="{{ url_for('static', filename='css/dark.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/animacaoindex2.js') }}" defer></script>
 </head>
 <body>
+    <div id="transitionOverlay"></div>
+
     <canvas id="bolhasCanvas"></canvas>
     <div class="pai">
         <div class="usuario">
+            <input type="checkbox" id="botaoTema" hidden>
+            <label for="botaoTema" id="switchTema">
+                <span id="iconeSwitch"></span>
+            </label>
             <a href="/user">{{usuario}}</a>
             <div class="userFrame">
                 <img src="{{ url_for('static', filename=img_user) }}">
@@ -21,19 +28,13 @@
         <div class="vidro">
 
             <div class="barra">
-                <img class="logo" src="{{ url_for('static', filename='img/oragame.png') }}">
+                <img id="logoOragame" src="{{ url_for('static', filename='img/oragame.png') }}">
                 <a href="/home">OraGame</a>
-
-                <div class="botoes">
-                    <button class="minimizar"><b>-</b></button>
-                    <button class="maximizar"><b>+</b></button>
-                    <button class="fechar"><b>x</b></button>
-                </div>
             </div>
 
             <div class="centralizar">
                 <div class="caixa">
-                    <img class="logo2" src="{{ url_for('static', filename='img/oragame.png') }}">
+                    <img id="logoOragameGrande" src="{{ url_for('static', filename='img/oragame.png') }}">
                     Sobre
                 </div>
 
@@ -51,27 +52,22 @@
                                 <table class="bordered">
                                     <tr>
                                         <td><b>28/05/25</b></td>
-                                        <td>Lembrei que tem isso aqui :3</td>
+                                        <td>Teste Changelog</td>
                                     </tr>
                                     <tr>
                                         <td><b>30.01.25</b></td>
-                                        <td>Changed the bubbles so that they wouldn't move when viewed on screens of
-                                            different sizes, now the website doesn't look as shit when the screen size
-                                            is ever so slightly smaller/larger.</td>
+                                        <td>Teste Changelog 2</td>
                                     </tr>
                                     <tr>
                                         <td><b>29.01.25</b></td>
-                                        <td>New site theme uploaded! I had to make a new one and change the name because
-                                            the old one was so ugly! Now to make the other pages - the first one on my
-                                            agenda is the about page. Unsure whether to make it its own page or to keep
-                                            it here.</td>
+                                        <td>Teste Changelog 3<td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                         <br> <br>
                         <div class="group_img">
-                            <img src="{{ url_for('static', filename='img/fundo.gif') }}" height="200" width="667">
+                            <img id="fundo" src="{{ url_for('static', filename='img/fundo.gif') }}" height="200" width="667">
                         </div>
                     </div>
                     <div class="direita">
@@ -119,13 +115,13 @@
                                         <div class="usuario">
                                             <a href="{{ url_for('static', filename='user/user.php') }}">Hendrill</a>
                                             <div class="userFrame">
-                                                <img src="{{ url_for('static', filename='img/jailson.jpg') }}">
+                                                <img src="{{ url_for('static', filename='img/hendrill.png') }}">
                                             </div>
                                         </div>
                                         <div class="usuario">
                                             <a href="{{ url_for('static', filename='user/user.php') }}">Maria</a>
                                             <div class="userFrame">
-                                                <img src="{{ url_for('static', filename='img/') }}">
+                                                <img src="{{ url_for('static', filename='img/maria.png') }}">
                                             </div>
                                         </div>
                                         <div class="usuario">
@@ -138,7 +134,7 @@
                                         <div class="usuario">
                                             <a href="{{ url_for('static', filename='user/user.php') }}">Luiz</a>
                                             <div class="userFrame">
-                                                <img src="{{ url_for('static', filename='img/a.jpg') }}">
+                                                <img src="{{ url_for('static', filename='img/luiz.png') }}">
                                             </div>
                                         </div>
                                     </div>

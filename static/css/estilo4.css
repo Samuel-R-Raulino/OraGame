@@ -19,7 +19,16 @@
     --sombra-botoes-interna: inset 0 1px 4px 1px #ffffff; /* Sombra interna dos botões */
     --sombra-botoes-fechar-interna: inset 0 1px 6px 1px #ffffff; /* Sombra interna do botão fechar */
     --sombra-texto-preta: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black; /* Sombra de texto preta */
-    --sombra-texto-branca: #ffffff 0 0 12px; /* Sombra de texto branca */
+    --sombra-texto-branca:
+        #ffffff 0 0 12px,
+        #ffffff 0 0 12px,
+        #ffffff 0 0 12px,
+        #ffffff 0 0 12px,
+        #ffffff 0 0 12px,
+        #ffffff 0 0 12px,
+        #ffffff 0 0 12px,
+        #ffffff 0 0 12px,
+        #ffffff 0 0 12px;
     --sombra-brilho-verde: 0px 0px 20px 5px #00ffb3; /* Brilho verde para botões */
     --sombra-brilho-vermelho: 0px 0px 20px 5px #ff000081; /* Brilho vermelho para botão fechar */
 
@@ -67,6 +76,23 @@ body {
     overflow-x: hidden; /* Evita scroll horizontal indesejado */
 }
 
+body.dark-theme {
+    background-image: url("../img/dark.png");
+    font-family: 'Verdana', 'Geneva', 'Tahoma', sans-serif; /* Fallback para fontes */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* Garante que a imagem de fundo não se repita */
+    background-attachment: fixed; /* Fixa a imagem de fundo durante a rolagem */
+    border-radius: var(--radius-grande); /* Mantido, embora o efeito visual seja limitado no body */
+    margin: 35px; /* Margem externa do body */
+    display: flex;
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente (se body tiver min-height) */
+    min-height: calc(100vh - 70px); /* Garante altura mínima para centralização, considerando a margem */
+    cursor: url("../img/cursor.cur"), auto;
+    overflow-x: hidden; /* Evita scroll horizontal indesejado */
+}
+
 /* Cursores personalizados */
 a {
     cursor: url("../img/pointer.cur"), auto;
@@ -78,6 +104,81 @@ button {
     cursor: url("../img/pointer.cur"), auto;
     /* Estilos base para botões serão definidos abaixo */
 }
+
+#transitionOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+#switchTema {
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    border: 2px solid #b0faff6c;
+    background: #002fff1a;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 40px #00000085;
+    border-radius: 30px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s, border 0.3s, box-shadow 0.3s;
+}
+
+body.dark-theme #switchTema {
+    border: 2px solid #dd53ffc4;
+    background: #00000085;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 40px #e100ff85;
+}
+
+/* Ícone que desliza e gira */
+#iconeSwitch {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: 
+        left 1.2s ease, 
+        transform 1.2s ease, 
+        background-image 0.3s ease;
+    transform: rotate(0deg);
+}
+
+
+#botaoTema:checked + #switchTema #iconeSwitch {
+    left: 33px;
+    transform: rotate(360deg);
+}
+
+
+#botaoTema:checked + #switchTema #iconeSwitch {
+    left: 33px;
+}
+
+#logoOragame{
+    width: 25px;
+    height: auto;
+    padding-right: 2px;
+}
+
+#logoOragameGrande{
+
+    width: 175px;
+    height: auto;
+    padding-right: 2px;
+
+}
+
 
 /* --- Estilos da Barra de Rolagem (Webkit) --- */
 /* Mantido por ser específico de webkit e não ter uma alternativa universal ainda */
@@ -112,6 +213,7 @@ button {
 .pai {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px; /* Espaçamento entre os filhos diretos do .pai */
     position: relative; /* Para posicionar elementos filhos com position: absolute */
     z-index: 1; /* Garante que o conteúdo esteja acima das bolhas */
@@ -143,8 +245,8 @@ button {
 /* --- Vidro (Glassmorphism) --- */
 .vidro {
     position: relative;
-    width: 75vw;
-    padding: 30px; /* Padding em todas as direções */
+    width: 100%;
+    padding: 5  px; /* Padding em todas as direções */
     border: var(--borda-vidro);
     border-radius: var(--radius-pequeno);
     background: var(--fundo-vidro);
@@ -154,7 +256,7 @@ button {
     display: flex;
     flex-direction: column;
     gap: 20px; /* Espaçamento entre os elementos dentro do vidro */
-    min-height: 80vh; /* Altura mínima para o vidro */
+    min-height: 200%; /* Altura mínima para o vidro */
 }
 
 /* --- Caixa de Título --- */
@@ -194,186 +296,6 @@ button {
     #ffffff 0 0 12px,
     #ffffff 0 0 12px;
 
-}
-
-.maximizar{
-
-    position: relative;
-    cursor: url("../img/pointer.cur"), auto;
-    min-width: 30px;
-    justify-content: center;
-    display: flex;
-    background: linear-gradient(#92fff0dc 0%, #92fff0dc 50%, #07c576c9 50%, #07c576c9 100%);
-    font-size: 18px;
-    box-shadow:inset 0px 1px 4px 1px #ffffff;
-    border-top: none;
-    border-bottom: 1px solid black;
-    border-left: 1px solid black;
-    border-right:1px solid black;
-    text-shadow:     
-    -1px -1px 0 black,
-    1px -1px 0 black,
-    -1px  1px 0 black,
-    1px  1px 0 black;
-    color: white;
-
-}
-
-.maximizar::before {
-
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    box-shadow:0px 0px 20px 5px #00ffb3;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: none;
-    pointer-events: none;
-
-}
-
-.maximizar:hover::before{
-
-    opacity: 1;
-
-}
-
-.maximizar:active{
-
-    background: linear-gradient(#98dbd2dc 0%, #98dbd2dc 50%, #00ad65d8 50%, #00ad65d8 100%);
-
-}
-
-
-.minimizar{
-
-    position: relative;
-    cursor: url("../img/pointer.cur"), auto;
-    min-width: 30px;
-    justify-content: center;
-    display: flex;
-    background: linear-gradient(#92fff0dc 0%, #92fff0dc 50%, #07c576c9 50%, #07c576c9 100%);
-    font-size: 18px;
-    box-shadow:inset 0px 1px 4px 1px #ffffff;
-    border-top: none;
-    border-right: none;
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
-    text-shadow:     
-    -1px -1px 0 black,
-    1px -1px 0 black,
-    -1px  1px 0 black,
-    1px  1px 0 black;
-    border-bottom-left-radius: 10px;
-    color: white;
-}
-
-.minimizar::before{
-
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    box-shadow:0px 0px 20px 5px #00ffb3;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    border-bottom-left-radius: 10px;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: none;
-    pointer-events: none;
-}
-
-.minimizar:hover::before{
-
-    opacity: 1;
-
-}
-
-.minimizar:active{
-
-    background: linear-gradient(#98dbd2dc 0%, #98dbd2dc 50%, #00ad65d8 50%, #00ad65d8 100%);
-
-}
-
-.fechar{
-
-    position: relative;
-    cursor: url("../img/pointer.cur"), auto;
-    display: flex;
-    justify-content: center;
-    min-width: 50px;
-    background: linear-gradient(#ffa2a2c0 0%,#ffa2a2c0 50%, #ff1414cc 50%, #ff1414cc 100%);
-    font-size: 18px;
-    box-shadow:inset 0px 1px 6px 1px #ffffff;
-    border-top: none;
-    border-left: none;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
-    text-shadow:     
-    -1px -1px 0 black,
-    1px -1px 0 black,
-    -1px  1px 0 black,
-    1px  1px 0 black;
-    border-bottom-right-radius: 10px;
-    color: white;
-
-}
-
-.fechar::before{
-
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    box-shadow: 0px 0px 20px 5px #ff000081;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    border-bottom-right-radius: 10px;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: none;
-    pointer-events: none;
-
-}
-
-.fechar:hover::before{
-
-    opacity: 1;
-
-}
-
-.fechar:active{
-
-    background: linear-gradient(#db7e7ec0 0%,#db7e7ec0 50%, #c00000cc 50%, #c00000cc 100%);
-
-}
-
-
-.botoes{
-
-    text-shadow: none;
-    right: 1vw;
-    position: absolute;
-    display: flex;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    outline: 1px solid #b0faff6c;
-    margin-bottom: 0.6%;
-    margin-left: 90.5%;
-    
 }
 
 .logo{

@@ -2,14 +2,13 @@ body{
     background-image: url("../img/fruti.png");
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-size: cover;
-    background-attachment:fixed ;
+    background-attachment:fixed;
     background-position: center;
     border-radius:20px;
     margin: 35px;
     justify-content: center;
     display: flex;
     cursor: url("../img/cursor.cur"), auto;
-    transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out, border-color 0.5s ease-in-out;
 }
 
 body.dark-theme{
@@ -101,6 +100,7 @@ a{
 
     display: flex;
     flex-direction: column;
+    align-items: center;
 
 }
 
@@ -185,7 +185,7 @@ body.dark-theme #switchTema {
 .vidro {
     position: relative;
     width: 75vw;
-    height: 110vh;
+    height: 110%;
     padding-left: 30px;
     padding-right: 30px;
     padding-bottom: 30px;
@@ -196,23 +196,13 @@ body.dark-theme #switchTema {
     box-shadow: 0 2px 40px #00000085;
     display: flex;
     flex-direction: column;
-    transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out, border-color 0.5s ease-in-out;
 }
 
 body.dark-theme .vidro {
-    position: relative;
-    width: 75vw;
-    height: 110vh;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-bottom: 30px;
     border: 2px solid #dd53ffc4;
-    border-radius: 10px;
     background: #00000085;
     backdrop-filter: blur(5px);
     box-shadow: 0 2px 40px #e100ff85;
-    display: flex;
-    flex-direction: column;
 }
 
 .caixa{  
@@ -228,7 +218,6 @@ body.dark-theme .vidro {
     color: #ecd897;
     text-shadow: black 0 0 10px;
     padding: 10px;
-    transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out, border-color 0.5s ease-in-out;
     transform: rotateX(360deg);
 }
 
@@ -272,11 +261,9 @@ body.dark-theme .caixa{
 }
 
 #logoOragameGrande{
-
     width: 175px;
     height: auto;
     padding-right: 2px;
-
 }
 
 .botao{

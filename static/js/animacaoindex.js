@@ -93,28 +93,11 @@ function explodirPeixe(peixe) {
     }, 750);
 }
 
-
-function atualizarPeixesParaTema() {
-    const body = document.body;
-    const usandoDark = body.classList.contains('dark-theme');
-
-    peixesCriados.forEach(peixe => {
-        const index = peixe.dataset.index;
-        const novaConfig = usandoDark ? imagensNaves[index] : imagensPeixe[index];
-        peixe.style.backgroundImage = `url("${novaConfig.src}")`;
-        peixe.style.width = `${novaConfig.width}px`;
-        peixe.style.height = `${novaConfig.height}px`;
-    });
-}
-
-
-
 const canvas = document.getElementById('bolhasCanvas');
 const ctx = canvas.getContext('2d');
 
 let bolhas = [];
 const numBolhas = 15;
-
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -124,7 +107,6 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-
 for (let i = 0; i < numBolhas; i++) {
     bolhas.push(criarBolha());
 }
@@ -132,7 +114,7 @@ for (let i = 0; i < numBolhas; i++) {
 function criarBolha() {
     return {
         x: Math.random() * canvas.width,
-        y: window.innerHeight + Math.random() * 200, 
+        y: window.innerHeight + Math.random() * 200,
         size: Math.random() * 100 + 50,
         speed: Math.random() * 1 + 0.5,
         drift: Math.random() * 2 - 1,
@@ -142,15 +124,12 @@ function criarBolha() {
 
 function desenharBolhas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     bolhas.forEach(bolha => {
         ctx.globalAlpha = bolha.opacity;
         const img = new Image();
         img.src = 'static/img/bolha.png';
-
         ctx.drawImage(img, bolha.x, bolha.y, bolha.size, bolha.size);
     });
-
     ctx.globalAlpha = 1;
 }
 
@@ -158,7 +137,6 @@ function atualizarBolhas() {
     bolhas.forEach(bolha => {
         bolha.y -= bolha.speed;
         bolha.x += bolha.drift;
-
         if (bolha.y + bolha.size < 0) {
             Object.assign(bolha, criarBolha());
         }
@@ -173,70 +151,91 @@ function animar() {
 
 animar();
 
+function atualizarPeixesParaTema() {
+    const usandoDark = document.body.classList.contains('dark-theme');
+    peixesCriados.forEach(peixe => {
+        const index = peixe.dataset.index;
+        const novaConfig = usandoDark ? imagensNaves[index] : imagensPeixe[index];
+        peixe.style.backgroundImage = `url("${novaConfig.src}")`;
+        peixe.style.width = `${novaConfig.width}px`;
+        peixe.style.height = `${novaConfig.height}px`;
+    });
+}
+
 const botaoTema = document.getElementById('botaoTema');
 const bolhasCanvas = document.getElementById('bolhasCanvas');
 const transitionOverlay = document.getElementById('transitionOverlay');
 const iconeSwitch = document.getElementById('iconeSwitch');
 
-let transitionDuration = 800; 
-let switchCooldown = 2000; 
-
-const imgSol = "/static/img/sol.png";
-const imgLua = "/static/img/lua.png";
-
-function atualizarIcone() {
-    if (botaoTema.checked) {
-        iconeSwitch.style.backgroundImage = `url('${imgLua}')`;
-    } else {
-        iconeSwitch.style.backgroundImage = `url('${imgSol}')`;
-    }
-}
-
-atualizarIcone();
-
 const logoOragame = document.getElementById('logoOragame');
 const logoOragameGrande = document.getElementById('logoOragameGrande');
+
+const imgSol = "static/img/sol.png";
+const imgLua = "static/img/lua.png";
 
 const logoClaro = "static/img/oragame.png";
 const logoEscuro = "static/img/oradark.png";
 
+let transitionDuration = 800;
+let switchCooldown = 2000;
+
+function atualizarIcone() {
+    iconeSwitch.style.backgroundImage = botaoTema.checked ? `url('${imgLua}')` : `url('${imgSol}')`;
+}
+
 function atualizarLogo() {
     const isDark = document.body.classList.contains('dark-theme');
     const novaSrc = isDark ? logoEscuro : logoClaro;
-
     logoOragame.src = novaSrc;
     logoOragameGrande.src = novaSrc;
 }
 
+function atualizarBolhasCanvas() {
+    bolhasCanvas.style.display = document.body.classList.contains('dark-theme') ? 'none' : 'block';
+}
+
+function salvarTema() {
+    const temaAtual = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+    localStorage.setItem('tema', temaAtual);
+}
+
+function carregarTema() {
+    const temaSalvo = localStorage.getItem('tema');
+    if (temaSalvo === 'dark') {
+        document.body.classList.add('dark-theme');
+        botaoTema.checked = true;
+    } else {
+        document.body.classList.remove('dark-theme');
+        botaoTema.checked = false;
+    }
+}
+
+function initTema() {
+    carregarTema();
+    atualizarIcone();
+    atualizarLogo();
+    atualizarBolhasCanvas();
+    atualizarPeixesParaTema();
+}
+
+
+
 botaoTema.addEventListener('change', () => {
-    const body = document.body;
-    const isDark = body.classList.contains('dark-theme');
-
     botaoTema.disabled = true;
-
     atualizarIcone();
 
-    if (isDark) {
-        transitionOverlay.style.background = 'white'; 
-    } else {
-        transitionOverlay.style.background = 'black';
-    }
-
+    const isDark = document.body.classList.contains('dark-theme');
+    transitionOverlay.style.background = isDark ? 'white' : 'black';
     transitionOverlay.style.transition = `opacity ${transitionDuration}ms ease-in-out`;
     transitionOverlay.style.opacity = '1';
 
     setTimeout(() => {
-        body.classList.toggle('dark-theme');
-
+        document.body.classList.toggle('dark-theme');
 
         atualizarPeixesParaTema();
         atualizarLogo();
-
-        if (body.classList.contains('dark-theme')) {
-            bolhasCanvas.style.display = 'none';
-        } else {
-            bolhasCanvas.style.display = 'block';
-        }
+        atualizarBolhasCanvas();
+        salvarTema();
 
         setTimeout(() => {
             transitionOverlay.style.opacity = '0';
@@ -247,3 +246,5 @@ botaoTema.addEventListener('change', () => {
         botaoTema.disabled = false;
     }, switchCooldown);
 });
+
+initTema();
