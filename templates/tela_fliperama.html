@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <style>
+        body, html {
+            margin: 0; 
+            padding: 0; 
+            height: 100%;
+            background: transparent !important; /* tira qualquer fundo */
+        }
+        #fliperama {
+            position: relative;
+            width: 900px;  /* tamanho da imagem */
+            height: 952px;
+            left:320px;
+            background: url('/static/img/Fliperama.png') no-repeat;
+            background-size: contain;
+        }
+        #dos {
+            position: absolute;
+            top: 270px;   /* ajuste para encaixar na "tela" do fliperama */
+            left: 240px;  /* ajuste para encaixar na "tela" do fliperama */
+            width: 430px;  /* tamanho da tela do MS-DOS */
+            height: 330px;
+            background: transparent !important; /* força fundo transparente */
+        }
+        /* Também pode tentar limpar fundo do canvas interno do js-dos */
+        #dos canvas {
+            background: transparent !important;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css" />
+    <script src="https://v8.js-dos.com/latest/js-dos.js"></script>
+</head>
+<body>
+
+    <div id="fliperama">
+        <div id="dos"></div>
+    </div>
+
+    <script>
+        Dos(document.getElementById("dos"), {
+            url: "https://v8.js-dos.com/bundles/digger.jsdos",
+            autostart: true
+        });
+    </script>
+
+</body>
+</html>

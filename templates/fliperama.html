@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/ico" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <title>Sobre</title>
+    <link href="{{ url_for('static', filename='css/estilo4.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/dark.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/animacaoindex2 copy.js') }}" defer></script>
+</head>
+<body>
+    <div id="transitionOverlay"></div>
+
+    <canvas id="bolhasCanvas"></canvas>
+    <div class="pai">
+        <div class="usuario">
+            <input type="checkbox" id="botaoTema" hidden>
+            <label for="botaoTema" id="switchTema">
+                <span id="iconeSwitch"></span>
+            </label>
+            <a href="/user">{{usuario}}</a>
+            <div class="userFrame">
+                <img src="{{ url_for('static', filename='img/user.jpg') }}">
+            </div>
+        </div>
+
+        <div class="vidro">
+
+            <div class="barra">
+                <img id="logoOragame" src="{{ url_for('static', filename='img/oragame.png') }}">
+                <a href="/home">OraGame</a>
+            </div>
+
+            <div class="centralizar">
+                <div class="caixa">
+                    <img id="logoOragameGrande" src="{{ url_for('static', filename='img/oragame.png') }}">
+                    Fliper
+                </div>
+
+                <div class="container">
+                    <div class="esquerda">
+                        <iframe src="/fliper" width="1600" height="1000" style="border:none;"></iframe>
+                    </div>
+                </div>
+</body>
+</html>

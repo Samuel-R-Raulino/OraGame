@@ -41,8 +41,14 @@ def home():
     return render_template("home.html", usuario=usuario, img_user=img_user)
 
 @app.route("/fliperama")
-def fliper():
+def fliperama():
     return render_template("fliperama.html")
+@app.route("/fliper")
+def fliper():
+    return render_template("tela_fliperama.html")
+@app.route("/dos")
+def dos():
+    return render_template("dos.html")
 @app.route("/login",methods = ["GET","POST"])
 def login():
     if request.method == "POST":

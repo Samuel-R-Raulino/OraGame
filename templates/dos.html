@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>MS-DOS Only</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+        }
+
+        #dos {
+            width: 100%;
+            height: 100%;
+            background: transparent !important;
+        }
+
+        #dos canvas {
+            background: transparent !important;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css" />
+    <script src="https://v8.js-dos.com/latest/js-dos.js"></script>
+</head>
+<body>
+    <div id="dos"></div>
+
+    <script>
+        Dos(document.getElementById("dos"), {
+            url: "https://v8.js-dos.com/bundles/digger.jsdos",
+            autostart: true
+        });
+    </script>
+</body>
+</html>
