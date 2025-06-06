@@ -84,10 +84,10 @@ function atualizarIcone() {
 
 function atualizarFundoParaTema() {
     const fundo = document.getElementById('fundo');
+    if (!fundo) return; // <- evita erro se o elemento não existir
     const isDark = document.body.classList.contains('dark-theme');
     fundo.src = isDark ? "/static/img/fundo2.gif" : "/static/img/fundo.gif";
 }
-
 function atualizarLogo() {
     const isDark = document.body.classList.contains('dark-theme');
     const novaSrc = isDark ? logoEscuro : logoClaro;

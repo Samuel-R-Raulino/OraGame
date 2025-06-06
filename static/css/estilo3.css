@@ -236,7 +236,7 @@ button{
 }
 
 .gameFrame{
-
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   width: 17vw;
   height: 18vh;
   border: 2px solid #b0faff6c;
