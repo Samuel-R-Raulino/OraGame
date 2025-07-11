@@ -22,11 +22,22 @@ def cadastro():
 
         from ADD_USER import add_user 
         add_user(usuario,email,senha,"")
+        from games_bc import set_user 
+        set_user(usuario,"")
     return render_template("cadastro.html")
 
 @app.route("/home")
 def home():
+    global botao_foi_clicado
+    from games_bc import add_games
     session["img_user"] = "img/user.jpg"
+    if botao_foi_clicado == True:
+        print("jogo:"+session.get('game', 'Visitante') )
+        print(session.get('username', 'Visitante'))
+        add_games(session.get('username', 'Visitante'),session.get('game', 'Visitante'))
+        ##botao_foi_clicado = False
+    else:
+        print("jogo nulo")
 
     valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
     print(f"Valor atual de game_buy na sessão: '{valor_game_buy}'")
@@ -104,8 +115,10 @@ def games():
         return redirect(url_for("game"))  # IMPORTANTE: return aqui!
     return render_template("games.html",jogos=vals,usuario=usuario,img_user=img_user)
 
-@app.route("/game")
+
+@app.route('/game', methods=['GET', 'POST'])
 def game():
+    global botao_foi_clicado
     
     valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
     print(f"Valor atual de game_buy na sessão: '{valor_game_buy}'")
@@ -114,14 +127,16 @@ def game():
         print("O valor de game_buy está vazio")
     else:
         print("O valor de game_buy NÃO está vazio:", valor_game_buy)
-
+    
+    if request.method == 'POST':
+        botao_foi_clicado = True
+        return redirect(url_for('home'))
     img_user = session["img_user"] 
     usuario = session.get('username', 'Visitante') 
     nome = session.get('game', 'Visitante') 
     take = return_dates(nome)
     preço = take[0]
     descrição = take[1]
-
     img1 = "img/"+take[2]
     img2 = "img/"+take[3]
     img3 = "img/"+take[4]

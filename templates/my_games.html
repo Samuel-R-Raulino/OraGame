@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Página Principal</title>
+
+    <!-- Arquivo CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo3.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dark.css') }}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <!-- Script JS -->
+    <script src="{{ url_for('static', filename='js/animacaoindex2.js') }}" defer></script>
+</head>
+
+<body>
+    <div id="transitionOverlay"></div>
+
+    <canvas id="bolhasCanvas"></canvas>
+
+    <div class="pai">
+
+        <div class="usuario">
+            <input type="checkbox" id="botaoTema" hidden>
+            <label for="botaoTema" id="switchTema">
+                <span id="iconeSwitch"></span>
+            </label>
+            <a href="/user">{{usuario}}</a>
+
+            <div class="userFrame">
+                <img src="{{ url_for('static', filename='img/user.jpg') }}">
+            </div>
+        </div>
+
+        <div class="vidro">
+
+            <div class="barra">
+                <img id="logoOragame" src="{{ url_for('static', filename='img/oragame.png') }}">
+                <a href="/home">OraGame</a>
+
+            </div>
+
+            <div class="centralizar">
+                <div class="caixa">
+                    <img id="logoOragameGrande" src="{{ url_for('static', filename='img/oragame.png') }}">
+                    Games
+                </div>
+            </div>
+
+            <div class="games">
+                {% for nome, imagem in jogos.items() %}
+                <div class="gameFrame">
+                    <form action="" method="POST">
+                        <input type="hidden" name="game" value="{{ nome }}">
+                        <button type="submit" class="botaoGame">
+                            <img src="{{ url_for('static', filename='img/' ~ imagem) }}">
+                        </button>
+                    </form>
+                    {{ nome }}
+                </div>
+                {% endfor %}
+            </div>
+            
+            
+        </div>
+
+    </div>
+
+</body>
+
+</html>
