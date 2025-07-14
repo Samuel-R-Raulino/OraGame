@@ -51,7 +51,26 @@ def home():
     return render_template("home.html", usuario=usuario, img_user=img_user)
 @app.route("/my_games")
 def my_games():
-    return render_template("my_games.html")
+    
+    valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
+    print(f"Valor atual de game_buy na sessão: '{valor_game_buy}'")
+
+    if valor_game_buy == "":
+        print("O valor de game_buy está vazio")
+    else:
+        print("O valor de game_buy NÃO está vazio:", valor_game_buy)
+
+    #img_user = session["img_user"] 
+    img_user = session.get('img_user', 'Visitante') 
+    usuario = session.get('username', 'Visitante') 
+    from get_dados import return_outnames_imgs
+    vals = return_outnames_imgs(usuario)
+    if request.method=="POST":
+        session["game"] = request.form.get("game")
+        session["game_buy"] = request.form.get("game")
+        
+        return redirect(url_for("game"))  # IMPORTANTE: return aqui!
+    return render_template("my_games.html",jogos=vals,usuario=usuario,img_user=img_user)
 @app.route("/fliperama")
 def fliperama():
     return render_template("fliperama.html")

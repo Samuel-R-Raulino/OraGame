@@ -31,7 +31,25 @@ def return_names_imgs():
 
     conn.close()
     return vals
+    return nomes
+def return_outnames_imgs(user):
+    vals = {}
+    import sqlite3
+    from games_bc import get_games
 
+    nomes = get_games(user)
+    conn = sqlite3.connect('banco_games.db')
+    cursor = conn.cursor()
+    nomes = nomes.split(",")
+    for x in nomes:
+        if x!="":
+            cursor.execute("SELECT img1 FROM games WHERE nome = ?",(x,))
+            img = cursor.fetchall() 
+            vals[x] = img[0][0]
+    conn.close()
+    print(vals)
+    return vals
+#print(return_outnames_imgs())
 def return_senhas():
     import sqlite3
 
