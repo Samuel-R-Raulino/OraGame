@@ -28,10 +28,9 @@ def cadastro():
 
 @app.route("/home")
 def home():
-    global botao_foi_clicado
     from games_bc import add_games
     session["img_user"] = "img/user.jpg"
-    if botao_foi_clicado == True:
+    if session.get("botao_foi_clicado",False):
         print("jogo:"+session.get('game', 'Visitante') )
         print(session.get('username', 'Visitante'))
         add_games(session.get('username', 'Visitante'),session.get('game', 'Visitante'))
@@ -50,7 +49,9 @@ def home():
     img_user = session["img_user"] 
     usuario = session.get('username', 'Visitante') 
     return render_template("home.html", usuario=usuario, img_user=img_user)
-
+@app.route("/my_games")
+def my_games():
+    return render_template("my_games.html")
 @app.route("/fliperama")
 def fliperama():
     return render_template("fliperama.html")
@@ -88,7 +89,7 @@ def sobre():
     else:
         print("O valor de game_buy NÃO está vazio:", valor_game_buy)
 
-    img_user = session["img_user"] 
+    img_user = session.get('img_user', 'Visitante') 
     usuario = session.get('username', 'Visitante') 
     return render_template("sobre.html",usuario=usuario,img_user=img_user)
 
@@ -103,7 +104,8 @@ def games():
     else:
         print("O valor de game_buy NÃO está vazio:", valor_game_buy)
 
-    img_user = session["img_user"] 
+    #img_user = session["img_user"] 
+    img_user = session.get('img_user', 'Visitante') 
     usuario = session.get('username', 'Visitante') 
     from get_dados import return_names_imgs
     vals = return_names_imgs()
@@ -118,7 +120,7 @@ def games():
 
 @app.route('/game', methods=['GET', 'POST'])
 def game():
-    global botao_foi_clicado
+    session['botao_foi_clicado'] = True
     
     valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
     print(f"Valor atual de game_buy na sessão: '{valor_game_buy}'")
@@ -127,11 +129,17 @@ def game():
         print("O valor de game_buy está vazio")
     else:
         print("O valor de game_buy NÃO está vazio:", valor_game_buy)
+    from games_bc import get_games
+    if session.get('game', 'Visitante') not in get_games(session.get('username', 'Visitante') ):
+        button_state = "Adquirir"
+    else:
+        button_state = "Remover"
     
     if request.method == 'POST':
-        botao_foi_clicado = True
+        if button_state == "Adquirir":
+            session['botao_foi_clicado'] = True
         return redirect(url_for('home'))
-    img_user = session["img_user"] 
+    img_user = session.get('img_user', 'Visitante') 
     usuario = session.get('username', 'Visitante') 
     nome = session.get('game', 'Visitante') 
     take = return_dates(nome)
@@ -143,12 +151,12 @@ def game():
     print(img3)
     requisitos = take[5]
     classificação = take[6]
-    return render_template("game.html",requisitos=requisitos,img3=img3,nome=nome,preço=preço,descrição=descrição,img1=img1,img2=img2,classificação=classificação,usuario=usuario,img_user=img_user)
+    return render_template("game.html",requisitos=requisitos,img3=img3,nome=nome,preço=preço,descrição=descrição,img1=img1,img2=img2,classificação=classificação,usuario=usuario,img_user=img_user,button_state = button_state)
 
 
 @app.route("/user")
 def user():
-    img_user = session["img_user"] 
+    img_user = session.get('img_user', 'Visitante') 
     usuario = session.get('username', 'Visitante') 
     return render_template("user.html",usuario=usuario,img_user=img_user)
 caminho_db = os.path.join(os.path.dirname(__file__), 'banco_games.db')

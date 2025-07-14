@@ -7,24 +7,16 @@
     <link rel="icon" type="image/ico" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>Game</title>
     <link href="{{ url_for('static', filename='css/estilo4.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/upbar.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/dark.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/animacaoindex2.js') }}" defer></script>
+
 </head>
 
 <body>
 
-    <div class="bolhas">
-        <div class="bolha"></div>
-        <div class="bolha"></div>
-        <div class="bolha"></div>
-        <div class="bolha"></div>
-        <div class="bolha"></div>
-        <div class="bolha"></div>
-        <div class="bolha"></div>
-        <div class="bolha"></div>
-        <div class="bolha"></div>
-        <div class="bolha"></div>
-        <div class="bolha"></div>
-        <div class="bolha"></div>
-    </div>
+    <div id="transitionOverlay"></div>
+    <canvas id="bolhasCanvas"></canvas>
 
     <div class="pai">
 
@@ -37,21 +29,32 @@
             </div>
         </div>
 
-        <div class="vidro">
+        <div class="buttonspart2">
+            <div class="botoes2">
+                <a class="botao" href="/home"><img class="icon-button" src="../static/img/home-icon.png"
+                    alt="house_icon">Home </a>
+            <a class="botao" href="/games"><img class="icon-button" src="../static/img/game-icon.png"
+                    alt="house_icon"> Games</a>
+            <a class="botao" href="/games"><img class="icon-button" src="../static/img/game-icon.png"
+                alt="house_icon"> My Games</a>
+            <a class="botao" href="/fliperama"><img class="icon-button" src="../static/img/fr-icon.png"
+                    alt="house_icon"> Fliperama </a>
+            <a class="botao" href="/sobre"><img class="icon-button" src="../static/img/about-icon.png"
+                    alt="house_icon"> Sobre </a>
 
-            <div class="barra">
+                    <div class="rightbuttons">
+                        <input type="checkbox" id="botaoTema" hidden>
+                        <label for="botaoTema" id="switchTema">
+                            <span id="iconeSwitch"></span>
+                        </label>
 
-                <img class="logo" src="{{ url_for('static', filename='img/oragame.png') }}">
-                <a href="/home">OraGame</a>
-
-                <div class="botoes">
-                    <button class="minimizar"><b>-</b></button>
-                    <button class="maximizar"><b>+</b></button>
-                    <button class="fechar"><b>x</b></button>
-                </div>
-
+                        <a class="settingsbutton" flex="end" href="/home"><img src="../static/img/settings-icon.png"
+                         alt="settings" height="40px" width="40px"> </a>
+                    </div>
             </div>
+        </div>
 
+        <div class="vidro">
             <div class="centralizar">
                 <div class="caixa">
                     <img class="logo">
@@ -64,16 +67,18 @@
                             <div class="slideshow-container">
 
                                 <div class="mySlides fade">
-                                    <img src="{{ url_for('static', filename=img1) }}" style="width:100%; height:500px;">
+                                    <img src="{{ url_for('static', filename=img1) }}" class="slider-img">
                                     <div class="text"> </div>
                                 </div>
                                 <br>
+
                                 <a href="/Download" class="comprar-button">Download</a>
                                 <a href="/ia" class="comprar-button">Duvidas</a>
-                                <a href="" onclick="event.preventDefault(); document.getElementById('form-comprar').submit();" class="comprar-button">Adquirir</a>
+                                <a href="" onclick="event.preventDefault(); document.getElementById('form-comprar').submit();" class="comprar-button">{{button_state}}</a>
                                 <form id="form-comprar" method="post" action="" style="display: none;"></form>
-                                
-                                
+                                <button type="button" class="favorite-btn" id="favBtn">
+                                    <span class="star-icon">&#9734;</span> <span id="favText">Favoritar</span>
+                                </button>
                             </div>
                             <br>
                             <script>
@@ -108,7 +113,7 @@
                         </div>
                     </div>
                     <div class="direita">
-                        <img class="group_img" src="{{ url_for('static', filename=img3) }}" width="512" height="384" style="position: relative; left: 170px; top: -10px;">
+                        <img class="group_img" src="{{ url_for('static', filename=img3) }}">
                         <p class="desc">
                             {{descrição}}
                         </p>
@@ -123,5 +128,75 @@
         </div>
 
 </body>
+<script>
+// Botão Favoritar/Favorito com estrela
+const favBtn = document.getElementById('favBtn');
+const favText = document.getElementById('favText');
+const starIcon = favBtn.querySelector('.star-icon');
+let isFavorited = false;
 
+favBtn.addEventListener('click', function() {
+    isFavorited = !isFavorited;
+    if(isFavorited) {
+        favText.textContent = 'Favorito';
+        starIcon.innerHTML = '&#9733;'; // estrela preenchida
+        favBtn.classList.add('favorited');
+    } else {
+        favText.textContent = 'Favoritar';
+        starIcon.innerHTML = '&#9734;'; // estrela vazia
+        favBtn.classList.remove('favorited');
+    }
+});
+</script>
+<style>
+.slider-img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px #0008;
+    background: #111;
+    display: block;
+}
+.group_img {
+    width: 350px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px #0008;
+    background: #111;
+    display: block;
+    margin: 0 auto 18px auto;
+    position: static;
+}
+.favorite-btn {
+    background: linear-gradient(90deg, #00796b 60%, #1de9b6 100%);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 10px 22px;
+    margin-left: 18px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px #0003;
+    transition: background 0.2s, color 0.2s;
+}
+.favorite-btn .star-icon {
+    font-size: 1.3em;
+    color: #fff700;
+    transition: color 0.2s;
+}
+.favorite-btn.favorited {
+    background: linear-gradient(90deg, #1de9b6 60%, #00796b 100%);
+    color: #fff;
+}
+.favorite-btn.favorited .star-icon {
+    color: #ffd600;
+    text-shadow: 0 2px 8px #ffd60055;
+}
+</style>
 </html>

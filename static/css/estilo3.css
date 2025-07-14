@@ -26,6 +26,10 @@ a{
 
 }
 
+.buttonspart{
+  padding-bottom: 25px;
+}
+
 button{
   background: none;
   border: none;
@@ -45,6 +49,7 @@ button{
 
 .centralizar{
 
+  padding-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,21 +57,23 @@ button{
 }
 
 .vidro {
-
   position: relative;
   width: 75vw;
-  height: 100vh;
+  height: 110%;
   padding-left: 30px;
   padding-right: 30px;
   padding-bottom: 30px;
-  border: 2px solid #b0faff6c;
-  border-radius: 10px;
+  border-top: none;
+  border-left: 2px solid #b0faff6c;
+  border-bottom:2px solid #b0faff6c;
+  border-right:2px solid #b0faff6c;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   background: #002fff1a;
   backdrop-filter: blur(5px);
   box-shadow: 0 2px 40px #00000085;
   display: flex;
   flex-direction: column;
-
 }
 
 .caixa{

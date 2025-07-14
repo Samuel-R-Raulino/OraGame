@@ -14,23 +14,14 @@
     </head>
     
      <body>
-
         <canvas id="bolhasCanvas"></canvas>
-
         <div class="pai">
-
             <div class="vidro">
-
             <div class="barra">
-                
+
                 <img class="logo" src= "{{ url_for('static', filename='img/oragame.png') }}">
                 <a href="/home">OraGame</a>
 
-                <div class="botoes">
-                    <button class="minimizar"><b>-</b></button>
-                    <button class="maximizar"><b>+</b></button>
-                    <button class="fechar"><b>x</b></button>
-                </div>
 
             </div>
 
@@ -49,7 +40,21 @@
                     </div>
                 </div>
             </div>
-
+            <div class="favoritos-box">
+                <h3>Biblioteca de Jogos Favoritos</h3>
+                {% if favoritos %}
+                    <ul class="fav-list">
+                    {% for nome, imagem in favoritos.items() %}
+                        <li class="fav-item">
+                            <img src="{{ url_for('static', filename='img/' ~ imagem) }}" class="fav-img">
+                            <span>{{ nome }}</span>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="no-fav">Nenhum jogo favoritado ainda.</div>
+                {% endif %}
+            </div>
             </div>
 
         </div>
@@ -57,3 +62,43 @@
     </body>
 
 </html>
+<style>
+.favoritos-box {
+    background: rgba(255,255,255,0.09);
+    border-radius: 14px;
+    box-shadow: 0 2px 12px #0002;
+    padding: 18px 24px;
+    margin: 30px auto 30px auto;
+    max-width: 500px;
+    text-align: center;
+}
+.fav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    justify-content: center;
+}
+.fav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #232323cc;
+    border-radius: 8px;
+    padding: 8px 14px;
+    box-shadow: 0 1px 6px #0002;
+}
+.fav-img {
+    width: 38px;
+    height: 38px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #111;
+}
+.no-fav {
+    color: #1de9b6;
+    margin-top: 10px;
+}
+</style>

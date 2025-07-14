@@ -1,0 +1,67 @@
+.buttonspart {
+    position: relative;
+    width: 75vw;
+    height: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top: 2px solid #b0faff6c;
+    border-left: 2px solid #b0faff6c;
+    border-right: 2px solid #b0faff6c;
+    backdrop-filter: blur(5px);
+    background: linear-gradient(#ffe60054, #74680054);
+    box-shadow: 0 2px 40px #00000085;
+    display: flex;
+    flex-direction: column;
+}
+
+.rightbuttons{
+    position: relative;
+    cursor: url("../img/pointer.cur"), auto;
+    justify-content: center;
+    align-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    padding: 20px;
+    gap: 15px;
+    align-items: center;
+}
+
+
+.botoes2 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+}
+
+.settingsbutton {
+    position: relative;
+    cursor: url("../img/pointer.cur"), auto;
+    justify-content: center;
+    align-content: center;
+    display: flex;
+    padding: 15px;
+    max-height: 15px;
+    flex-wrap: wrap;
+    max-width: 15px;
+    background: linear-gradient(#d8d8d8dc 0%, #d8d8d8dc 50%, #8b8b8bc9 50%, #808080c9 100%);
+    box-shadow: inset 0px 1px 4px 1px #ffffff;
+    border: 1px solid black;
+    border-radius: 100%;
+    margin-left: auto;
+    text-shadow:
+        -1px -1px 0 black,
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black;
+    color: white;
+
+}
+
+.icon-button {
+    width: 25px;
+    height: 25px;
+}

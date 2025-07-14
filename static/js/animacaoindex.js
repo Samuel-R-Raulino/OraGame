@@ -13,36 +13,37 @@ const imagensNaves = [
     { src: 'static/img/nave3.gif', width: 160, height: 140 },
 ];
 
-const numPeixes = 15;
 const peixesCriados = [];
+const numPeixes = 15;
 
-for (let i = 0; i < numPeixes; i++) {
-    const peixe = document.createElement('div');
-    peixe.classList.add('peixe');
+if (banner) {
+    for (let i = 0; i < numPeixes; i++) {
+        const peixe = document.createElement('div');
+        peixe.classList.add('peixe');
 
-    const peixeConfig = imagensPeixe[i % imagensPeixe.length];
-    peixe.dataset.index = i % imagensPeixe.length;
-    peixe.style.backgroundImage = `url("${peixeConfig.src}")`;
-    peixe.style.width = `${peixeConfig.width}px`;
-    peixe.style.height = `${peixeConfig.height}px`;
+        const peixeConfig = imagensPeixe[i % imagensPeixe.length];
+        peixe.dataset.index = i % imagensPeixe.length;
+        peixe.style.backgroundImage = `url("${peixeConfig.src}")`;
+        peixe.style.width = `${peixeConfig.width}px`;
+        peixe.style.height = `${peixeConfig.height}px`;
 
-    banner.appendChild(peixe);
-    peixesCriados.push(peixe);
+        banner.appendChild(peixe);
+        peixesCriados.push(peixe);
 
-    let cliques = 0;
+        let cliques = 0;
+        peixe.addEventListener('click', () => {
+            cliques++;
+            if (cliques > 10) explodirPeixe(peixe);
+        });
 
-    peixe.addEventListener('click', () => {
-        cliques++;
-        if (cliques > 10) {
-            explodirPeixe(peixe);
-        }
-    });
-
-    moverPeixe(peixe);
-    setInterval(() => moverPeixe(peixe), 3000 + Math.random() * 2000);
+        moverPeixe(peixe);
+        setInterval(() => moverPeixe(peixe), 3000 + Math.random() * 2000);
+    }
 }
 
 function moverPeixe(peixe) {
+    if (!banner) return;
+
     const margem = 25;
     const bannerWidth = banner.clientWidth;
     const bannerHeight = banner.clientHeight;
@@ -68,6 +69,8 @@ function moverPeixe(peixe) {
 }
 
 function explodirPeixe(peixe) {
+    if (!banner) return;
+
     const explosao = document.createElement('img');
     explosao.src = gifExplosao;
 
@@ -88,18 +91,17 @@ function explodirPeixe(peixe) {
     banner.appendChild(explosao);
     peixe.remove();
 
-    setTimeout(() => {
-        explosao.remove();
-    }, 750);
+    setTimeout(() => explosao.remove(), 750);
 }
 
+// Animação das bolhas
 const canvas = document.getElementById('bolhasCanvas');
-const ctx = canvas.getContext('2d');
-
+const ctx = canvas?.getContext('2d');
 let bolhas = [];
 const numBolhas = 15;
 
 function resizeCanvas() {
+    if (!canvas) return;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
@@ -107,51 +109,54 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-for (let i = 0; i < numBolhas; i++) {
-    bolhas.push(criarBolha());
-}
+if (canvas && ctx) {
+    for (let i = 0; i < numBolhas; i++) {
+        bolhas.push(criarBolha());
+    }
 
-function criarBolha() {
-    return {
-        x: Math.random() * canvas.width,
-        y: window.innerHeight + Math.random() * 200,
-        size: Math.random() * 100 + 50,
-        speed: Math.random() * 1 + 0.5,
-        drift: Math.random() * 2 - 1,
-        opacity: Math.random() * 0.5 + 0.5
-    };
-}
+    function criarBolha() {
+        return {
+            x: Math.random() * canvas.width,
+            y: window.innerHeight + Math.random() * 200,
+            size: Math.random() * 100 + 50,
+            speed: Math.random() * 1 + 0.5,
+            drift: Math.random() * 2 - 1,
+            opacity: Math.random() * 0.5 + 0.5
+        };
+    }
 
-function desenharBolhas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    bolhas.forEach(bolha => {
-        ctx.globalAlpha = bolha.opacity;
-        const img = new Image();
-        img.src = 'static/img/bolha.png';
-        ctx.drawImage(img, bolha.x, bolha.y, bolha.size, bolha.size);
-    });
-    ctx.globalAlpha = 1;
-}
+    function desenharBolhas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        bolhas.forEach(bolha => {
+            ctx.globalAlpha = bolha.opacity;
+            const img = new Image();
+            img.src = 'static/img/bolha.png';
+            ctx.drawImage(img, bolha.x, bolha.y, bolha.size, bolha.size);
+        });
+        ctx.globalAlpha = 1;
+    }
 
-function atualizarBolhas() {
-    bolhas.forEach(bolha => {
-        bolha.y -= bolha.speed;
-        bolha.x += bolha.drift;
-        if (bolha.y + bolha.size < 0) {
-            Object.assign(bolha, criarBolha());
-        }
-    });
-}
+    function atualizarBolhas() {
+        bolhas.forEach(bolha => {
+            bolha.y -= bolha.speed;
+            bolha.x += bolha.drift;
+            if (bolha.y + bolha.size < 0) {
+                Object.assign(bolha, criarBolha());
+            }
+        });
+    }
 
-function animar() {
-    atualizarBolhas();
-    desenharBolhas();
-    requestAnimationFrame(animar);
-}
+    function animar() {
+        atualizarBolhas();
+        desenharBolhas();
+        requestAnimationFrame(animar);
+    }
 
-animar();
+    animar();
+}
 
 function atualizarPeixesParaTema() {
+    if (!peixesCriados.length) return;
     const usandoDark = document.body.classList.contains('dark-theme');
     peixesCriados.forEach(peixe => {
         const index = peixe.dataset.index;
@@ -163,16 +168,13 @@ function atualizarPeixesParaTema() {
 }
 
 const botaoTema = document.getElementById('botaoTema');
-const bolhasCanvas = document.getElementById('bolhasCanvas');
 const transitionOverlay = document.getElementById('transitionOverlay');
 const iconeSwitch = document.getElementById('iconeSwitch');
-
 const logoOragame = document.getElementById('logoOragame');
 const logoOragameGrande = document.getElementById('logoOragameGrande');
 
 const imgSol = "static/img/sol.png";
 const imgLua = "static/img/lua.png";
-
 const logoClaro = "static/img/oragame.png";
 const logoEscuro = "static/img/oradark.png";
 
@@ -180,18 +182,20 @@ let transitionDuration = 800;
 let switchCooldown = 2000;
 
 function atualizarIcone() {
+    if (!iconeSwitch || !botaoTema) return;
     iconeSwitch.style.backgroundImage = botaoTema.checked ? `url('${imgLua}')` : `url('${imgSol}')`;
 }
 
 function atualizarLogo() {
     const isDark = document.body.classList.contains('dark-theme');
     const novaSrc = isDark ? logoEscuro : logoClaro;
-    logoOragame.src = novaSrc;
-    logoOragameGrande.src = novaSrc;
+    if (logoOragame) logoOragame.src = novaSrc;
+    if (logoOragameGrande) logoOragameGrande.src = novaSrc;
 }
 
 function atualizarBolhasCanvas() {
-    bolhasCanvas.style.display = document.body.classList.contains('dark-theme') ? 'none' : 'block';
+    if (!canvas) return;
+    canvas.style.display = document.body.classList.contains('dark-theme') ? 'none' : 'block';
 }
 
 function salvarTema() {
@@ -203,10 +207,10 @@ function carregarTema() {
     const temaSalvo = localStorage.getItem('tema');
     if (temaSalvo === 'dark') {
         document.body.classList.add('dark-theme');
-        botaoTema.checked = true;
+        if (botaoTema) botaoTema.checked = true;
     } else {
         document.body.classList.remove('dark-theme');
-        botaoTema.checked = false;
+        if (botaoTema) botaoTema.checked = false;
     }
 }
 
@@ -218,33 +222,36 @@ function initTema() {
     atualizarPeixesParaTema();
 }
 
+if (botaoTema) {
+    botaoTema.addEventListener('change', () => {
+        botaoTema.disabled = true;
+        atualizarIcone();
 
-
-botaoTema.addEventListener('change', () => {
-    botaoTema.disabled = true;
-    atualizarIcone();
-
-    const isDark = document.body.classList.contains('dark-theme');
-    transitionOverlay.style.background = isDark ? 'white' : 'black';
-    transitionOverlay.style.transition = `opacity ${transitionDuration}ms ease-in-out`;
-    transitionOverlay.style.opacity = '1';
-
-    setTimeout(() => {
-        document.body.classList.toggle('dark-theme');
-
-        atualizarPeixesParaTema();
-        atualizarLogo();
-        atualizarBolhasCanvas();
-        salvarTema();
+        const isDark = document.body.classList.contains('dark-theme');
+        if (transitionOverlay) {
+            transitionOverlay.style.background = isDark ? 'white' : 'black';
+            transitionOverlay.style.transition = `opacity ${transitionDuration}ms ease-in-out`;
+            transitionOverlay.style.opacity = '1';
+        }
 
         setTimeout(() => {
-            transitionOverlay.style.opacity = '0';
-        }, 50);
-    }, transitionDuration);
+            document.body.classList.toggle('dark-theme');
+            atualizarPeixesParaTema();
+            atualizarLogo();
+            atualizarBolhasCanvas();
+            salvarTema();
 
-    setTimeout(() => {
-        botaoTema.disabled = false;
-    }, switchCooldown);
-});
+            if (transitionOverlay) {
+                setTimeout(() => {
+                    transitionOverlay.style.opacity = '0';
+                }, 50);
+            }
+        }, transitionDuration);
+
+        setTimeout(() => {
+            botaoTema.disabled = false;
+        }, switchCooldown);
+    });
+}
 
 initTema();

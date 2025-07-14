@@ -24,14 +24,19 @@ body.dark-theme::-webkit-scrollbar-thumb:hover {
 }
 
 body.dark-theme .vidro {
-    border: 2px solid #dd53ffc4;
+    border: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-right: 2px solid #dd53ffc4;
+    border-bottom: 2px solid #dd53ffc4;
+    border-left: 2px solid #dd53ffc4;
     background: #00000085;
     backdrop-filter: blur(5px);
     box-shadow: 0 2px 40px #e100ff85;
 }
 
 body.dark-theme .caixa {
-    background: linear-gradient(#383838a6 0%, #1c005eb4 50%, #1a0049a8 50%, #303030a9 100%);
+    background: linear-gradient(#000000a6 0%, #72008185 50%, #72008185 50%, #000000a6 100%);
     border: 1px solid #dd53ffc4;
     box-shadow: 0 2px 20px #e100ff85;
     color: #790073;
@@ -74,6 +79,10 @@ body.dark-theme .userFrame {
     background: #a200ff3a;
     backdrop-filter: blur(5px);
     box-shadow: 0 2px 40px #e100ff85;
+}
+
+body.dark-theme .userFrame img{
+    border-radius: 50%;
 }
 
 body.dark-theme .bannerFrame {
@@ -175,3 +184,132 @@ body.dark-theme .gameFrame img{
 body.dark-theme .gameFrame:hover img{
     box-shadow: 0 2px 40px #e100ff85;
 }
+
+body.dark-theme .footer {
+  width: 76vw;
+  background: #00000085;
+  backdrop-filter: blur(5px);
+  border-top: 2px solid #dd53ffc4;
+  padding: 30px 20px 10px;
+  color: #790073;
+  text-shadow: #a10099 0 0 12px;
+  box-shadow: 0 -5px 25px #00000060;
+  font-family: 'Segoe UI', sans-serif;
+  align-items: center;
+}
+
+body.dark-theme .footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+body.dark-theme .footer-section {
+  flex: 1 1 250px;
+}
+
+body.dark-theme .footer-section a {
+  color: #b91bb4;
+  text-decoration: none;
+}
+
+body.dark-theme .footer-section a:hover {
+  text-decoration: underline;
+  color: #ff7bf8;
+}
+
+body.dark-theme .footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: #b0faff9f;
+}
+
+body.dark-theme .comprar-button {
+    background: linear-gradient(#7a7a7adc 0%, #4c504fdc 50%, #363636c9 50%, #242424c9 100%);
+    box-shadow: inset 0px 1px 4px 1px #d711ffe0;
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .comprar-button:hover {
+    box-shadow: 0px 0px 20px 5px #cc00ff;
+    transform: translateY(-2px);
+}
+
+body.dark-theme .comprar-button:active {
+    background: linear-gradient(#5e5e5edc 0%, #3e4140dc 50%, #2b2b2bc9 50%, #111111c9 100%);
+    transform: translateY(0);
+}
+
+body.dark-theme .buttonspart{
+    border-left: 2px solid #dd53ffc4;
+    border-right: 2px solid #dd53ffc4;
+    border-top: 1px solid #dd53ffc4;
+    border-bottom: 1px solid #dd53ffc4;
+    background: #00000050;
+    box-shadow: 0 2px 40px #00000085;
+}
+
+body.dark-theme .buttonspart::before{
+content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(
+      #9000a336 1px, 
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg, 
+      #9000a336 1px, 
+      transparent 1px
+    );
+  background-size: 10px 10px;
+  pointer-events: none;
+}
+
+body.dark-theme .buttonspart2{
+    border-left: 2px solid #dd53ffc4;
+    border-right: 2px solid #dd53ffc4;
+    border-top: 1px solid #dd53ffc4;
+    border-bottom: 1px solid #dd53ffc4;
+    background: #00000050;
+    box-shadow: 0 2px 40px #00000085;
+}
+
+body.dark-theme .buttonspart2::before{
+content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(
+      #9000a336 1px, 
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg, 
+      #9000a336 1px, 
+      transparent 1px
+    );
+  background-size: 10px 10px;
+  pointer-events: none;
+}
+
+body.dark-theme .banner2{
+    border: 2px solid #dd53ffc4;
+    background:url("../img/dk.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+

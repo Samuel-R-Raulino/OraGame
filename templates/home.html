@@ -5,51 +5,65 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Principal</title>
-
+    <title>Oragame</title>
     <link href="{{ url_for('static', filename='css/estilo.css') }}" rel="stylesheet">
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <link href="{{ url_for('static', filename='css/dark.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='baixados.png') }}">
     <script src="{{ url_for('static', filename='js/animacaoindex.js') }}" defer></script>
 </head>
 
 <body>
     <div id="transitionOverlay"></div>
-
     <canvas id="bolhasCanvas"></canvas>
 
-    <div class="pai">
-
         <div class="usuario">
-            <input type="checkbox" id="botaoTema" hidden>
-            <label for="botaoTema" id="switchTema">
-                <span id="iconeSwitch"></span>
-            </label>
             <a href="/user">{{usuario}}</a>
-
             <div class="userFrame">
                 <img src="{{ url_for('static', filename='img/user.jpg') }}">
             </div>
         </div>
 
-        <div class="vidro"> 
 
-            <div class="barra">
-                <img id="logoOragame" style="width: 25px; height: auto;" src="{{ url_for('static', filename='img/oragame.png') }}">
-                <a href="/home">OraGame</a>
-
+    <div class="pai">
+        
+        <div class="header-background"></div>
+        <div class="banner2">
+            <div class="conteudo">
+                <img src="{{ url_for('static', filename='img/Uplogo.png') }}" alt="Imagem do banner" height="250px">
             </div>
+        </div>
 
-            <div class="centralizar">
-                <div class="caixa">
-                    <img id="logoOragameGrande" style="width: 175px; height: auto;" src="{{ url_for('static', filename='img/oragame.png') }}">
-                    Bem Vindo!
+        <div class="buttonspart">
+            <div class="botoes2">
+                <a class="botao" href="/home"><img class="icon-button" src="../static/img/home-icon.png"
+                        alt="house_icon">Home </a>
+                <a class="botao" href="/games"><img class="icon-button" src="../static/img/game-icon.png"
+                        alt="house_icon"> Games</a>
+                <a class="botao" href="/games"><img class="icon-button" src="../static/img/game-icon.png"
+                    alt="house_icon"> My Games</a>
+                <a class="botao" href="/fliperama"><img class="icon-button" src="../static/img/fr-icon.png"
+                        alt="house_icon"> Fliperama </a>
+                <a class="botao" href="/sobre"><img class="icon-button" src="../static/img/about-icon.png"
+                        alt="house_icon"> Sobre </a>
+
+                <div class="rightbuttons">
+                    <input type="checkbox" id="botaoTema" hidden>
+                    <label for="botaoTema" id="switchTema">
+                        <span id="iconeSwitch"></span>
+                    </label>
+
+                    <a class="settingsbutton" flex="end" href="/home"><img src="../static/img/settings-icon.png"
+                            alt="settings" height="40px" width="40px"> </a>
                 </div>
             </div>
+        </div>
 
-            <div class="botoes2">
-                <a class="botao" href="/games">Games</a>
-                <a class="botao" href="/sobre">Sobre</a>
-                <a class="botao" href="/fliperama">Fliperama</a>
+        <div class="vidro">
+            <div class="barra"></div>
+            <div class="centralizar">
+                <div class="caixa">
+                    Olá {{usuario}}!
+                </div>
             </div>
 
             <br>
@@ -59,11 +73,27 @@
                     <div class="banner"></div>
                 </div>
             </center>
-
         </div>
 
+        <br>
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <p>© Copyright 2024-2025 OraGame <br>Todos direitos reservados.</p>
+                </div>
+                <div class="footer-section">
+                    <p>Oragame.com</p>
+                </div>
+                <div class="footer-section">
+                    <p>
+                        <a href="/games">Games</a> |
+                        <a href="/fliperama">Fliperama</a> |
+                        <a href="/sobre">Sobre a Oragame</a> |
+                    </p>
+                </div>
+            </div>
+        </footer>
+
     </div>
-
 </body>
-
 </html>

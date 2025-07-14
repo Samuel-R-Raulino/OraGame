@@ -10,6 +10,7 @@
     <!-- Arquivo CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo3.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dark.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upbar.css') }}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
@@ -20,57 +21,101 @@
 
 <body>
     <div id="transitionOverlay"></div>
-
     <canvas id="bolhasCanvas"></canvas>
 
     <div class="pai">
-
         <div class="usuario">
-            <input type="checkbox" id="botaoTema" hidden>
-            <label for="botaoTema" id="switchTema">
-                <span id="iconeSwitch"></span>
-            </label>
             <a href="/user">{{usuario}}</a>
-
             <div class="userFrame">
                 <img src="{{ url_for('static', filename='img/user.jpg') }}">
             </div>
         </div>
+        <div class="buttonspart">
+            <div class="botoes2">
+                <a class="botao" href="/home"><img class="icon-button" src="../static/img/home-icon.png"
+                    alt="house_icon">Home </a>
+            <a class="botao" href="/games"><img class="icon-button" src="../static/img/game-icon.png"
+                    alt="house_icon"> Games</a>
+            <a class="botao" href="/games"><img class="icon-button" src="../static/img/game-icon.png"
+                alt="house_icon"> My Games</a>
+            <a class="botao" href="/fliperama"><img class="icon-button" src="../static/img/fr-icon.png"
+                    alt="house_icon"> Fliperama </a>
+            <a class="botao" href="/sobre"><img class="icon-button" src="../static/img/about-icon.png"
+                    alt="house_icon"> Sobre </a>
+
+                <div class="rightbuttons">
+                    <input type="checkbox" id="botaoTema" hidden>
+                    <label for="botaoTema" id="switchTema">
+                        <span id="iconeSwitch"></span>
+                    </label>
+
+                    <a class="settingsbutton" flex="end" href="/home"><img src="../static/img/settings-icon.png"
+                            alt="settings" height="40px" width="40px"> </a>
+                </div>
+            </div>
+        </div>
 
         <div class="vidro">
-
-            <div class="barra">
-                <img id="logoOragame" src="{{ url_for('static', filename='img/oragame.png') }}">
-                <a href="/home">OraGame</a>
-
-            </div>
-
             <div class="centralizar">
                 <div class="caixa">
-                    <img id="logoOragameGrande" src="{{ url_for('static', filename='img/oragame.png') }}">
                     Games
                 </div>
             </div>
 
             <div class="games">
-                {% for nome, imagem in jogos.items() %}
-                <div class="gameFrame">
-                    <form action="" method="POST">
-                        <input type="hidden" name="game" value="{{ nome }}">
-                        <button type="submit" class="botaoGame">
-                            <img src="{{ url_for('static', filename='img/' ~ imagem) }}">
-                        </button>
-                    </form>
-                    {{ nome }}
-                </div>
-                {% endfor %}
+                <form method="GET" action="" class="search-form" style="text-align:center; margin-bottom: 30px;">
+                    <input type="text" name="q" placeholder="Pesquisar jogo..." value="{{ request.args.get('q', '') }}" style="padding:8px; width: 250px; border-radius: 8px; border: 1px solid #ccc;">
+                    <button type="submit" style="padding:8px 16px; border-radius:8px; background:#333; color:#fff; border:none; cursor:pointer;">Buscar</button>
+                </form>
+                {% if jogos %}
+                    <div class="games-grid">
+                        {% for nome, imagem in jogos.items() %}
+                        <div class="gameFrame">
+                            <form action="" method="POST">
+                                <input type="hidden" name="game" value="{{ nome }}">
+                                <button type="submit" class="botaoGame">
+                                    <img src="{{ url_for('static', filename='img/' ~ imagem) }}">
+                                </button>
+                            </form>
+                            {{ nome }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div style="text-align:center; color:#888; font-size:1.2em;">Nenhum jogo encontrado.</div>
+                {% endif %}
             </div>
-            
-            
+
+
         </div>
 
     </div>
 
 </body>
+<style>
+.games-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+}
+.gameFrame {
+    flex: 0 1 calc(25% - 24px); /* 4 por linha, com gap */
+    box-sizing: border-box;
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+@media (max-width: 1100px) {
+    .gameFrame { flex: 0 1 calc(33.33% - 24px); }
+}
+@media (max-width: 800px) {
+    .gameFrame { flex: 0 1 calc(50% - 24px); }
+}
+@media (max-width: 500px) {
+    .gameFrame { flex: 0 1 100%; }
+}
+</style>
 
 </html>

@@ -54,8 +54,8 @@ button{
 
 .centralizar{
 
+    bottom: 50vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 
@@ -405,4 +405,45 @@ button{
     filter: drop-shadow(0 0 3px white);
     pointer-events: none;
 
+}
+
+.popup-escolha {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #1a1a1acc;
+    border-radius: 12px;
+    padding: 20px;
+    z-index: 999;
+    box-shadow: 0 0 15px #000;
+}
+.popup-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.lista-avatares {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
+    justify-content: center;
+}
+.avatar-opcao {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: 0.2s ease;
+}
+.avatar-opcao:hover {
+    border-color: #1de9b6;
+}
+.fechar {
+    align-self: flex-end;
+    font-size: 20px;
+    cursor: pointer;
+    margin-bottom: 10px;
 }

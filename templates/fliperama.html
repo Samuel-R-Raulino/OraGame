@@ -7,7 +7,8 @@
     <title>Sobre</title>
     <link href="{{ url_for('static', filename='css/estilo4.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/dark.css') }}" rel="stylesheet">
-    <script src="{{ url_for('static', filename='js/animacaoindex2 copy.js') }}" defer></script>
+    <link href="{{ url_for('static', filename='css/upbar.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/animacaoindex2.js') }}" defer></script>
 </head>
 <body>
     <div id="transitionOverlay"></div>
@@ -15,24 +16,38 @@
     <canvas id="bolhasCanvas"></canvas>
     <div class="pai">
         <div class="usuario">
-            <input type="checkbox" id="botaoTema" hidden>
-            <label for="botaoTema" id="switchTema">
-                <span id="iconeSwitch"></span>
-            </label>
             <a href="/user">{{usuario}}</a>
             <div class="userFrame">
                 <img src="{{ url_for('static', filename='img/user.jpg') }}">
             </div>
         </div>
 
-        <div class="vidro">
+                <div class="buttonspart2">
+            <div class="botoes2">
+                <a class="botao" href="/home"><img class="icon-button" src="../static/img/home-icon.png"
+                        alt="house_icon">Home </a>
+                <a class="botao" href="/games"><img class="icon-button" src="../static/img/game-icon.png"
+                        alt="house_icon"> Games</a>
+                <a class="botao" href="/fliperama"><img class="icon-button" src="../static/img/fr-icon.png"
+                        alt="house_icon"> Fliperama </a>
+                <a class="botao" href="/sobre"><img class="icon-button" src="../static/img/about-icon.png"
+                        alt="house_icon"> Sobre </a>
 
-            <div class="barra">
-                <img id="logoOragame" src="{{ url_for('static', filename='img/oragame.png') }}">
-                <a href="/home">OraGame</a>
+                <div class="rightbuttons">
+                    <input type="checkbox" id="botaoTema" hidden>
+                    <label for="botaoTema" id="switchTema">
+                        <span id="iconeSwitch"></span>
+                    </label>
+
+                    <a class="settingsbutton" flex="end" href="/home"><img src="../static/img/settings-icon.png"
+                            alt="settings" height="40px" width="40px"> </a>
+                </div>
             </div>
+        </div>
 
+        <div class="vidro">
             <div class="centralizar">
+                <br><br>
                 <div class="caixa">
                     <img id="logoOragameGrande" src="{{ url_for('static', filename='img/oragame.png') }}">
                     Fliper
