@@ -28,18 +28,20 @@ def cadastro():
 
 @app.route("/home")
 def home():
-    from games_bc import add_games
     session["img_user"] = "img/user.jpg"
-    if session.get("botao_foi_clicado",False):
-        print("jogo:"+session.get('game', 'Visitante') )
-        print(session.get('username', 'Visitante'))
-        add_games(session.get('username', 'Visitante'),session.get('game', 'Visitante'))
-        ##botao_foi_clicado = False
-    else:
-        print("jogo nulo")
-
-    valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
-    print(f"Valor atual de game_buy na sessão: '{valor_game_buy}'")
+    if session.get("add",False) == True:
+        from games_bc import add_games
+        if session.get("botao_foi_clicado",False):
+            print("jogo:"+session.get('game', 'Visitante') )
+            print(session.get('username', 'Visitante'))
+            add_games(session.get('username', 'Visitante'),session.get('game', 'Visitante'))
+            ##botao_foi_clicado = False
+        else:
+            from games_bc import remove_games 
+            remove_games(session.get("username","Visitante"),session.get("game","Visitante"))
+        session["add"] = False
+        valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
+        print(f"Valor atual de game_buy na sessão: '{valor_game_buy}'")
 
     if valor_game_buy == "":
         print("O valor de game_buy está vazio")
@@ -139,8 +141,8 @@ def games():
 
 @app.route('/game', methods=['GET', 'POST'])
 def game():
+    session["add"] = False
     session['botao_foi_clicado'] = True
-    
     valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
     print(f"Valor atual de game_buy na sessão: '{valor_game_buy}'")
 
@@ -150,17 +152,19 @@ def game():
         print("O valor de game_buy NÃO está vazio:", valor_game_buy)
     from games_bc import get_games
     if session.get('game', 'Visitante') not in get_games(session.get('username', 'Visitante') ):
-        button_state = "Adquirir"
+        session["button_state"] = "Adquirir"
     else:
-        button_state = "Remover"
-    
+        session["button_state"] = "Remover"
+    nome = session.get('game', 'Visitante') 
+    usuario = session.get('username', 'Visitante') 
     if request.method == 'POST':
-        if button_state == "Adquirir":
+        if session["button_state"] == "Adquirir":
             session['botao_foi_clicado'] = True
+        else:
+            session['botao_foi_clicado'] = False
+        session["add"] = True
         return redirect(url_for('home'))
     img_user = session.get('img_user', 'Visitante') 
-    usuario = session.get('username', 'Visitante') 
-    nome = session.get('game', 'Visitante') 
     take = return_dates(nome)
     preço = take[0]
     descrição = take[1]
@@ -170,7 +174,7 @@ def game():
     print(img3)
     requisitos = take[5]
     classificação = take[6]
-    return render_template("game.html",requisitos=requisitos,img3=img3,nome=nome,preço=preço,descrição=descrição,img1=img1,img2=img2,classificação=classificação,usuario=usuario,img_user=img_user,button_state = button_state)
+    return render_template("game.html",requisitos=requisitos,img3=img3,nome=nome,preço=preço,descrição=descrição,img1=img1,img2=img2,classificação=classificação,usuario=usuario,img_user=img_user,button_state = session['button_state'] )
 
 
 @app.route("/user")

@@ -98,35 +98,37 @@ def add_games(usuario, game):
         except Exception as e:
             print(f"[ERRO] ao atualizar o banco de dados: {e}")
 def remove_games(usuario, game):
+    #pegar a string
+    #transformar em lista
+    #remover o elemento
+    #transformar em string novamente
+    #adicionar no banco de dados
     resultado = get_games(usuario)
     print(resultado)
     if resultado!="":
         jogos_lista = [j.strip() for j in resultado.split(",") if j.strip()]
-
-        if game not in jogos_lista:
+        has = False
+        if game in jogos_lista:
             for y,x in enumerate(jogos_lista):
-                if game == x :
+                if x == game:
                     jogos_lista[y] = ""
-        else:
-            
-            print("O jogo já foi adicionado")
-    else:
-        print(resultado)
-        if str(resultado):
-            resultado += game + ","
-        else:
-            resultado = game + ","
-        try:
+                    print(jogos_lista[y])
+                    has = True
+        if has:
+            resultado = ""
+            for x in jogos_lista:
+                if x !="":
+                    resultado +=x 
+                    resultado+=","
             import sqlite3
             conn = sqlite3.connect('games_do_usuario.db')
             cursor = conn.cursor()
-
             cursor.execute(
                 "UPDATE user_games SET games = ? WHERE usuario = ?",
                 (resultado, usuario)
             )
             conn.commit()
             conn.close()
-            print(f"[SUCESSO] Primeiro jogo '{game}' adicionado para '{usuario}'")
-        except Exception as e:
-            print(f"[ERRO] ao atualizar o banco de dados: {e}")
+                #if game == x :
+                #    jogos_lista[y] = ""
+    
