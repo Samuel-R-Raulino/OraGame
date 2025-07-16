@@ -313,3 +313,38 @@ body.dark-theme .banner2{
     background-repeat: no-repeat;
 }
 
+body.dark-theme .enviar {
+    background: linear-gradient(#7a7a7adc 0%, #4c504fdc 50%, #363636c9 50%, #242424c9 100%);
+    box-shadow: inset 0px 1px 4px 1px #d711ffe0;
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .enviar:hover {
+    box-shadow: 0px 0px 20px 5px #cc00ff;
+    transform: translateY(-2px);
+}
+
+body.dark-theme .enviar:active {
+    background: linear-gradient(#5e5e5edc 0%, #3e4140dc 50%, #2b2b2bc9 50%, #111111c9 100%);
+    transform: translateY(0);
+}
+
+body.dark-theme .addGame{
+
+    border: 1px solid #dd53ffc4;
+    background: #24004285;
+
+}
+
+body.dark-theme .inputzika{
+    border: 1px solid #dd53ffc4;
+}
+
+body.dark-theme .inputzikaDesc{
+    border: 1px solid #dd53ffc4;
+}
+
+body.dark-theme .inputzika::placeholder, body.dark-theme .inputzikaDesc::placeholder{
+    color: #000;
+}

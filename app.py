@@ -3,15 +3,39 @@ from get_dados import *
 import os 
 import mercadopago
 import sqlite3
+
 app = Flask(__name__)
 app.secret_key = 'uma_chave_secreta_supersegura'
 ACCESS_TOKEN = "APP_USR-5515393234086824-051409-a798dc3e1af15b38426c01b84b761393-1952959008"
 PUBLIC_KEY = "APP_USR-1b3c0147-9080-4743-b327-109084494912"
 @app.route("/")
 def redirec():
+    session["edit"] = ["GABRIEL","Luan"]
+    session["game_buy"] = ""
     return redirect(url_for("home"))
 @app.route("/cadastro",methods = ["GET","POST"])
 
+@app.route("/addGame",methods=["GET","POST"])
+def add_game_page():
+    if request.method == "POST":
+        nome = request.form.get("Nome")
+        preço = request.form.get("Preço")
+        descrição = request.form.get("Descrição")
+        img1 = request.form.get("IMG1")
+        img2 = request.form.get("IMG2")
+        img3 = request.form.get("IMG3")
+        requisitos = request.form.get("Requisitos")
+        classificação = request.form.get("Classificação")
+        id = request.form.get("ID de download")
+        personagem = request.form.get("Personagem Principal")
+        import sqlite3 
+        conn = sqlite3.connect("banco_games.db")
+        conn.execute("""
+        INSERT INTO games (nome,preço,descrição,img1,img2,img3,requisitos,classificação,download_id,personagem_principal) VALUES (?,?,?,?,?,?,?,?,?,?)
+        """,(nome,preço,descrição,img1,img2,img3,requisitos,classificação,id,personagem))
+        conn.commit()
+        conn.close()
+    return render_template("add_game.html")
 
 def cadastro():
     if request.method == "POST":
@@ -28,21 +52,26 @@ def cadastro():
 
 @app.route("/home")
 def home():
+    added = "no"
     session["img_user"] = "img/user.jpg"
+    
     if session.get("add",False) == True:
         from games_bc import add_games
         if session.get("botao_foi_clicado",False):
             print("jogo:"+session.get('game', 'Visitante') )
             print(session.get('username', 'Visitante'))
             add_games(session.get('username', 'Visitante'),session.get('game', 'Visitante'))
+            added = "yes,yes"
             ##botao_foi_clicado = False
         else:
+            added = "yes,no"
             from games_bc import remove_games 
             remove_games(session.get("username","Visitante"),session.get("game","Visitante"))
         session["add"] = False
         valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
         print(f"Valor atual de game_buy na sessão: '{valor_game_buy}'")
-
+    else:
+        valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
     if valor_game_buy == "":
         print("O valor de game_buy está vazio")
     else:
@@ -50,8 +79,8 @@ def home():
 
     img_user = session["img_user"] 
     usuario = session.get('username', 'Visitante') 
-    return render_template("home.html", usuario=usuario, img_user=img_user)
-@app.route("/my_games")
+    return render_template("home.html", usuario=usuario, img_user=img_user,added=added)
+@app.route("/my_games",methods=["GET","POST"])
 def my_games():
     
     valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
@@ -75,7 +104,8 @@ def my_games():
     return render_template("my_games.html",jogos=vals,usuario=usuario,img_user=img_user)
 @app.route("/fliperama")
 def fliperama():
-    return render_template("fliperama.html")
+    usuario = session.get('username', 'Visitante') 
+    return render_template("fliperama.html",usuario=usuario)
 @app.route("/fliper")
 def fliper():
     return render_template("tela_fliperama.html")
@@ -136,8 +166,10 @@ def games():
         session["game_buy"] = request.form.get("game")
         
         return redirect(url_for("game"))  # IMPORTANTE: return aqui!
-    return render_template("games.html",jogos=vals,usuario=usuario,img_user=img_user)
+    return render_template("games.html",jogos=vals,usuario=usuario,img_user=img_user,contem_https=contem_https)
 
+def contem_https(texto):
+    return 'https://' in texto
 
 @app.route('/game', methods=['GET', 'POST'])
 def game():
@@ -157,7 +189,8 @@ def game():
         session["button_state"] = "Remover"
     nome = session.get('game', 'Visitante') 
     usuario = session.get('username', 'Visitante') 
-    if request.method == 'POST':
+
+    if request.method == 'POST' and usuario !="Visitante":
         if session["button_state"] == "Adquirir":
             session['botao_foi_clicado'] = True
         else:
@@ -168,13 +201,20 @@ def game():
     take = return_dates(nome)
     preço = take[0]
     descrição = take[1]
-    img1 = "img/"+take[2]
-    img2 = "img/"+take[3]
-    img3 = "img/"+take[4]
-    print(img3)
+    
+    img1 = take[2]
+    img2 = take[3]
+    img3 = take[4]
+    contem = False
+    if not contem_https(img1):
+        img1 = "img/"+take[2]
+        img2 = "img/"+take[3]
+        img3 = "img/"+take[4]
+        contem = True
+    
     requisitos = take[5]
     classificação = take[6]
-    return render_template("game.html",requisitos=requisitos,img3=img3,nome=nome,preço=preço,descrição=descrição,img1=img1,img2=img2,classificação=classificação,usuario=usuario,img_user=img_user,button_state = session['button_state'] )
+    return render_template("game.html",requisitos=requisitos,img3=img3,nome=nome,preço=preço,descrição=descrição,img1=img1,img2=img2,classificação=classificação,usuario=usuario,img_user=img_user,button_state = session['button_state'],user = session.get('game', 'Visitante'),contem=contem,contem_https=contem_https)
 
 
 @app.route("/user")
@@ -317,9 +357,13 @@ chat = model.start_chat()
 def ia():
     nome = return_person(session["game_buy"])
     username = session.get('username', 'Visitante') 
-    intro = f"""Oi, você é {nome}, o especialista retro do universo gamer!
-    Fale sobre a lore dos jogos, história do projeto, universo, personagens e desenvolvimento.
-    Sua fala inicial deve ser carismática, estilo anos 80/90, agressivo no estilo, mas nunca ofensivo."""
+    if (nome == "Prof rogerinho"):
+        intro = f"""Oi, você é {nome}, o especialista de XAMPP e especialista em passar pesquisas pros alunos
+        Você trabalha no SENAI, para a turma M2, no Senai de Joinville SC, e você deve falar só sobre XAMPP, 100% do tempo"""
+    else:
+        intro = f"""Oi, você é {nome}, o especialista retro do universo gamer!
+        Fale sobre a lore dos jogos, história do projeto, universo, personagens e desenvolvimento.
+        Sua fala inicial deve ser carismática, estilo anos 80/90, agressivo no estilo, mas nunca ofensivo."""
     chat.send_message(intro)
     return render_template('atendente.html', nome=nome,username=username)
 

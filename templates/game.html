@@ -31,16 +31,20 @@
 
         <div class="buttonspart2">
             <div class="botoes2">
-                <a class="botao" href="/home"><img class="icon-button" src="../static/img/home-icon.png"
+                    <a class="botao" href="/home"><img class="icon-button" src="../static/img/home-icon.png"
                     alt="house_icon">Home </a>
-            <a class="botao" href="/games"><img class="icon-button" src="../static/img/game-icon.png"
+                    <a class="botao" href="/games"><img class="icon-button" src="../static/img/game-icon.png"
                     alt="house_icon"> Games</a>
-            <a class="botao" href="/my_games"><img class="icon-button" src="../static/img/game-icon.png"
-                alt="house_icon"> My Games</a>
-            <a class="botao" href="/fliperama"><img class="icon-button" src="../static/img/fr-icon.png"
+                    {% if usuario != "Visitante" %}
+                    <a class="botao" href="/my_games"><img class="icon-button" src="../static/img/game-icon.png"
+                        alt="house_icon"> My Games</a>
+                    {% endif %}
+                    <a class="botao" href="/fliperama"><img class="icon-button" src="../static/img/fr-icon.png"
                     alt="house_icon"> Fliperama </a>
-            <a class="botao" href="/sobre"><img class="icon-button" src="../static/img/about-icon.png"
+                    <a class="botao" href="/sobre"><img class="icon-button" src="../static/img/about-icon.png"
                     alt="house_icon"> Sobre </a>
+                    <a class="botao" href="/addGame"><img class="icon-button" src="../static/img/game-icon.png"
+                        alt="house_icon"> Coloque seu Game </a>
 
                     <div class="rightbuttons">
                         <input type="checkbox" id="botaoTema" hidden>
@@ -67,14 +71,23 @@
                             <div class="slideshow-container">
 
                                 <div class="mySlides fade">
+                                    {% if contem == True %}
                                     <img src="{{ url_for('static', filename=img1) }}" class="slider-img">
+                                    {% else %}
+                                    <img src={{img1}} style="width: auto; height: 400px;">
+                                    {% endif %}
                                     <div class="text"> </div>
                                 </div>
                                 <br>
 
                                 <a href="/Download" class="comprar-button">Download</a>
                                 <a href="/ia" class="comprar-button">Duvidas</a>
-                                <a href="" onclick="event.preventDefault(); document.getElementById('form-comprar').submit();" class="comprar-button">{{button_state}}</a>
+                                {% if usuario != "Visitante" %}
+                                    <a href="" onclick="event.preventDefault(); document.getElementById('form-comprar').submit();" class="comprar-button">{{button_state}}</a>
+                                {% else %}
+                                    <a href="" onclick="mostrarAviso()" class="comprar-button">{{button_state}}</a>
+                                {% endif %}
+
                                 <form id="form-comprar" method="post" action="" style="display: none;"></form>
                                 <button type="button" class="favorite-btn" id="favBtn">
                                     <span class="star-icon">&#9734;</span> <span id="favText">Favoritar</span>
@@ -113,7 +126,12 @@
                         </div>
                     </div>
                     <div class="direita">
-                        <img class="group_img" src="{{ url_for('static', filename=img3) }}">
+                                    {% if contem == True %}
+                                    <img class="group_img" src="{{ url_for('static', filename=img3) }}" class="slider-img">
+                                    {% else %}
+                                    <img class="group_img" src={{img3}} style="width: auto; height: 300px;">
+                                    {% endif %}
+                       
                         <p class="desc">
                             {{descrição}}
                         </p>
@@ -129,6 +147,9 @@
 
 </body>
 <script>
+function mostrarAviso() {
+    alert('⚠️ Erro: Você precisa logar para adquirir o game');
+}
 // Botão Favoritar/Favorito com estrela
 const favBtn = document.getElementById('favBtn');
 const favText = document.getElementById('favText');

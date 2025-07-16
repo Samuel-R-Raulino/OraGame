@@ -1,0 +1,285 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("../img/fruti.png");
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    border-radius: 20px;
+    margin: 35px;
+    justify-content: center;
+    display: flex;
+    cursor: url("../img/cursor.cur"), auto;
+}
+
+#bolhasCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.buttonspart{
+    padding-bottom: 25px;
+}
+
+.usuario{
+    position: relative;
+    margin-bottom: 20px;
+    gap: 5px; 
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    color: black;
+    text-shadow: 
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px;
+}
+  
+.usuario img{
+    border-radius: 10px;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #000000c2;
+}
+  
+.userFrame{
+    width: 75px;
+    height: 75px;
+    border: 2px solid #b0faff6c;
+    border-radius: 15%/60%;
+    background: #002fff1a;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 40px #00000085;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pai {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; /* Para posicionar elementos filhos com position: absolute */
+    z-index: 1; /* Garante que o conteúdo esteja acima das bolhas */
+}
+
+.vidro {
+    position: relative;
+    width: 75vw;
+    height: 110%;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    border-top: none;
+    border-left: 2px solid #b0faff6c;
+    border-bottom:2px solid #b0faff6c;
+    border-right:2px solid #b0faff6c;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background: #002fff1a;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 40px #00000085;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+.caixa{
+    font-size: 85px;
+    background: linear-gradient(#d1ffeaa6 0%, #22be3cb4 50%, #00d1aea8 50%, #bbfff7a9 100%);
+    border-radius: 10px;
+    width: auto;
+    height: 100%;
+    display: flex;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    color: #ecd897;
+    text-shadow: black 0 0 10px;
+    padding: 10px; 
+}
+
+.centralizar{
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.botao{
+    position: relative;
+    cursor: url("../img/pointer.cur"), auto;
+    min-width: 4vw;
+    justify-content: center;
+    display: flex;
+    padding: 15px;
+    background: linear-gradient(#92fff0dc 0%, #92fff0dc 50%, #07c576c9 50%, #07c576c9 100%);
+    font-size: 18px;
+    box-shadow:inset 0px 1px 4px 1px #ffffff;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-shadow: 
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px  1px 0 black,
+    1px  1px 0 black;
+    text-decoration: none;
+    color: white;
+}
+  
+.botao::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow:0px 0px 20px 5px #00ffb3;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    pointer-events: none;
+}
+  
+.botao:hover::before{
+    opacity: 1;
+}
+  
+.botao:active{
+    background: linear-gradient(#98dbd2dc 0%, #98dbd2dc 50%, #00ad65d8 50%, #00ad65d8 100%);
+}
+  
+.botoes2{
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.addGame{
+    
+    width: auto;
+    height: auto;
+    padding-top:25px;
+    padding-bottom: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border:2px solid #b0faff6c;
+    border-radius: 10px;
+    background: #00c58a34;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 40px #00000085;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+
+}
+
+.addGame label{
+    text-shadow:
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px;
+}
+
+.inputzika{
+    border: 2px solid #b0faff6c;
+    width: 30vh;
+    border-radius: 5px;
+    background: none;
+    color: black;
+    text-shadow: 
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px;
+    padding: 5px;
+}
+
+.inputzikaDesc{
+    border: 2px solid #b0faff6c;
+    width: 50vh;
+    height: 20vh;
+    border-radius: 5px;
+    background: none;
+    color: black;
+    text-shadow: 
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px;
+    padding: 5px;
+    overflow: auto;
+    resize: none;
+}
+
+.enviar {
+    display: inline-block;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 30px; /* Para formato oval */
+    background: linear-gradient(180deg, #98e874 0%, #68cf40 100%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all  0.2s ease-in-out;
+    text-decoration: none;
+    -webkit-appearance: none; /* Mantido para co    nsistência */
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.enviar:hover {
+    background: linear-gradient(180deg, #68cf40 0%, #98e874 100%);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    transform: translateY(-2px);
+}
+
+.enviar:active {
+    background: linear-gradient(180deg, #5aa133 0%, #4c8a2b 100%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 0 5px rgba(0, 0, 0, 0.4);
+    transform: translateY(0);
+}
+
+b{
+    text-shadow:
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px,
+    #ffffff 0 0 12px;
+}
