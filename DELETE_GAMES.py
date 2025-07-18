@@ -6,7 +6,7 @@ cursor = conn.cursor()
 
 cursor.execute(
     "DELETE FROM games WHERE id = ?",
-    (13,)
+    (14,)
 )
 
 conn.commit()

@@ -346,7 +346,7 @@ def verificar_status(pagamento_id):
 
 # Configura API do Gemini
 import google.generativeai as genai
-genai.configure(api_key="AIzaSyBjsyOiiFE00gTq1sjhqv_vBoJaetRUCEg")
+genai.configure(api_key="AIzaSyC8nHv3CWM2svQY9roC6N-l420w4Qd0HIo")
 model = genai.GenerativeModel("models/gemini-1.5-flash")
 chat = model.start_chat()
 
@@ -357,13 +357,9 @@ chat = model.start_chat()
 def ia():
     nome = return_person(session["game_buy"])
     username = session.get('username', 'Visitante') 
-    if (nome == "Prof rogerinho"):
-        intro = f"""Oi, você é {nome}, o especialista de XAMPP e especialista em passar pesquisas pros alunos
-        Você trabalha no SENAI, para a turma M2, no Senai de Joinville SC, e você deve falar só sobre XAMPP, 100% do tempo"""
-    else:
-        intro = f"""Oi, você é {nome}, o especialista retro do universo gamer!
-        Fale sobre a lore dos jogos, história do projeto, universo, personagens e desenvolvimento.
-        Sua fala inicial deve ser carismática, estilo anos 80/90, agressivo no estilo, mas nunca ofensivo."""
+    intro = f"""Oi, você é {nome}, o especialista retro do universo gamer!
+    Fale sobre a lore dos jogos, história do projeto, universo, personagens e desenvolvimento.
+    Sua fala inicial deve ser carismática, estilo anos 80/90, agressivo no estilo, mas nunca ofensivo."""
     chat.send_message(intro)
     return render_template('atendente.html', nome=nome,username=username)
 

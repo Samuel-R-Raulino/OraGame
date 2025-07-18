@@ -41,7 +41,7 @@ a{
  .vidro {
     margin-top: 10%;
     position-area: center;
-    width: 750px;
+    width: auto;
     object-position: center;
     height: 500px;
     padding-left: 30px;
@@ -89,7 +89,8 @@ input{
 .caixa{
     font-size: 85px;
     background: linear-gradient(#d1ffeaa6 0%, #22be3cb4 50%, #00d1aea8 50%, #bbfff7a9 100%);
-    width: 30vw;
+    width: auto;
+    border-radius: 10px;
     height: 50%;
     display: flex;
     border: 1px solid black;

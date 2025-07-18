@@ -37,8 +37,6 @@ a{
     }
 }
 
-
-
 .bolhas {
     position: absolute;
     top: 0;
@@ -161,7 +159,7 @@ a{
 .vidro {
     margin-top: 10%;
     position-area: center;
-    width: 750px;
+    width: auto;
     object-position: center;
     height: 500px;
     padding-left: 30px;
@@ -181,8 +179,11 @@ a{
 .caixa{
     
     font-size: 85px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border-radius: 10px;
     background: linear-gradient(#d1ffeaa6 0%, #22be3cb4 50%, #00d1aea8 50%, #bbfff7a9 100%);
-    width: 35vw;
+    width: auto;
     height: 60%;
     display: flex;
     border: 1px solid black;
