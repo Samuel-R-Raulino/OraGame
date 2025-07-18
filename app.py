@@ -13,7 +13,7 @@ def redirec():
     session["edit"] = ["GABRIEL","Luan"]
     session["game_buy"] = ""
     return redirect(url_for("home"))
-@app.route("/cadastro",methods = ["GET","POST"])
+
 
 @app.route("/addGame",methods=["GET","POST"])
 def add_game_page():
@@ -36,7 +36,7 @@ def add_game_page():
         conn.commit()
         conn.close()
     return render_template("add_game.html")
-
+@app.route("/cadastro",methods = ["GET","POST"])
 def cadastro():
     if request.method == "POST":
         dados = request.get_json()
@@ -177,7 +177,7 @@ def game():
     session['botao_foi_clicado'] = True
     valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
     print(f"Valor atual de game_buy na sessão: '{valor_game_buy}'")
-    users = ["GABRIEL"]
+    users = ["GABRIEL","Juan1234"]
     if valor_game_buy == "":
         print("O valor de game_buy está vazio")
     else:
