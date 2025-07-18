@@ -36,8 +36,10 @@
                     alt="house_icon">Home </a>
             <a class="botao" href="/games"><img class="icon-button" src="../static/img/game-icon.png"
                     alt="house_icon"> Games</a>
-            <a class="botao" href="/my_games"><img class="icon-button" src="../static/img/game-icon.png"
-                alt="house_icon"> My Games</a>
+                    {% if usuario != "Visitante" %}
+                    <a class="botao" href="/my_games"><img class="icon-button" src="../static/img/game-icon.png"
+                        alt="house_icon"> My Games</a>
+                    {% endif %}
             <a class="botao" href="/fliperama"><img class="icon-button" src="../static/img/fr-icon.png"
                     alt="house_icon"> Fliperama </a>
             <a class="botao" href="/sobre"><img class="icon-button" src="../static/img/about-icon.png"

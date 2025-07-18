@@ -177,7 +177,7 @@ def game():
     session['botao_foi_clicado'] = True
     valor_game_buy = session.get("game_buy", "NÃO DEFINIDO")
     print(f"Valor atual de game_buy na sessão: '{valor_game_buy}'")
-
+    users = ["GABRIEL"]
     if valor_game_buy == "":
         print("O valor de game_buy está vazio")
     else:
@@ -214,7 +214,7 @@ def game():
     
     requisitos = take[5]
     classificação = take[6]
-    return render_template("game.html",requisitos=requisitos,img3=img3,nome=nome,preço=preço,descrição=descrição,img1=img1,img2=img2,classificação=classificação,usuario=usuario,img_user=img_user,button_state = session['button_state'],user = session.get('game', 'Visitante'),contem=contem,contem_https=contem_https)
+    return render_template("game.html",requisitos=requisitos,img3=img3,nome=nome,preço=preço,descrição=descrição,img1=img1,img2=img2,classificação=classificação,usuario=usuario,img_user=img_user,button_state = session['button_state'],user = session.get('game', 'Visitante'),contem=contem,contem_https=contem_https,users = users)
 
 
 @app.route("/user")
