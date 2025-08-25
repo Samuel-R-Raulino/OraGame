@@ -36,6 +36,67 @@ def add_game_page():
         conn.commit()
         conn.close()
     return render_template("add_game.html")
+@app.route("/editGame",methods=["GET","POST"])
+def edit_game_page():
+    nome = session.get("game_buy", "NÃO DEFINIDO")
+
+    if request.method == "POST":
+        # Salvar os dados editados no banco
+        nome_a = request.form.get("Nome")
+        preço = request.form.get("Preço")
+        descrição = request.form.get("Descrição")
+        img1 = request.form.get("IMG1")
+        img2 = request.form.get("IMG2")
+        img3 = request.form.get("IMG3")
+        requisitos = request.form.get("Requisitos")
+        classificação = request.form.get("Classificação")
+        id = request.form.get("ID de download")
+        personagem = request.form.get("Personagem Principal")
+
+        import sqlite3 
+        conn = sqlite3.connect("banco_games.db")
+        cursor = conn.cursor()
+        cursor.execute(
+            "DELETE FROM games WHERE nome = ?",
+            (nome,)
+        )
+        conn.execute("""
+            INSERT INTO games (nome,preço,descrição,img1,img2,img3,requisitos,classificação,download_id,personagem_principal)
+            VALUES (?,?,?,?,?,?,?,?,?,?)
+        """, (nome_a, preço, descrição, img1, img2, img3, requisitos, classificação, id, personagem))
+        conn.commit()
+        conn.close()
+        return redirect("/games")  # opcional
+
+    else:
+        # Buscar dados do jogo para preencher no formulário
+        import sqlite3
+        conn = sqlite3.connect("banco_games.db")
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM games WHERE nome = ?", (nome,))
+        game_data = cursor.fetchone()
+        conn.close()
+
+        # Se não encontrou o jogo, pode tratar isso
+        if not game_data:
+            return "Jogo não encontrado"
+
+        # Mapear os dados
+        game_dict = {
+            "nome":game_data[1],
+            "preço": game_data[2],
+            "descrição": game_data[3],
+            "img1": game_data[4],
+            "img2": game_data[5],
+            "img3": game_data[6],
+            "requisitos": game_data[7],
+            "classificação": game_data[8],
+            "download_id": game_data[9],
+            "personagem": game_data[10]
+        }
+
+        return render_template("editgame.html", game=game_dict,nome=nome)
+
 @app.route("/cadastro",methods = ["GET","POST"])
 def cadastro():
     if request.method == "POST":
@@ -117,17 +178,31 @@ def login():
     if request.method == "POST":
         usuario = request.form.get("usuario")
         senha = request.form.get("senha")
+
         if usuario in return_names() and senha in return_senhas():
-            from ADD_USER import add_user 
-            add_user(usuario,senha,"")
-            session['username'] = usuario
-            return redirect(url_for('home'))
+            # 🔹 Busca no banco o usuário logado para pegar o id
+            conn = sqlite3.connect("banco.db")
+            conn.row_factory = sqlite3.Row
+            user = conn.execute(
+                "SELECT * FROM games WHERE usuario = ? AND senha = ?",
+                (usuario, senha)
+            ).fetchone()
+            conn.close()
+
+            if user:  # se achou no banco
+                session["username"] = usuario
+                session["user_id"] = user["id"]  # 🔑 aqui guardamos o id
+
+                return redirect(url_for("home"))
+            else:
+                print("Usuário não encontrado no banco!")
+
         elif usuario not in return_names():
             print("nome errado")
         elif senha not in return_senhas():
             print("senha errada")
-    return render_template("login.html")
 
+    return render_template("login.html")
 
 @app.route("/sobre")
 def sobre():
@@ -223,6 +298,43 @@ def user():
     usuario = session.get('username', 'Visitante') 
     return render_template("user.html",usuario=usuario,img_user=img_user)
 caminho_db = os.path.join(os.path.dirname(__file__), 'banco_games.db')
+
+# Página de edição do usuário
+@app.route("/edit_user", methods=["GET", "POST"])
+def edit_user():
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("login"))
+
+    conn = sqlite3.connect("banco.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    user = cursor.execute("SELECT * FROM games WHERE id = ?", (user_id,)).fetchone()
+
+    if request.method == "POST":
+        novo_usuario = request.form.get("usuario")
+        novo_email = request.form.get("email")
+        nova_senha = request.form.get("senha")
+
+        cursor.execute(
+            "UPDATE games SET usuario = ?, email = ?, senha = ? WHERE id = ?",
+            (novo_usuario, novo_email, nova_senha, user_id)
+        )
+
+        conn.commit()
+        conn.close()
+
+        # Atualiza sessão também
+        session["username"] = novo_usuario
+
+        return redirect(url_for("user"))
+
+    conn.close()
+    return render_template("edit_user.html", user=user)
+
+
+
 
 
 # Access tokens

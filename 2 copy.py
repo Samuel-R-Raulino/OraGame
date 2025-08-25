@@ -6,8 +6,8 @@ cursor = conn.cursor()
 
 # Adicionar nova coluna personagem_principal
 try:
-    cursor.execute("ALTER TABLE games ADD COLUMN personagem_principal TEXT")
-    print("Coluna 'personagem_principal' adicionada com sucesso!")
+    cursor.execute("ALTER TABLE games ADD COLUMN adicionado_por TEXT")
+    print("Coluna 'adicionado' adicionada com sucesso!")
 except sqlite3.OperationalError as e:
     print(f"Erro ao adicionar coluna: {e}")
 

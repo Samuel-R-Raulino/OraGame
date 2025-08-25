@@ -54,59 +54,63 @@
 
             <div class="centralizar">
                 <div class="caixa">
-                    Adicione o seu Game!
+                    Edite o seu Game!
                 </div>
             </div>
             <br>
 
             <div class="addGame">
 
-                <form action="/addGame" method="POST">
+                <form action="/editGame" method="POST">
                     
+
+                    <br>
                     <label for="Nome">Nome:</label><br>
-                    <input class="inputzika" type="text" id="Nome" name="Nome" placeholder="Nome">
+                    <input class="inputzika" type="text" id="Nome" name="Nome" placeholder="Nome" value ="{{nome}}">
                     <br>
                     <br>
-                    <label for="Preço">Preço:</label><br>
-                    <input class="inputzika" type="text" id="Preço" name="Preço" placeholder="R$123">
-                    <br>
-                    <br>
-                    <label for="Descrição">Descrição:</label><br>
-                    <textarea class="inputzikaDesc" type="text" id="Descrição" name="Descrição" placeholder="Jogo Bacana"></textarea>
-                    <br>
-                    <br>
-                    <label for="IMG1">IMG1:</label><br>
-                    <input class="inputzika" type="file" id="IMG1" name="IMG1" placeholder="Imagem do Game">
-                    <br>
-                    <br>
-                    <label for="IMG2">IMG2:</label><br>
-                    <input class="inputzika" type="text" id="IMG2" name="IMG2" placeholder="Imagem do Game">
-                    <br>
-                    <br>
-                    <label for="IMG3">IMG3:</label><br>
-                    <input class="inputzika" type="text" id="IMG3" name="IMG3" placeholder="Imagem do Game">
-                    <br>
-                    <br>
-                    <label for="Requisitos">Requisitos:</label><br>
-                    <input class="inputzika" type="text" id="Requisitos" name="Requisitos" placeholder="Apetrechos Necessários">
-                    <br>
-                    <br>
-                    <label for="Classificação">Classificação:</label><br>
-                    <input class="inputzika" type="text" id="Classificação" name="Classificação" placeholder=">18, <18, L (livre)">
-                    <br>
-                    <br>
-                    <label for="ID de Download">ID de Download:</label><br>
-                    <input class="inputzika" type="text" id="ID de Download" name="ID de Download" placeholder="12345">
-                    <br>
-                    <br>
-                    <label for="Personagem Principal">Personagem Principal:</label><br>
-                    <input class="inputzika" type="text" id="Personagem Principal" name="Personagem Principal" placeholder="Juninho">
-                    <br>
+                    
+<label for="Preço">Preço:</label><br>
+<input class="inputzika" type="text" id="Preço" name="Preço" placeholder="R$123" value="{{ game['preço'] }}">
+<br><br>
+
+<label for="Descrição">Descrição:</label><br>
+<textarea class="inputzikaDesc" id="Descrição" name="Descrição" placeholder="Jogo Bacana">{{ game['descrição'] }}</textarea>
+<br><br>
+
+<label for="IMG1">IMG1:</label><br>
+<input class="inputzika" type="text" id="IMG1" name="IMG1" placeholder="Imagem do Game" value="{{ game['img1'] }}">
+<br><br>
+
+<label for="IMG2">IMG2:</label><br>
+<input class="inputzika" type="text" id="IMG2" name="IMG2" placeholder="Imagem do Game" value="{{ game['img2'] }}">
+<br><br>
+
+<label for="IMG3">IMG3:</label><br>
+<input class="inputzika" type="text" id="IMG3" name="IMG3" placeholder="Imagem do Game" value="{{ game['img3'] }}">
+<br><br>
+
+<label for="Requisitos">Requisitos:</label><br>
+<input class="inputzika" type="text" id="Requisitos" name="Requisitos" placeholder="Apetrechos Necessários" value="{{ game['requisitos'] }}">
+<br><br>
+
+<label for="Classificação">Classificação:</label><br>
+<input class="inputzika" type="text" id="Classificação" name="Classificação" placeholder=">18, <18, L (livre)" value="{{ game['classificação'] }}">
+<br><br>
+
+<label for="ID de Download">ID de Download:</label><br>
+<input class="inputzika" type="text" id="ID de Download" name="ID de Download" placeholder="12345" value="{{ game['download_id'] }}">
+<br><br>
+
+<label for="Personagem Principal">Personagem Principal:</label><br>
+<input class="inputzika" type="text" id="Personagem Principal" name="Personagem Principal" placeholder="Juninho" value="{{ game['personagem'] }}">
+<br>
+
                     <br>
                     <b>*O Personagem Principal irá ser utilizado para o nosso sistema de Inteligencia Artifical*</b>
                     <br>
                     <br>
-                    <center><input class="enviar" type="submit" value="Adicionar Jogo"></center>
+                    <center><input class="enviar" type="submit" value="Editar Jogo"></center>
 
                 </form>
 

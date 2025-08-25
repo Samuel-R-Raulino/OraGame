@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>Editar Usuário</title>
+  <link href="{{ url_for('static', filename='css/estilo4.css') }}" rel="stylesheet">
+  <script src="{{ url_for('static', filename='js/animacaoindex2.js') }}" defer></script>
+  <link href="{{ url_for('static', filename='css/dark.css') }}" rel="stylesheet">
+  <script src="{{ url_for('static', filename='js/animacaoindex.js') }}" defer></script>
+  
+</head>
+<body>
+  <center>
+
+    
+    <div class="vidro">
+      <div class="pai">
+        <div class="caixa">
+          Editar Usuário
+        </div>
+        <br>
+
+        <form method="POST">
+
+          <label>Foto do usuário</label><br>
+            <div class="usuario">
+              <div class="userFrame">
+                <img src="{{ url_for('static', filename='img/user.jpg') }}">
+              </div>
+            </div>
+          <label>Usuário:</label><br>
+          <input placeholder="username" type="text" name="usuario" value="{{ user['usuario'] }}"><br><br>
+
+          <label>Email:</label><br>
+          <input placeholder="awesome@gmail.com" type="email" name="email" value="{{ user['email'] }}"><br><br>
+
+          <label>Senha:</label><br>
+          <input placeholder="password" type="password" name="senha" value="{{ user['senha'] }}"><br><br>
+
+          <div class="botoes2">
+            <button class="botao" type="submit">Salvar</button>
+            <a class="botao" href="/user">Voltar</a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </center>
+</body>
+</html>
