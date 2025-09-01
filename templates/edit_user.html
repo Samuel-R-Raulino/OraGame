@@ -22,7 +22,7 @@
         </div>
         <br>
 
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
 
           <label>Foto do usuário</label><br>
             <div class="usuario">
@@ -31,13 +31,16 @@
               </div>
             </div>
           <label>Usuário:</label><br>
-          <input placeholder="username" type="text" name="usuario" value="{{ user['usuario'] }}"><br><br>
+          <input placeholder="username" type="text" name="usuario"><br><br>
 
           <label>Email:</label><br>
-          <input placeholder="awesome@gmail.com" type="email" name="email" value="{{ user['email'] }}"><br><br>
+          <input placeholder="awesome@gmail.com" type="email" name="email"><br><br>
 
           <label>Senha:</label><br>
-          <input placeholder="password" type="password" name="senha" value="{{ user['senha'] }}"><br><br>
+          <input placeholder="password" type="password" name="senha"><br><br>
+
+          <label>Foto:</label><br>
+          <input placeholder="photo.png" type="file" name="foto"><br><br>
 
           <div class="botoes2">
             <button class="botao" type="submit">Salvar</button>

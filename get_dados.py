@@ -11,7 +11,20 @@ def return_names():
 
     conn.close()
     nomes = [u[1] for u in usuarios]  
+    return nomes
+def return_names_game():
+    import sqlite3
 
+    conn = sqlite3.connect('games_do_usuario.db')
+
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT usuario FROM user_games")
+
+    usuarios = cursor.fetchall()  
+
+    conn.close()
+    nomes = [u[0] for u in usuarios]  
     return nomes
 def return_names_imgs():
     vals = {}
