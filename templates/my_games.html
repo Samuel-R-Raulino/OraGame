@@ -77,11 +77,7 @@
                             <form action="" method="POST">
                                 <input type="hidden" name="game" value="{{ nome }}">
                                 <button type="submit" class="botaoGame">
-                                    {% if contem_https(imagem) %}
-                                        <img src={{imagem}}>
-                                    {% else %}
-                                        <img src="{{ url_for('static', filename='img/' ~ imagem) }}">
-                                    {% endif %}
+                                    <img src="{{ url_for('static', filename='img/' ~ imagem) }}">
                                 </button>
                             </form>
                             {{ nome }}

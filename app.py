@@ -3,6 +3,7 @@ from get_dados import *
 import os 
 import mercadopago
 import sqlite3
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = 'uma_chave_secreta_supersegura'
@@ -37,18 +38,6 @@ def add_game_page():
         conn.commit()
         conn.close()
     return render_template("add_game.html")
-def delete_game(game):
-    import sqlite3
-
-    conn = sqlite3.connect('banco_games.db')
-    cursor = conn.cursor()
-
-    # Deleta a linha com id = 5
-    cursor.execute("DELETE FROM games WHERE nome = ?", (game,))
-
-    conn.commit()
-    conn.close()
-
 @app.route("/editGame",methods=["GET","POST"])
 def edit_game_page():
     nome = session.get("game_buy", "NÃO DEFINIDO")
@@ -107,13 +96,9 @@ def edit_game_page():
             "download_id": game_data[9],
             "personagem": game_data[10]
         }
-        
-        return render_template("editgame.html", game=game_dict,nome=nome,delete_game = delete_game)
 
-@app.route('/deletar')
-def deletar_jogo():
-    delete_game(session.get("game_buy", "NÃO DEFINIDO"))
-    return redirect(url_for('home'))  
+        return render_template("editgame.html", game=game_dict,nome=nome)
+
 @app.route("/cadastro",methods = ["GET","POST"])
 def cadastro():
     if request.method == "POST":
@@ -178,8 +163,8 @@ def my_games():
         session["game"] = request.form.get("game")
         session["game_buy"] = request.form.get("game")
         
-        return redirect(url_for("game"))  
-    return render_template("my_games.html",jogos=vals,usuario=usuario,img_user=img_user,contem_https=contem_https)
+        return redirect(url_for("game"))  # IMPORTANTE: return aqui!
+    return render_template("my_games.html",jogos=vals,usuario=usuario,img_user=img_user)
 @app.route("/fliperama")
 def fliperama():
     usuario = session.get('username', 'Visitante') 
@@ -275,23 +260,10 @@ def game():
     else:
         print("O valor de game_buy NÃO está vazio:", valor_game_buy)
     from games_bc import get_games
-    games_str = get_games(session.get('username', 'Visitante'))
-
-    if games_str is not None:
-        # Divide a string em lista, removendo espaços extras
-        games = [g.strip() for g in games_str.split(',')]
-        game = session.get('game', 'Visitante')
-
-        if game in games:
-            index = games.index(game)  # Pega a posição do game na lista
-            session["button_state"] = "Remover"
-            print(f"Jogo '{game}' encontrado na posição {index}.")
-        else:
-            session["button_state"] = "Adquirir"
-            print(f"Jogo '{game}' não encontrado.")
-    else:
+    if session.get('game', 'Visitante') not in get_games(session.get('username', 'Visitante') ):
         session["button_state"] = "Adquirir"
-
+    else:
+        session["button_state"] = "Remover"
     nome = session.get('game', 'Visitante') 
     usuario = session.get('username', 'Visitante') 
 
@@ -321,6 +293,7 @@ def game():
     classificação = take[6]
     return render_template("game.html",requisitos=requisitos,img3=img3,nome=nome,preço=preço,descrição=descrição,img1=img1,img2=img2,classificação=classificação,usuario=usuario,img_user=img_user,button_state = session['button_state'],user = session.get('game', 'Visitante'),contem=contem,contem_https=contem_https,users = users)
 
+
 @app.route("/user")
 def user():
     user_id = session.get("user_id")
@@ -344,7 +317,8 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
-from werkzeug.utils import secure_filename
+
+# Página de edição do usuário
 @app.route("/edit_user", methods=["GET", "POST"])
 def edit_user():
     user_id = session.get("user_id")
@@ -358,9 +332,9 @@ def edit_user():
     user = cursor.execute("SELECT * FROM games WHERE id = ?", (user_id,)).fetchone()
 
     if request.method == "POST":
-        novo_usuario = request.form.get("usuario") or user['usuario']
-        novo_email = request.form.get("email") or user['email']
-        nova_senha = request.form.get("senha") or user['senha']
+        novo_usuario = request.form.get("usuario")
+        novo_email = request.form.get("email")
+        nova_senha = request.form.get("senha")
 
         foto = request.files.get("foto")
         foto_nome = user["foto"] if user["foto"] else None  # mantém a anterior
@@ -383,6 +357,7 @@ def edit_user():
 
     conn.close()
     return render_template("edit_user.html", user=user)
+
 
 # Access tokens
 
