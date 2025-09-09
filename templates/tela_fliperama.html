@@ -38,15 +38,9 @@
 <body>
 
     <div id="fliperama">
-        <div id="dos"></div>
+        <iframe src="{{ url_for('static', filename='cat.html') }}"  id ="dos"width="1600" height="1000" style="border:none;"></iframe>
     </div>
 
-    <script>
-        Dos(document.getElementById("dos"), {
-            url: "https://v8.js-dos.com/bundles/doom.jsdos",
-            autostart: true
-        });
-    </script>
-
+   
 </body>
 </html>
