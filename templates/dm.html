@@ -1,0 +1,44 @@
+<!-- templates/dm.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DM com {{ destino }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style_chat.css') }}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+  <h3>Conversa com {{ destino }}</h3>
+  <div class="chat-window" id="dm-window"></div>
+  <input type="text" id="dm-input" placeholder="Mensagem para {{ destino }}..." />
+  <button id="dm-send">Enviar</button>
+
+  <script>
+    var socket = io();
+    var user = '{{ current_user.username }}';
+    var target = '{{ destino }}';
+    // Ao conectar, entra na sala do usuário logado
+    socket.on('connect', function() {
+      socket.emit('join_dm', {'username': user});
+    });
+    // Recebe mensagem privada
+    socket.on('receive_dm', function(data) {
+      var div = document.getElementById('dm-window');
+      div.innerHTML += '<div class="message"><b>'+data.sender+':</b> '+data.msg+'</div>';
+      div.scrollTop = div.scrollHeight;
+    });
+    // Envia DM ao servidor
+    document.getElementById('dm-send').onclick = function(){
+      var text = document.getElementById('dm-input').value;
+      if(text.trim().length) {
+        socket.emit('send_dm', {
+          'sender': user,
+          'receiver': target,
+          'msg': text
+        });
+        document.getElementById('dm-input').value = '';
+      }
+    };
+  </script>
+</body>
+</html>

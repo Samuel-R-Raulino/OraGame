@@ -1,11 +1,11 @@
 import sqlite3
 
-conn = sqlite3.connect('banco_games.db')
+conn = sqlite3.connect('noticias.db')
 cursor = conn.cursor()
 
-# Suponha que você quer deletar o jogo com id = 3
-cursor.execute('DELETE FROM games WHERE id = ?', (36,))
+cursor.execute("""
+INSERT INTO games (nome,arquivo,width,height) VALUES (?,?)    
+               """,(""))
 
 conn.commit()
-print("Linha deletada com sucesso!")
 conn.close()

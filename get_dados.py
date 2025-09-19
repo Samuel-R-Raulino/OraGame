@@ -13,6 +13,24 @@ def return_names():
     nomes = [u[1] for u in usuarios]  
 
     return nomes
+def return_names_imgs_news():
+    vals = {}
+    import sqlite3
+
+    conn = sqlite3.connect('noticias.db')
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT titulo FROM usuarios")
+    nomes = cursor.fetchall()  
+
+    cursor.execute("SELECT imagem1 FROM usuarios")
+    imgs = cursor.fetchall()  
+
+    for x, y in enumerate(nomes):
+        vals[y[0]] = imgs[x][0]  # pega o valor dentro da tupla
+
+    conn.close()
+    return vals
 def return_names_imgs():
     vals = {}
     import sqlite3

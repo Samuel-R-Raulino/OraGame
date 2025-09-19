@@ -1,0 +1,52 @@
+body {
+  /* Fundo suave em tom de azul claro, gradiente */
+  background: linear-gradient(to bottom right, #a0c8f0, #f0f8ff);
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  margin: 0; padding: 0;
+}
+
+.chat-window {
+  /* Caixa de mensagens com cantos arredondados e sombra */
+  background: rgba(255,255,255,0.8);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  padding: 10px;
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.message {
+  /* Mensagens individuais leves, cor suave */
+  background-color: #e0f7fa;
+  margin: 4px 0;
+  padding: 6px;
+  border-radius: 5px;
+}
+
+#message-input, #dm-input {
+  width: 80%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#send-btn, #dm-send {
+  padding: 8px 12px;
+  margin-left: 4px;
+  border: none;
+  border-radius: 5px;
+  background-color: #42a5f5;
+  color: white;
+  cursor: pointer;
+}
+
+#send-btn:hover, #dm-send:hover {
+  background-color: #1e88e5;
+}
+
+/* Layout responsivo: centraliza conteúdo */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

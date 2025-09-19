@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/ico" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <title>Noticia</title>
+    <link href="{{ url_for('static', filename='css/estilo4.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/estilo.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/estilo2.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/dark.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/upbar.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/animacaoindex2.js') }}" defer></script>
+</head>
+
+<body>
+    <style>
+        .vidro2 {
+            bottom: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .news-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+    <div id="transitionOverlay"></div>
+
+    <canvas id="bolhasCanvas"></canvas>
+    <div class="pai">
+        <div class="buttonspart2">
+            <div class="botoes2">
+                <a class="botao" href="/home"><img class="icon-button" src="../static/img/home-icon.png"
+                        alt="house_icon">Home </a>
+                <a class="botao" href="/games"><img class="icon-button" src="../static/img/game-icon.png"
+                        alt="house_icon"> Games</a>
+                {% if usuario != "Visitante" %}
+                <a class="botao" href="/my_games"><img class="icon-button" src="../static/img/game-icon.png"
+                        alt="house_icon"> My Games</a>
+                {% endif %}
+                <a class="botao" href="/fliperama"><img class="icon-button" src="../static/img/fr-icon.png"
+                        alt="house_icon"> Fliperama </a>
+                <a class="botao" href="/sobre"><img class="icon-button" src="../static/img/about-icon.png"
+                        alt="house_icon"> Sobre </a>
+
+                <div class="rightbuttons">
+                    <input type="checkbox" id="botaoTema" hidden>
+                    <label for="botaoTema" id="switchTema">
+                        <span id="iconeSwitch"></span>
+                    </label>
+
+                    <a class="settingsbutton" flex="end" href="/home"><img src="../static/img/settings-icon.png"
+                            alt="settings" height="40px" width="40px"> </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="vidro2">
+            <div class="centralizar">
+                <div class="caixa">
+                    A estética “de vidro” dos anos 2000, está de volta com o iOS 26 do iPhone
+                </div>
+                
+                <div class="container">
+                    <div class="esquerda">
+                        <center> <img src="../static/img/news-apple.jpg" height="300px" width="600px">
+                    </div>
+
+                    <div class="direita">
+                        <br>
+                        <p>
+                            1. O que é o Liquid Glass?
+                            No evento WWDC 2025, a Apple apresentou o Liquid Glass, uma linguagem de design inovadora
+                            que passa a moldar a interface gráfica de seus sistemas operacionais: iOS 26, iPadOS 26,
+                            macOS Tahoe 26, watchOS 26 e tvOS 26
+                            Apple
+                            Wikipedia
+                            The Times of India
+                            .<br>
+
+                            Trata-se de um material visual translúcido que reflete e refrata o que está ao redor,
+                            adaptando sua aparência conforme o ambiente (claro ou escuro), e reagindo ao movimento em
+                            tempo real com realces especulares
+                            Apple
+                            Wikipedia
+                            The Times of India
+                            .<br>
+
+                            Seu objetivo é criar camadas visuais que valorizem o conteúdo e introduzam uma experiência
+                            estética unificada, expressiva e imersiva across todas as plataformas da Apple
+                            Apple
+                            Wikipedia
+                            The Times of India
+                            .<br>
+
+                            2. O que é o Frutiger Aero?
+
+                            O Frutiger Aero é uma estética visual conhecida como “Web 2.0 Gloss”, que surgiu entre
+                            meados dos anos 2000 e o início dos anos 2010. Caracteriza-se por seu forte caráter
+                            esqueumórfico, com elementos de vidro, texturas brilhantes, paleta de cores vibrantes e
+                            motivos naturais como bolhas, água e céus claros
+                            Wikipédia
+                            Wikipedia
+                            +1
+                            .<br>
+
+                            Foi nomeado por Sofi Lee em 2017 e recentemente resurgiu como uma estética nostálgica
+                            valorizada pela Geração Z, representando um período de “otimismo tecnológico” e
+                            sensorialidade digital cheia de esperança
+                            Wikipédia
+                            Wikipedia
+                            .<br>
+
+                            3. Ao que tudo indica, há influência — ou um diálogo visual — entre Liquid Glass e Frutiger
+                            Aero
+
+                            Diversos analistas e veículos comentaram sobre esse possível vínculo estético:
+
+                            O TechRadar observa que o Frutiger Aero utiliza texturas vítreas, translúcidas e metálicas
+                            para promover uma sensação otimista, uma estética que “soa muito como o Liquid Glass”
+                            TechRadar
+                            .<br>
+
+                            A Wikipédia, em português, também destaca semelhanças visuais entre o Liquid Glass da Apple
+                            e o estilo Windows Aero, do qual o Frutiger Aero é derivado
+                            Wikipédia
+                            .<br>
+
+                            Usuários em fóruns como Reddit colocaram em perspectiva comparativa: “o termo ‘vidro
+                            líquido’ da Apple deveria sugerir ‘Aqua’, não ‘Aero’”, mas lembram que, no imaginário
+                            coletivo dos anos 2000, visualmente “vidro” é lembrado como Aero, não Aqua
+                            Reddit
+                            .<br>
+
+                            4. Recepção e controvérsias
+
+                            Apesar da beleza estética, o Liquid Glass recebeu críticas intensas:
+
+                            O New York Post destaca que muitos usuários consideraram a interface “a coisa mais feia que
+                            a Apple já fez”, com problemas de legibilidade e estética visual excessivamente transparente
+                            New York Post
+                            .<br>
+
+                            O site Vox alerta que, embora ainda em beta, o design “ainda é controverso” e poderá ser
+                            alterado antes do lançamento final
+                            Vox
+                            .<br>
+
+                            A Wikipédia em português menciona reclamações sobre dificuldade de leitura e que o visual
+                            pode desviar atenção do conteúdo, além de ser exigente em termos de padronização visual para
+                            desenvolvedores
+                            Wikipédia
+                            .<br>
+
+                            Designers em plataformas como Reddit apontam: “gostar do visual dos ícones é uma coisa, mas
+                            há sérios problemas de contraste e acessibilidade em elementos como notificações e abas”
+                            Reddit
+                            .
+                            <br>
+
+                            5. Conclusão
+
+                            O Liquid Glass representa a primeira grande reformulação visual da Apple desde o iOS 7, e de
+                            fato traz à tona uma estética reminiscente do Frutiger Aero, com suas superfícies vítreas,
+                            fluidez e sensações de profundidade
+                            Cadena SER
+                            AP News
+                            The Times of India
+                            Wikipédia
+                            TechRadar
+                            .<br>
+
+                            Essa ponte entre presente e passado mostra como o design digital volta em ciclos — neste
+                            caso, reagindo ao minimalismo com camadas brilhantes e nostálgicas. Porém, o equilíbrio
+                            entre forma e função é delicado, e muitos questionam se o Liquid Glass jogou demais para o
+                            visual e de menos para a legibilidade.<br>
+                        </p>
+                    </div>
+                </div>
+                <div class="direita">
+                    <br>
+                    <a href="https://exame.com/tecnologia/frutiger-aero-a-estetica-de-vidro-dos-anos-2000-pode-estar-de-volta-com-o-ios-26-do-iphone/">Fonte: Exame: Frutiger Aero, a estética “de vidro” dos anos 2000, está de volta com o iOS 26 do iPhone </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

@@ -1,7 +1,7 @@
 import sqlite3
 
 # Conectar (ou criar) o banco de dados
-conn = sqlite3.connect('fliper_games.db')
+conn = sqlite3.connect('noticias.db')
 
 # Criar um cursor para executar comandos SQL
 cursor = conn.cursor()
@@ -10,10 +10,12 @@ cursor = conn.cursor()
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS usuarios (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome TEXT NOT NULL,
-    arquivo TEXT UNIQUE NOT NULL,
-    width INTEGER,
-    height INTEGER
+    titulo TEXT,
+    imagem1 TEXT,
+    imagem2 TEXT,
+    imagem3 TEXT,
+    descricao TEXT,
+    texto TEXT
 )
 ''')
 

@@ -4,12 +4,33 @@ import os
 import mercadopago
 import sqlite3
 from werkzeug.utils import secure_filename
+import os
+from datetime import datetime
+from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
+from flask_socketio import SocketIO, join_room
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = 'uma_chave_secreta_supersegura'
 ACCESS_TOKEN = "APP_USR-5515393234086824-051409-a798dc3e1af15b38426c01b84b761393-1952959008"
 PUBLIC_KEY = "APP_USR-1b3c0147-9080-4743-b327-109084494912"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "fallback-secret")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("SQLALCHEMY_DATABASE_URI", "sqlite:///chat.db")
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+socketio = SocketIO(app)
+class DM(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    sender = db.Column(db.String(80), nullable=False)
+    receiver = db.Column(db.String(80), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
 @app.route("/")
 def redirec():
     session["edit"] = ["GABRIEL","Luan"]
@@ -359,15 +380,15 @@ def edit_user():
     return render_template("edit_user.html", user=user)
 
 
-# Access tokens
+@app.route("/noticias")
+def noticias():
+    vals = return_names_imgs_news()
+    return render_template("noticias.html",vals=vals)
+@app.route("/noticia")
+def noticia():
+    return render_template("noticia.html")
 
-
-# Instâncias dos serviços
-mp = mercadopago.SDK(ACCESS_TOKEN)  # Use o ACCESS_TOKEN aqui para poder consultar pagamentos
-#boleto_service = BoletoService(ACCESS_TOKEN)
-#pix_service = PixService(ACCESS_TOKEN)
-
-# Função para buscar valor do pagamento pelo id
+mp = mercadopago.SDK(ACCESS_TOKEN) 
 def buscar_valor_pagamento(id_pagamento):
     try:
         conn = sqlite3.connect(caminho_db)
@@ -511,5 +532,68 @@ def perguntar():
         return jsonify({'resposta': f"Erro: {e}"}), 500
     
 print("inicializando...")
-if __name__ == "__main__":
-    app.run(debug=True)
+
+@app.route("/global_chat")
+def global_chat():
+    # Aqui você deve substituir pelo usuário real da sessão/login
+    user = os.getenv("TEST_USER", "Convidado")
+    return render_template("global_chat.html", current_user={"username": user})
+
+@app.route("/dm/<destino>")
+def dm(destino):
+    user = os.getenv("TEST_USER", "Convidado")
+    # Pega histórico da conversa entre user e destino
+    mensagens = DM.query.filter(
+        ((DM.sender == user) & (DM.receiver == destino)) |
+        ((DM.sender == destino) & (DM.receiver == user))
+    ).order_by(DM.timestamp).all()
+    return render_template("dm.html", destino=destino, mensagens=mensagens, current_user={"username": user})
+
+@socketio.on("join_global")
+def handle_join_global(data):
+    username = data["username"]
+    join_room("global")
+    socketio.emit(
+        "new_global_message",
+        {"user": "Sistema", "msg": f"{username} entrou no chat."},
+        room="global"
+    )
+
+@socketio.on("send_global")
+def handle_send_global(data):
+    msg = data["msg"]
+    username = data["user"]
+    socketio.emit(
+        "new_global_message",
+        {"user": username, "msg": msg},
+        room="global"
+    )
+
+@socketio.on("join_dm")
+def handle_join_dm(data):
+    username = data["username"]
+    join_room(username)
+
+@socketio.on("send_dm")
+def handle_send_dm(data):
+    sender = data["sender"]
+    receiver = data["receiver"]
+    msg = data["msg"]
+
+    # Salva no banco
+    dm = DM(sender=sender, receiver=receiver, content=msg)
+    db.session.add(dm)
+    db.session.commit()
+
+    # Envia ao destinatário
+    socketio.emit("receive_dm", {"sender": sender, "msg": msg}, room=receiver)
+
+
+import sys
+if __name__ == '__main__':
+    # Pega a porta do argumento de linha de comando, se não tiver, usa 5000
+    port = 5000
+    if len(sys.argv) > 1:
+        port = int(sys.argv[1])
+
+    socketio.run(app,port=port, debug=True)

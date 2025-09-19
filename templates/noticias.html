@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Página Principal</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo3.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dark.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upbar.css') }}">
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <script src="{{ url_for('static', filename='js/animacaoindex2.js') }}" defer></script>
+
+    <style>
+        .games-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .gameFrame {
+            flex: 0 1 calc(25% - 24px);
+            box-sizing: border-box;
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media (max-width: 1100px) {
+            .gameFrame {
+                flex: 0 1 calc(33.33% - 24px);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .gameFrame {
+                flex: 0 1 calc(50% - 24px);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .gameFrame {
+                flex: 0 1 100%;
+            }
+        }
+
+        /* NEW NEWS SECTION CSS */
+        .news-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .main-news-container {
+            flex: 2;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-news-card a {
+            text-decoration: none;
+            color: #fff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .main-news-card a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-news-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+
+        .main-news-text h2 {
+            font-size: 1.5em;
+            margin: 10px 0;
+            line-height: 1.2;
+        }
+
+        .main-news-text p {
+            font-size: 1em;
+            color: #ccc;
+            line-height: 1.5;
+        }
+
+        .side-news-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .side-news-card a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: #fff;
+            transition: background 0.3s ease;
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        .side-news-card a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .side-news-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .side-news-text h3 {
+            font-size: 1em;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .side-news-text p {
+            font-size: 0.8em;
+            color: #ccc;
+            margin: 5px 0 0;
+        }
+
+        /* NEW 4-BLOCK NEWS SECTION CSS */
+        .news-four-block-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Estilo para os novos blocos de notícias */
+        .news-block-card {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            border: 2px solid #b0faff6c;
+            border-radius: 12px; /* Arredondamento mais suave */
+            background: #002fff1a;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 40px #00000085;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            flex: 1 1 calc(25% - 20px); /* Mantém o layout de 4 blocos */
+            box-sizing: border-box;
+            display: flex; /* Adicionado para centralizar conteúdo */
+            flex-direction: column;
+        }
+
+        .news-block-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .news-block-card a {
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .news-block-card img {
+            width: 100%;
+            height: 150px;
+            border-radius: 10px; /* Borda da imagem para combinar com o card */
+            object-fit: cover; /* Garante que a imagem preencha o espaço sem distorção */
+        }
+
+        .news-block-text {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .four-block-text h3 {
+            font-size: 1.1em;
+            margin: 5px 0 0;
+            line-height: 1.2;
+        }
+        
+        .four-block-text p {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-top: 5px;
+        }
+
+        /* RESPONSIVENESS */
+        @media (max-width: 900px) {
+            .news-container {
+                flex-direction: column;
+                padding: center;
+            }
+            .main-news-container, .side-news-container {
+                flex: auto;
+                min-width: auto;
+            }
+        }
+        @media (max-width: 768px) {
+            .news-block-card {
+                flex: 1 1 calc(50% - 10px); /* 2 cards per row on tablets */
+            }
+        }
+        @media (max-width: 480px) {
+            .news-block-card {
+                flex: 1 1 100%; /* 1 card per row on mobile */
+            }
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="transitionOverlay"></div>
+    <canvas id="bolhasCanvas"></canvas>
+    <div class="pai">
+        <div class="usuario">
+            <a href="/user">{{usuario}}</a>
+            <div class="userFrame">
+                <img src="{{ url_for('static', filename='img/user.jpg') }}">
+            </div>
+        </div>
+        <div class="buttonspart">
+            <div class="botoes2">
+                <a class="botao" href="/home"><img class="icon-button" src="../static/img/home-icon.png" alt="house_icon">Home </a>
+                <a class="botao" href="/games"><img class="icon-button" src="../static/img/game-icon.png" alt="house_icon"> Games</a>
+                <a class="botao" href="/fliperama"><img class="icon-button" src="../static/img/fr-icon.png" alt="house_icon"> Fliperama </a>
+                <a class="botao" href="/sobre"><img class="icon-button" src="../static/img/about-icon.png" alt="house_icon"> Sobre </a>
+
+                <div class="rightbuttons">
+                    <input type="checkbox" id="botaoTema" hidden>
+                    <label for="botaoTema" id="switchTema">
+                        <span id="iconeSwitch"></span>
+                    </label>
+                    <a class="settingsbutton" flex="end" href="/home"><img src="../static/img/settings-icon.png" alt="settings" height="40px" width="40px"> </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="vidro">
+            <div class="centralizar">
+                <div class="caixa">
+                    Noticias
+                </div>
+            </div>
+            <br>
+
+            <div class="news-container">
+                <div class="main-news-container">
+                    <div class="main-news-card">
+                        <a href="#">
+                            <img src="./static/img/news-apple.jpg" alt="News Image">
+                            <div class="main-news-text">
+                                <h2>Liquid Glass</h2>
+                                <p>
+                                    Apple voltando ao bom
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="side-news-container">
+                    <div class="side-news-card">
+                        <a href="#">
+                            <img src="./static/img/explosao.gif" alt="News Image 2">
+                            <div class="side-news-text">
+                                <h3>Fuleco faleceu</h3>
+                                <p>Encontrado nessa tarde muito triste</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="side-news-card">
+                        <a href="#">
+                            <img src="./static/img/osaka.jpg" alt="News Image 3">
+                            <div class="side-news-text">
+                                <h3>Lego batman</h3>
+                                <p>muito legal aaaaaaaaaa</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="side-news-card">
+                        <a href="#">
+                            <img src="./static/img/gordon.png" alt="News Image 4">
+                            <div class="side-news-text">
+                                <h3>half life 3 quando</h3>
+                                <p>3</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-four-block-container">
+                {{% for titulos,imagem in vals.items() %}}
+                <div class="news-block-card">
+                    <a href="#">
+                        <img src={{imagem}} alt={{titulo}}>
+                        <div class="four-block-text">
+                            <h3>Fatos desconhecidos</h3>
+                            <p>lore insana.</p>
+                        </div>
+                    </a>
+                </div>
+                {{% endfor %}}
+                
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!-- templates/global_chat.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Global</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- responsivo:contentReference[oaicite:11]{index=11} -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style_chat.css') }}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+  <div class="chat-window" id="chat-window">
+    <!-- mensagens aparecerão aqui -->
+  </div>
+  <input type="text" id="message-input" placeholder="Digite sua mensagem..." />
+  <button id="send-btn">Enviar</button>
+
+  <script>
+    var socket = io();  // conecta no namespace padrão
+    // Ao conectar, entra no chat global
+    socket.on('connect', function() {
+      socket.emit('join_global', {'username': '{{ current_user.username }}'});
+    });
+    // Recebe mensagem do servidor
+    socket.on('new_global_message', function(data) {
+      var div = document.getElementById('chat-window');
+      div.innerHTML += '<div class="message"><b>'+data.user+':</b> '+data.msg+'</div>';
+      div.scrollTop = div.scrollHeight;
+    });
+    // Envia mensagem ao servidor
+    document.getElementById('send-btn').onclick = function(){
+      var text = document.getElementById('message-input').value;
+      if(text.trim().length) {
+        socket.emit('send_global', {'msg': text, 'user': '{{ current_user.username }}'});
+        document.getElementById('message-input').value = '';
+      }
+    };
+  </script>
+</body>
+</html>

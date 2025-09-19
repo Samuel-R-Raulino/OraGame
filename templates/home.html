@@ -48,7 +48,10 @@
                         alt="house_icon"> Fliperama </a>
                 <a class="botao" href="/sobre"><img class="icon-button" src="../static/img/about-icon.png"
                         alt="house_icon"> Sobre </a>
-
+                {% if usuario != "Visitante" %}
+                    <a class="botao" href="/global_chat"><img class="icon-button" src="../static/img/game-icon.png"
+                        alt="house_icon"> chat</a>
+                {% endif %}
                 <div class="rightbuttons">
                     <input type="checkbox" id="botaoTema" hidden>
                     <label for="botaoTema" id="switchTema">
